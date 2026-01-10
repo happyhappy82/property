@@ -8,25 +8,25 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "부동산리뷰Lab",
-  description: "아파트, 빌라, 오피스텔 등 부동산 매물 정보 및 투자 가이드를 제공하는 사이트입니다.",
+  title: "부동산 트렌드 리뷰",
+  description: "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
   metadataBase: new URL("https://propertyreviewlab.xyz"),
-  keywords: ["부동산 리뷰", "아파트 리뷰", "오피스텔 추천", "부동산 투자", "매물 정보"],
-  authors: [{ name: "PropertyReviewLab" }],
-  creator: "PropertyReviewLab",
-  publisher: "PropertyReviewLab",
+  keywords: ["부동산 트렌드", "부동산 정책", "부동산 정보", "부동산 꿀팁", "부동산 리뷰"],
+  authors: [{ name: "부동산 트렌드 리뷰" }],
+  creator: "부동산 트렌드 리뷰",
+  publisher: "부동산 트렌드 리뷰",
   openGraph: {
-    title: "부동산리뷰Lab",
-    description: "아파트, 빌라, 오피스텔 등 부동산 매물 정보 및 투자 가이드를 제공하는 사이트입니다.",
+    title: "부동산 트렌드 리뷰",
+    description: "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
     type: "website",
     locale: "ko_KR",
     url: "https://propertyreviewlab.xyz",
-    siteName: "부동산리뷰Lab",
+    siteName: "부동산 트렌드 리뷰",
   },
   twitter: {
     card: "summary_large_image",
-    title: "부동산리뷰Lab",
-    description: "아파트, 빌라, 오피스텔 등 부동산 매물 정보 및 투자 가이드를 제공하는 사이트입니다.",
+    title: "부동산 트렌드 리뷰",
+    description: "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
   },
   robots: {
     index: true,
@@ -49,10 +49,10 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "부동산리뷰Lab",
+    "name": "부동산 트렌드 리뷰",
     "alternateName": "PropertyReviewLab",
     "url": "https://propertyreviewlab.xyz",
-    "description": "아파트, 빌라, 오피스텔 등 부동산 매물 정보 및 투자 가이드를 제공하는 사이트입니다.",
+    "description": "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
   };
 
   return (

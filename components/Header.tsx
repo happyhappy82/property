@@ -8,7 +8,7 @@ export default function Header() {
           href="/"
           className="inline-block"
         >
-          <h1 className="text-3xl font-black text-blue-600">부동산리뷰Lab</h1>
+          <h1 className="text-3xl font-black text-blue-600">부동산 트렌드 리뷰</h1>
         </Link>
       </div>
     </header>
