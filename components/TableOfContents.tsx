@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "./Link";
 
 interface TocItem {
   id: string;
@@ -48,6 +47,15 @@ export default function TableOfContents() {
     return () => observer.disconnect();
   }, [toc]);
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", `#${id}`);
+    }
+  };
+
   if (toc.length === 0) return null;
 
   return (
@@ -60,8 +68,9 @@ export default function TableOfContents() {
               key={item.id}
               style={{ marginLeft: `${(item.level - 2) * 0.75}rem` }}
             >
-              <Link
+              <a
                 href={`#${item.id}`}
+                onClick={(e) => scrollToSection(e, item.id)}
                 className={`block py-1 transition-colors ${
                   activeId === item.id
                     ? "text-blue-600 font-medium"
@@ -69,7 +78,7 @@ export default function TableOfContents() {
                 }`}
               >
                 {item.text}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
