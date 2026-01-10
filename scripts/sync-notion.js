@@ -29,6 +29,29 @@ function generateSlug(title) {
     .trim();
 }
 
+function generateExcerpt(markdown, maxLength = 150) {
+  // Remove markdown syntax and get plain text
+  const plainText = markdown
+    .replace(/^#+\s+.*/gm, '') // Remove headings
+    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
+    .replace(/\[([^\]]+)\]\(.*?\)/g, '$1') // Convert links to text
+    .replace(/[*_~`]/g, '') // Remove emphasis markers
+    .replace(/^\s*[-*+]\s+/gm, '') // Remove list markers
+    .replace(/^\s*\d+\.\s+/gm, '') // Remove numbered list markers
+    .replace(/\n+/g, ' ') // Replace newlines with spaces
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+
+  if (!plainText) return '';
+
+  if (plainText.length <= maxLength) return plainText;
+
+  // Cut at word boundary
+  const truncated = plainText.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + '...';
+}
+
 function downloadImage(url, filepath) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
@@ -152,10 +175,13 @@ async function processPage(pageId, isNew = false) {
     }
   }
 
+  // Generate excerpt from content if not provided
+  const excerpt = props.excerpt || generateExcerpt(markdown);
+
   const frontmatter = `---
 title: "${props.title}"
 date: "${props.date}"
-excerpt: "${props.excerpt}"
+excerpt: "${excerpt}"
 lightColor: "${props.lightColor}"
 darkColor: "${props.darkColor}"
 notionPageId: "${props.pageId}"
