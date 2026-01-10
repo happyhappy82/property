@@ -51,10 +51,10 @@ export default function TableOfContents() {
   if (toc.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed right-[max(0px,calc(50%-45rem))] top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <nav className="hidden xl:block fixed right-8 top-24 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto">
       <div className="border-l-2 border-gray-200 pl-4">
         <h2 className="text-sm font-semibold text-gray-900 mb-3">목차</h2>
-        <ul className="space-y-2 text-sm">
+        <ul className="space-y-1 text-sm">
           {toc.map((item) => (
             <li
               key={item.id}
