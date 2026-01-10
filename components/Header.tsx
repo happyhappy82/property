@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   return (
@@ -8,7 +9,13 @@ export default function Header() {
           href="/"
           className="inline-block"
         >
-          <h1 className="text-3xl font-black text-blue-600">부동산 트렌드 리뷰</h1>
+          <Image
+            src="/logo.png"
+            alt="부동산 트렌드 리뷰"
+            width={200}
+            height={50}
+            priority
+          />
         </Link>
       </div>
     </header>
