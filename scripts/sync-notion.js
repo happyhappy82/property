@@ -23,8 +23,8 @@ if (!fs.existsSync(IMAGES_DIR)) {
 function generateSlug(title) {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9가-힣\\s-]/g, '')
-    .replace(/\\s+/g, '-')
+    .replace(/[^a-z0-9가-힣\s-]/g, '')
+    .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .trim();
 }
@@ -120,7 +120,7 @@ async function processPage(pageId, isNew = false) {
   }
 
   const slug = generateSlug(props.title);
-  console.log(`\\n📝 Processing: ${props.title} (${slug})`);
+  console.log(`\n📝 Processing: ${props.title} (${slug})`);
   console.log(`   Status: ${props.status}, Date: ${props.date}`);
 
   const existingFile = findExistingFileByPageId(pageId);
@@ -132,10 +132,10 @@ async function processPage(pageId, isNew = false) {
   const mdblocks = await n2m.pageToMarkdown(pageId);
   let markdown = n2m.toMarkdownString(mdblocks).parent;
 
-  const imageMatches = markdown.match(/!\\[.*?\\]\\((https?:\\/\\/.*?)\\)/g);
+  const imageMatches = markdown.match(/!\[.*?\]\((https?:\/\/.*?)\)/g);
   if (imageMatches) {
     for (const match of imageMatches) {
-      const urlMatch = match.match(/\\((https?:\\/\\/.*?)\\)/);
+      const urlMatch = match.match(/\((https?:\/\/.*?)\)/);
       if (urlMatch) {
         const imageUrl = urlMatch[1];
         const imageFilename = `${slug}-${Date.now()}-${path.basename(new URL(imageUrl).pathname)}`;
@@ -223,24 +223,24 @@ async function scheduledSync() {
     const existingFile = findExistingFileByPageId(pageId);
 
     if (!existingFile.exists) {
-      console.log(`\\n✨ New property detected: ${slug}`);
+      console.log(`\n✨ New property detected: ${slug}`);
       const publishedSlug = await processPage(pageId, true);
       if (publishedSlug) {
         newPublishedSlugs.push(publishedSlug);
       }
     } else {
-      console.log(`\\nℹ️  Already published: ${slug} (skipping)`);
+      console.log(`\nℹ️  Already published: ${slug} (skipping)`);
     }
   }
 
   if (newPublishedSlugs.length > 0) {
     fs.writeFileSync('.published-slug', newPublishedSlugs[0], 'utf-8');
-    console.log(`\\n📌 New published slug saved: ${newPublishedSlugs[0]}`);
+    console.log(`\n📌 New published slug saved: ${newPublishedSlugs[0]}`);
   } else {
     if (fs.existsSync('.published-slug')) {
       fs.unlinkSync('.published-slug');
     }
-    console.log(`\\nℹ️  No new properties published`);
+    console.log(`\nℹ️  No new properties published`);
   }
 
   return newPublishedSlugs.length > 0;
@@ -273,7 +273,7 @@ async function webhookSync() {
   console.log(`   Status: ${status}`);
 
   if (status === 'Deleted') {
-    console.log(`\\n🗑️  Deleting property: ${slug}`);
+    console.log(`\n🗑️  Deleting property: ${slug}`);
     const deleted = deletePropertyFile(slug);
     return deleted;
   }
@@ -282,11 +282,11 @@ async function webhookSync() {
     const existingFile = findExistingFileByPageId(pageId);
 
     if (existingFile.exists) {
-      console.log(`\\n✏️  Updating existing property: ${slug}`);
+      console.log(`\n✏️  Updating existing property: ${slug}`);
       await processPage(pageId, false);
       return true;
     } else {
-      console.log(`\\n✨ Publishing new property: ${slug}`);
+      console.log(`\n✨ Publishing new property: ${slug}`);
       const publishedSlug = await processPage(pageId, true);
       if (publishedSlug) {
         fs.writeFileSync('.published-slug', publishedSlug, 'utf-8');
@@ -320,10 +320,10 @@ async function syncNotionToProperties() {
     }
 
     if (!hasChanges) {
-      console.log('\\nℹ️  No changes made');
+      console.log('\nℹ️  No changes made');
     }
 
-    console.log('\\n✅ Notion sync completed!');
+    console.log('\n✅ Notion sync completed!');
   } catch (error) {
     console.error('❌ Sync failed:', error);
     process.exit(1);
