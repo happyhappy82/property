@@ -52,17 +52,16 @@ export default function TableOfContents() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      window.history.pushState(null, "", `#${id}`);
     }
   };
 
   if (toc.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed right-8 top-24 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto">
-      <div className="border-l-2 border-gray-200 pl-4">
-        <h2 className="text-sm font-semibold text-gray-900 mb-3">목차</h2>
-        <ul className="space-y-1 text-sm">
+    <nav className="hidden xl:block fixed right-8 top-24 w-44 max-h-[calc(100vh-8rem)] overflow-y-auto">
+      <div className="border-l border-gray-200 pl-3">
+        <h2 className="text-xs font-medium text-gray-400 mb-2">목차</h2>
+        <ul className="space-y-0.5 text-xs">
           {toc.map((item) => (
             <li
               key={item.id}
@@ -71,10 +70,10 @@ export default function TableOfContents() {
               <a
                 href={`#${item.id}`}
                 onClick={(e) => scrollToSection(e, item.id)}
-                className={`block py-1 transition-colors ${
+                className={`block py-0.5 transition-colors leading-snug ${
                   activeId === item.id
                     ? "text-blue-600 font-medium"
-                    : "text-gray-500 hover:text-gray-900"
+                    : "text-gray-400 hover:text-gray-700"
                 }`}
               >
                 {item.text}
