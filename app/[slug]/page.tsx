@@ -85,6 +85,7 @@ export default async function PropertyPage({ params }: Props) {
   return (
     <>
       <Header />
+      <TableOfContents />
       <article className="relative">
         <script
           type="application/ld+json"
@@ -125,7 +126,6 @@ export default async function PropertyPage({ params }: Props) {
         </div>
 
         <QnA items={qnaItems} />
-        <TableOfContents />
       </article>
     </>
   );
