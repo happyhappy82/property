@@ -54,7 +54,8 @@ export function getSortedPropertiesData(): Property[] {
 }
 
 export function getPropertyBySlug(slug: string): Property | null {
-  const fullPath = path.join(propertiesDirectory, `${slug}.md`);
+  const decodedSlug = decodeURIComponent(slug);
+  const fullPath = path.join(propertiesDirectory, `${decodedSlug}.md`);
 
   if (!fs.existsSync(fullPath)) {
     return null;
