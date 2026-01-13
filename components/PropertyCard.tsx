@@ -1,4 +1,5 @@
 import Link from "./Link";
+import { formatDisplayDate } from "@/lib/date-utils";
 
 interface PropertyCardProps {
   title: string;
@@ -27,7 +28,7 @@ export default function PropertyCard({
         >
           {title}
         </h2>
-        <p className="text-[13px] text-gray-700">{date}</p>
+        <p className="text-[13px] text-gray-700">{formatDisplayDate(date)}</p>
         <p className="mt-1">{excerpt}</p>
       </article>
     </Link>
