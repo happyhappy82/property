@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const baseUrl = "https://propertyreviewlab.xyz";
+const siteName = "부동산 트렌드 리뷰";
+const siteDescription =
+  "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!";
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -8,28 +13,49 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "부동산 트렌드 리뷰",
-  description: "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
-  metadataBase: new URL("https://propertyreviewlab.xyz"),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
+  metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     google: "vi4LbSZZ_4ihh_mi0E487dru0ug1XdS3W3cwSqcjxOk",
   },
-  keywords: ["부동산 트렌드", "부동산 정책", "부동산 정보", "부동산 꿀팁", "부동산 리뷰"],
-  authors: [{ name: "부동산 트렌드 리뷰" }],
-  creator: "부동산 트렌드 리뷰",
-  publisher: "부동산 트렌드 리뷰",
+  keywords: [
+    "부동산 트렌드",
+    "부동산 정책",
+    "부동산 정보",
+    "부동산 꿀팁",
+    "부동산 리뷰",
+  ],
+  authors: [{ name: siteName, url: baseUrl }],
+  creator: siteName,
+  publisher: siteName,
   openGraph: {
-    title: "부동산 트렌드 리뷰",
-    description: "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
+    title: siteName,
+    description: siteDescription,
     type: "website",
     locale: "ko_KR",
-    url: "https://propertyreviewlab.xyz",
-    siteName: "부동산 트렌드 리뷰",
+    url: baseUrl,
+    siteName: siteName,
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteName} - 부동산 정보 플랫폼`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "부동산 트렌드 리뷰",
-    description: "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
+    title: siteName,
+    description: siteDescription,
+    images: ["/opengraph-image.png"],
   },
   robots: {
     index: true,
@@ -52,10 +78,36 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "부동산 트렌드 리뷰",
-    "alternateName": "PropertyReviewLab",
-    "url": "https://propertyreviewlab.xyz",
-    "description": "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!",
+    name: siteName,
+    alternateName: "PropertyReviewLab",
+    url: baseUrl,
+    description: siteDescription,
+    inLanguage: "ko-KR",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${baseUrl}/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    alternateName: "PropertyReviewLab",
+    url: baseUrl,
+    logo: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/logo.png`,
+      width: 200,
+      height: 50,
+    },
+    description: siteDescription,
+    foundingDate: "2024",
+    sameAs: [],
   };
 
   return (
@@ -73,7 +125,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
         {/* End Google Tag Manager */}
         {/* Google Analytics (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWB3TENH1D" />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DWB3TENH1D"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
@@ -86,6 +141,12 @@ gtag('config', 'G-DWB3TENH1D');`,
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
       </head>
       <body className="mx-auto max-w-2xl bg-white px-5 py-12 text-black">
