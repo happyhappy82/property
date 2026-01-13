@@ -8,6 +8,7 @@ import TableOfContents from "@/components/TableOfContents";
 import QnA from "@/components/QnA";
 import { getPropertyBySlug, getSortedPropertiesData } from "@/lib/properties";
 import { extractQnA, removeQnASection } from "@/lib/qna-utils";
+import { toISOTimestamp, formatDisplayDate } from "@/lib/date-utils";
 import type { Metadata } from "next";
 
 const baseUrl = "https://www.budongsantrendreview.xyz";
@@ -35,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const url = `${baseUrl}/${encodeURIComponent(slug)}`;
+  const isoDate = toISOTimestamp(property.date);
 
   return {
     title: property.title,
@@ -49,8 +51,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: siteName,
       locale: "ko_KR",
       type: "article",
-      publishedTime: property.date,
-      modifiedTime: property.date,
+      publishedTime: isoDate,
+      modifiedTime: isoDate,
       authors: [siteName],
       images: [
         {
@@ -81,6 +83,8 @@ export default async function PropertyPage({ params }: Props) {
   const qnaItems = extractQnA(property.content);
   const contentWithoutQnA = removeQnASection(property.content);
   const url = `${baseUrl}/${encodeURIComponent(slug)}`;
+  const isoDate = toISOTimestamp(property.date);
+  const displayDate = formatDisplayDate(property.date);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -104,8 +108,8 @@ export default async function PropertyPage({ params }: Props) {
         height: 50,
       },
     },
-    datePublished: property.date,
-    dateModified: property.date,
+    datePublished: isoDate,
+    dateModified: isoDate,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url,
@@ -190,7 +194,7 @@ export default async function PropertyPage({ params }: Props) {
             {property.title}
           </h1>
           <div className="flex gap-4 text-sm text-gray-600">
-            <time dateTime={property.date}>{property.date}</time>
+            <time dateTime={isoDate}>{displayDate}</time>
             <span>{property.readingTime}</span>
           </div>
         </div>
