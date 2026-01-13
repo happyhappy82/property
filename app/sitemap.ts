@@ -4,7 +4,7 @@ import { getSortedPropertiesData } from "@/lib/properties";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://propertyreviewlab.xyz";
+  const baseUrl = "https://www.budongsantrendreview.xyz";
   const properties = getSortedPropertiesData();
 
   const propertyUrls: MetadataRoute.Sitemap = properties.map((property) => ({

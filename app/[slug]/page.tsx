@@ -10,7 +10,7 @@ import { getPropertyBySlug, getSortedPropertiesData } from "@/lib/properties";
 import { extractQnA, removeQnASection } from "@/lib/qna-utils";
 import type { Metadata } from "next";
 
-const baseUrl = "https://propertyreviewlab.xyz";
+const baseUrl = "https://www.budongsantrendreview.xyz";
 const siteName = "부동산 트렌드 리뷰";
 
 interface Props {

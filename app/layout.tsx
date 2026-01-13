@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const baseUrl = "https://propertyreviewlab.xyz";
+const baseUrl = "https://www.budongsantrendreview.xyz";
 const siteName = "부동산 트렌드 리뷰";
 const siteDescription =
   "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!";
