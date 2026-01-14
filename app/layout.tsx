@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "vi4LbSZZ_4ihh_mi0E487dru0ug1XdS3W3cwSqcjxOk",
+    other: {
+      "naver-site-verification": "3dd70351eb08e18e4f93168b339174192e9d84d9",
+    },
   },
   keywords: [
     "부동산 트렌드",
