@@ -137,34 +137,35 @@ const faqSchema = qnaItems.length > 0 ? {
   <Header />
   <TableOfContents />
 
-  <article class="relative">
-    <nav aria-label="Breadcrumb" class="mb-4 text-sm text-gray-500">
-      <ol class="flex items-center gap-2">
-        <li>
-          <a href="/" class="hover:text-gray-700">홈</a>
-        </li>
-        <li aria-hidden="true">/</li>
-        <li>
-          <span class="text-gray-700">{property.title}</span>
-        </li>
-      </ol>
-    </nav>
+  <main>
+    <article class="relative">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-gray-500">
+        <ol class="flex items-center gap-2">
+          <li>
+            <a href="/" class="hover:text-gray-700">홈</a>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <span class="text-gray-700">{property.title}</span>
+          </li>
+        </ol>
+      </nav>
 
-    <div class="mb-8">
-      <h1
-        class="text-[42px] font-black leading-tight mb-4"
-        style={`color: ${property.lightColor}`}
-      >
-        {property.title}
-      </h1>
-      <div class="flex gap-4 text-sm text-gray-600">
-        <time datetime={isoDate}>{displayDate}</time>
-        <span>{property.readingTime}</span>
+      <div class="mb-8">
+        <h1
+          class="text-[42px] font-black leading-tight mb-4 text-gray-900"
+        >
+          {property.title}
+        </h1>
+        <div class="flex gap-4 text-sm text-gray-600">
+          <time datetime={isoDate}>{displayDate}</time>
+          <span>{property.readingTime}</span>
+        </div>
       </div>
-    </div>
 
-    <div class="prose prose-lg max-w-none" set:html={htmlContent} />
+      <div class="prose prose-lg max-w-none" set:html={htmlContent} />
 
-    <QnA items={qnaItems} />
-  </article>
+      <QnA items={qnaItems} />
+    </article>
+  </main>
 </Layout>
