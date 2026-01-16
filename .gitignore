@@ -35,3 +35,7 @@ next-env.d.ts
 
 # notion sync
 .published-slug
+
+# Astro
+.astro/
+dist/

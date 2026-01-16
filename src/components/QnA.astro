@@ -1,0 +1,80 @@
+---
+interface QnAItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: QnAItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <div class="mt-12 border-t pt-8">
+    <h2 class="text-2xl font-bold mb-6">자주 묻는 질문</h2>
+    <div class="space-y-4" id="qna-container">
+      {items.map((item, index) => (
+        <div class="border rounded-lg" data-qna-item>
+          <button
+            class="w-full text-left p-4 font-semibold hover:bg-gray-50 flex justify-between items-center"
+            data-qna-button={index}
+          >
+            <span>{item.question}</span>
+            <span class="text-2xl" data-qna-icon={index}>+</span>
+          </button>
+          <div
+            class="p-4 pt-0 text-gray-700 whitespace-pre-wrap hidden"
+            data-qna-content={index}
+          >
+            {item.answer}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<script>
+  function initQnA() {
+    const container = document.getElementById('qna-container');
+    if (!container) return;
+
+    let openIndex: number | null = null;
+
+    container.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const button = target.closest('[data-qna-button]') as HTMLElement;
+      if (!button) return;
+
+      const index = parseInt(button.getAttribute('data-qna-button') || '-1');
+      if (index === -1) return;
+
+      const content = document.querySelector(`[data-qna-content="${index}"]`);
+      const icon = document.querySelector(`[data-qna-icon="${index}"]`);
+
+      if (openIndex === index) {
+        // Close current
+        content?.classList.add('hidden');
+        if (icon) icon.textContent = '+';
+        openIndex = null;
+      } else {
+        // Close previous
+        if (openIndex !== null) {
+          const prevContent = document.querySelector(`[data-qna-content="${openIndex}"]`);
+          const prevIcon = document.querySelector(`[data-qna-icon="${openIndex}"]`);
+          prevContent?.classList.add('hidden');
+          if (prevIcon) prevIcon.textContent = '+';
+        }
+
+        // Open new
+        content?.classList.remove('hidden');
+        if (icon) icon.textContent = '−';
+        openIndex = index;
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initQnA);
+</script>

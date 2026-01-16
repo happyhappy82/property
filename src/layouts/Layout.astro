@@ -1,0 +1,157 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  article?: {
+    publishedTime: string;
+    modifiedTime: string;
+  };
+}
+
+const baseUrl = "https://www.budongsantrendreview.xyz";
+const siteName = "부동산 트렌드 리뷰";
+const defaultDescription = "부동산 관련 트렌드와 정책 등 다양한 부동산 정보들을 떠먹여드립니다. 꿀팁받아가세요!!";
+
+const {
+  title = siteName,
+  description = defaultDescription,
+  canonical = baseUrl,
+  ogImage = "/opengraph-image.png",
+  article,
+} = Astro.props;
+
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteName,
+  alternateName: "PropertyReviewLab",
+  url: baseUrl,
+  description: defaultDescription,
+  inLanguage: "ko-KR",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${baseUrl}/?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteName,
+  alternateName: "PropertyReviewLab",
+  url: baseUrl,
+  logo: {
+    "@type": "ImageObject",
+    url: `${baseUrl}/logo.png`,
+    width: 200,
+    height: 50,
+  },
+  description: defaultDescription,
+  foundingDate: "2024",
+  sameAs: [],
+};
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/apple-icon.png" />
+
+    <!-- SEO -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+    <meta name="keywords" content="부동산 트렌드,부동산 정책,부동산 정보,부동산 꿀팁,부동산 리뷰" />
+    <meta name="author" content={siteName} />
+    <meta name="creator" content={siteName} />
+    <meta name="publisher" content={siteName} />
+
+    <!-- Verification -->
+    <meta name="google-site-verification" content="vi4LbSZZ_4ihh_mi0E487dru0ug1XdS3W3cwSqcjxOk" />
+    <meta name="naver-site-verification" content="3dd70351eb08e18e4f93168b339174192e9d84d9" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:image" content={`${baseUrl}${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {article && <meta property="article:published_time" content={article.publishedTime} />}
+    {article && <meta property="article:modified_time" content={article.modifiedTime} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${baseUrl}${ogImage}`} />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="부동산 트렌드 리뷰 RSS" href="/rss.xml" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+    <slot name="head" />
+
+    <!-- Deferred GA/GTM -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          // GTM
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PDQTKDPV');
+
+          // GA
+          var gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-DWB3TENH1D';
+          document.head.appendChild(gaScript);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-DWB3TENH1D');
+        }, 100);
+      });
+    </script>
+  </head>
+  <body class="mx-auto max-w-2xl bg-white px-5 py-12 text-black">
+    <!-- GTM noscript -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDQTKDPV" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import PropertyCard from '../components/PropertyCard.astro';
+import { getSortedPropertiesData } from '../../lib/properties';
+
+const properties = getSortedPropertiesData();
+---
+
+<Layout>
+  <Header />
+  <main>
+    <div class="relative -top-[10px] flex flex-col gap-8">
+      {properties.length === 0 ? (
+        <p>No properties yet. Create your first property in content/properties/</p>
+      ) : (
+        properties.map((property) => (
+          <PropertyCard
+            title={property.title}
+            date={property.date}
+            excerpt={property.excerpt}
+            slug={property.slug}
+          />
+        ))
+      )}
+    </div>
+  </main>
+</Layout>
