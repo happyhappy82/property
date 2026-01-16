@@ -151,29 +151,13 @@ const organizationSchema = {
 
     <slot name="head" />
 
-    <!-- Deferred GA/GTM -->
-    <script is:inline>
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          // GTM
-          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-PDQTKDPV');
-
-          // GA
-          var gaScript = document.createElement('script');
-          gaScript.async = true;
-          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-DWB3TENH1D';
-          document.head.appendChild(gaScript);
-
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-DWB3TENH1D');
-        }, 100);
-      });
+    <!-- GTM with Partytown (runs in Web Worker) -->
+    <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-DWB3TENH1D"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DWB3TENH1D');
     </script>
   </head>
   <body class="mx-auto max-w-2xl bg-white px-5 py-12 text-black">
