@@ -3,12 +3,17 @@
 <header class="mb-14 flex flex-row place-content-between">
   <div class="flex items-center gap-3">
     <a href="/" class="inline-block">
-      <img
-        src="/logo.png"
-        alt="부동산 트렌드 리뷰"
-        width="200"
-        height="50"
-      />
+      <picture>
+        <source srcset="/logo.webp" type="image/webp" />
+        <img
+          src="/logo.png"
+          alt="부동산 트렌드 리뷰"
+          width="200"
+          height="50"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
     </a>
   </div>
 </header>
