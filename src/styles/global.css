@@ -9,3 +9,25 @@ body {
 h2, h3, h4 {
   scroll-margin-top: 80px;
 }
+
+/* 모바일에서 테이블 가로 스크롤 */
+.article-content table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+.article-content table th,
+.article-content table td {
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+/* 단지명 등 긴 텍스트가 있는 첫 번째 컬럼은 줄바꿈 허용 */
+.article-content table th:first-child,
+.article-content table td:first-child {
+  white-space: normal;
+  min-width: 100px;
+  max-width: 150px;
+}
