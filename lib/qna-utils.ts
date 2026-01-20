@@ -16,7 +16,7 @@ export function extractQnA(content: string): QnAItem[] {
 
   for (const pair of qaPairs) {
     const lines = pair.trim().split('\n');
-    const question = lines[0].replace(/^Q:\s*/i, '').trim();
+    const question = lines[0].replace(/^Q:\s*/i, '').replace(/\*\*/g, '').trim();
     const answer = lines
       .slice(1)
       .join('\n')
