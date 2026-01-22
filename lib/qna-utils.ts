@@ -28,6 +28,22 @@ export function extractQnA(content: string): QnAItem[] {
     }
   }
 
+  // Q. / A. 형식 파싱 (Notion에서 가져온 일반적인 형식)
+  if (items.length === 0) {
+    // Q. 또는 Q1. 등으로 시작하는 질문을 찾아 분리
+    const qaRegex = /Q\d*\.\s*(.*?)\n+A\d*\.\s*([\s\S]*?)(?=\n+Q\d*\.|$)/gi;
+    let qaMatch;
+
+    while ((qaMatch = qaRegex.exec(qnaSection)) !== null) {
+      const question = qaMatch[1].replace(/\*\*/g, '').trim();
+      const answer = qaMatch[2].trim();
+
+      if (question && answer) {
+        items.push({ question, answer });
+      }
+    }
+  }
+
   // 기존 ### 형식도 지원 (fallback)
   if (items.length === 0) {
     const qaPairs = qnaSection.split(/\n###\s+/).filter(Boolean);
