@@ -4,6 +4,106 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  @apply bg-white text-black transition-colors duration-200;
+}
+
+html.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Dark mode styles */
+html.dark .text-gray-900 {
+  @apply text-gray-100;
+}
+
+html.dark .text-gray-700 {
+  @apply text-gray-300;
+}
+
+html.dark .text-gray-600 {
+  @apply text-gray-400;
+}
+
+html.dark .text-gray-500 {
+  @apply text-gray-400;
+}
+
+html.dark .bg-white {
+  @apply bg-gray-900;
+}
+
+html.dark .bg-gray-50 {
+  @apply bg-gray-800;
+}
+
+html.dark .hover\:bg-gray-50:hover {
+  @apply bg-gray-800;
+}
+
+html.dark .border {
+  @apply border-gray-700;
+}
+
+html.dark .border-t {
+  @apply border-gray-700;
+}
+
+html.dark .border-b {
+  @apply border-gray-700;
+}
+
+/* Prose dark mode */
+html.dark .prose {
+  @apply text-gray-300;
+}
+
+html.dark .prose h2,
+html.dark .prose h3,
+html.dark .prose h4,
+html.dark .prose strong {
+  @apply text-gray-100;
+}
+
+html.dark .prose a {
+  @apply text-blue-400;
+}
+
+html.dark .prose code {
+  @apply bg-gray-800 text-gray-200;
+}
+
+html.dark .prose blockquote {
+  @apply border-gray-600 text-gray-400;
+}
+
+html.dark .prose hr {
+  @apply border-gray-700;
+}
+
+html.dark .prose th,
+html.dark .prose td {
+  @apply border-gray-700;
+}
+
+html.dark .prose thead {
+  @apply border-gray-700;
+}
+
+html.dark .prose tbody tr {
+  @apply border-gray-700;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  @apply p-2 rounded-lg hover:bg-gray-100 transition-colors;
+}
+
+html.dark .theme-toggle {
+  @apply hover:bg-gray-800;
+}
+
+.theme-toggle svg {
+  @apply w-5 h-5;
 }
 
 h2, h3, h4 {
