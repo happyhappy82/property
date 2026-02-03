@@ -18,6 +18,34 @@
     </a>
   </div>
 
+  <div class="flex items-center gap-3">
+    <a
+      href="/calculators"
+      class="calc-icon-link"
+      aria-label="부동산 계산기"
+      title="부동산 계산기"
+    >
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <line x1="8" y1="6" x2="16" y2="6" />
+        <line x1="8" y1="10" x2="10" y2="10" />
+        <line x1="14" y1="10" x2="16" y2="10" />
+        <line x1="8" y1="14" x2="10" y2="14" />
+        <line x1="14" y1="14" x2="16" y2="14" />
+        <line x1="8" y1="18" x2="10" y2="18" />
+        <line x1="14" y1="18" x2="16" y2="18" />
+      </svg>
+    </a>
+
   <button
     id="theme-toggle"
     class="theme-toggle"
@@ -57,7 +85,24 @@
       />
     </svg>
   </button>
+  </div>
 </header>
+
+<style>
+  .calc-icon-link {
+    color: #4b5563;
+    transition: color 0.2s;
+  }
+  .calc-icon-link:hover {
+    color: #2563eb;
+  }
+  :global(.dark) .calc-icon-link {
+    color: #9ca3af;
+  }
+  :global(.dark) .calc-icon-link:hover {
+    color: #60a5fa;
+  }
+</style>
 
 <script>
   function initThemeToggle() {

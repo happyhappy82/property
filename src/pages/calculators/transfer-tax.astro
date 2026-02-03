@@ -1,0 +1,399 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+<Layout title="양도소득세 계산기" description="부동산 양도 시 양도소득세를 계산하고 절세 방법을 확인하세요.">
+  <Header />
+  <main class="mt-8">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">양도소득세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">부동산 양도 시 발생하는 양도소득세를 계산합니다.</p>
+
+    <!-- 입력 폼 -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+      <form id="calc-form" class="space-y-4">
+        <div>
+          <label for="acquisitionPrice" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            취득가격 (원)
+          </label>
+          <input
+            type="text"
+            id="acquisitionPrice"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            placeholder="0"
+          />
+        </div>
+
+        <div>
+          <label for="transferPrice" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            양도가격 (원)
+          </label>
+          <input
+            type="text"
+            id="transferPrice"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            placeholder="0"
+          />
+        </div>
+
+        <div>
+          <label for="expenses" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            필요경비 (원)
+          </label>
+          <input
+            type="text"
+            id="expenses"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            placeholder="0"
+          />
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">취득세, 중개수수료, 인테리어 비용 등</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="holdingYears" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              보유기간 (년)
+            </label>
+            <input
+              type="number"
+              id="holdingYears"
+              min="0"
+              max="50"
+              step="0.1"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="residenceYears" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              거주기간 (년)
+            </label>
+            <input
+              type="number"
+              id="residenceYears"
+              min="0"
+              max="50"
+              step="0.1"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="housingCount" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            보유 주택 수
+          </label>
+          <select
+            id="housingCount"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+          >
+            <option value="1">1주택</option>
+            <option value="2">2주택</option>
+            <option value="3">3주택 이상</option>
+          </select>
+        </div>
+
+        <div class="space-y-2">
+          <label class="flex items-center">
+            <input type="checkbox" id="isSingleHousehold" class="mr-2 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400" />
+            <span class="text-sm text-gray-700 dark:text-gray-300">1세대 해당</span>
+          </label>
+
+          <label class="flex items-center">
+            <input type="checkbox" id="isAdjustmentArea" class="mr-2 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400" />
+            <span class="text-sm text-gray-700 dark:text-gray-300">조정대상지역</span>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+        >
+          계산하기
+        </button>
+      </form>
+    </div>
+
+    <!-- 에러 메시지 -->
+    <div id="error-msg" class="hidden mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+      <p class="text-sm text-red-600 dark:text-red-400"></p>
+    </div>
+
+    <!-- 결과 -->
+    <div id="results" class="hidden space-y-4">
+      <!-- 요약 -->
+      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+        <h2 class="text-lg font-bold text-blue-900 dark:text-blue-100 mb-4">납부 세액</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-700 dark:text-gray-300">총 납부세액</span>
+            <span id="total-tax" class="text-xl font-bold text-blue-900 dark:text-blue-100"></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-700 dark:text-gray-300">실효세율</span>
+            <span id="effective-rate" class="text-lg font-medium text-blue-800 dark:text-blue-200"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 양도차익 산정 -->
+      <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+        <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">양도차익 산정</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">양도차익</span>
+            <span id="raw-gain" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">장기보유특별공제</span>
+            <span id="long-term-deduction-detail" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">양도소득금액</span>
+            <span id="taxable-gain" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">과세표준</span>
+            <span id="tax-base" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 세액 계산 -->
+      <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+        <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">세액 계산</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">적용 세율</span>
+            <span id="applied-rate" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">누진공제</span>
+            <span id="deduction" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">산출세액</span>
+            <span id="calculated-tax" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">지방소득세 (10%)</span>
+            <span id="local-tax" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 비과세 메시지 -->
+    <div id="exempt-msg" class="hidden mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+      <h3 class="text-lg font-bold text-green-900 dark:text-green-100 mb-2">비과세 대상</h3>
+      <p class="text-sm text-green-700 dark:text-green-300"></p>
+    </div>
+
+    <!-- 손실 메시지 -->
+    <div id="loss-msg" class="hidden mb-6 p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">양도차익 없음</h3>
+      <p class="text-sm text-gray-700 dark:text-gray-300">양도차익이 발생하지 않아 양도소득세가 부과되지 않습니다.</p>
+    </div>
+
+    <!-- 안내사항 -->
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세액은 관할 세무서에 확인하시기 바랍니다.
+        1세대 1주택 비과세는 2년 이상 보유 및 거주, 양도가액 12억 원 이하 시 적용됩니다.
+        세법 개정에 따라 세율 및 공제율이 변경될 수 있습니다.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Helper functions
+  function formatNumber(n: number): string {
+    return n.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount: number): string {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el: HTMLInputElement | null) {
+    if (!el) return
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      this.value = raw ? parseInt(raw).toLocaleString('ko-KR') : ''
+    })
+  }
+
+  function getVal(id: string): number {
+    const el = document.getElementById(id) as HTMLInputElement | null
+    if (!el) return 0
+    return parseInt(el.value.replace(/,/g, '')) || 0
+  }
+
+  // Setup
+  setupNumberInput(document.getElementById('acquisitionPrice') as HTMLInputElement)
+  setupNumberInput(document.getElementById('transferPrice') as HTMLInputElement)
+  setupNumberInput(document.getElementById('expenses') as HTMLInputElement)
+
+  const form = document.getElementById('calc-form') as HTMLFormElement
+  const errorMsg = document.getElementById('error-msg') as HTMLDivElement
+  const results = document.getElementById('results') as HTMLDivElement
+  const exemptMsg = document.getElementById('exempt-msg') as HTMLDivElement
+  const lossMsg = document.getElementById('loss-msg') as HTMLDivElement
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    // Hide all messages
+    errorMsg.classList.add('hidden')
+    results.classList.add('hidden')
+    exemptMsg.classList.add('hidden')
+    lossMsg.classList.add('hidden')
+
+    // Get inputs
+    const acquisitionPrice = getVal('acquisitionPrice')
+    const transferPrice = getVal('transferPrice')
+    const expenses = getVal('expenses')
+    const holdingYears = parseFloat((document.getElementById('holdingYears') as HTMLInputElement)?.value || '0')
+    const residenceYears = parseFloat((document.getElementById('residenceYears') as HTMLInputElement)?.value || '0')
+    const housingCount = parseInt((document.getElementById('housingCount') as HTMLSelectElement)?.value || '1')
+    const isSingleHousehold = (document.getElementById('isSingleHousehold') as HTMLInputElement)?.checked || false
+    const isAdjustmentArea = (document.getElementById('isAdjustmentArea') as HTMLInputElement)?.checked || false
+
+    // Validation
+    if (transferPrice <= 0) {
+      errorMsg.querySelector('p')!.textContent = '양도가격을 입력해주세요.'
+      errorMsg.classList.remove('hidden')
+      return
+    }
+
+    // Calculate raw gain
+    const rawGain = transferPrice - acquisitionPrice - expenses
+
+    // Tax exemption check
+    const isExempt = isSingleHousehold && housingCount === 1 && holdingYears >= 2 && residenceYears >= 2 && transferPrice <= 1200000000
+
+    if (isExempt) {
+      const msg = `1세대 1주택 비과세 요건 충족: 보유기간 ${holdingYears}년, 거주기간 ${residenceYears}년, 양도가액 ${formatManWon(transferPrice)}`
+      exemptMsg.querySelector('p')!.textContent = msg
+      exemptMsg.classList.remove('hidden')
+      return
+    }
+
+    if (rawGain <= 0) {
+      lossMsg.classList.remove('hidden')
+      return
+    }
+
+    // High value ratio
+    let ratio = 1
+    if (transferPrice > 1200000000) {
+      ratio = (transferPrice - 1200000000) / transferPrice
+    }
+
+    // Long-term deduction
+    let longTermDeductionRate = 0
+    if (isSingleHousehold && housingCount === 1) {
+      // Single home
+      const holdingRate = Math.min(holdingYears * 0.04, 0.40)
+      const residenceRate = Math.min(residenceYears * 0.04, 0.40)
+      longTermDeductionRate = Math.min(holdingRate + residenceRate, 0.80)
+    } else {
+      // General
+      if (holdingYears >= 3) {
+        longTermDeductionRate = Math.min(holdingYears * 0.02, 0.30)
+      }
+    }
+
+    const longTermDeduction = rawGain * longTermDeductionRate
+    const taxableGain = rawGain - longTermDeduction
+    const BASIC_DEDUCTION = 2500000
+    const taxBase = Math.max(0, taxableGain - BASIC_DEDUCTION)
+
+    // Tax brackets
+    const brackets = [
+      { threshold: 14000000, rate: 0.06, deduction: 0 },
+      { threshold: 50000000, rate: 0.15, deduction: 1260000 },
+      { threshold: 88000000, rate: 0.24, deduction: 5760000 },
+      { threshold: 150000000, rate: 0.35, deduction: 15440000 },
+      { threshold: 300000000, rate: 0.38, deduction: 19940000 },
+      { threshold: 500000000, rate: 0.40, deduction: 25940000 },
+      { threshold: 1000000000, rate: 0.42, deduction: 35940000 },
+      { threshold: Infinity, rate: 0.45, deduction: 65940000 },
+    ]
+
+    let appliedRate = 0
+    let appliedDeduction = 0
+
+    // Short-term tax
+    if (holdingYears < 1) {
+      appliedRate = 0.45
+      appliedDeduction = 0
+    } else {
+      for (const bracket of brackets) {
+        if (taxBase <= bracket.threshold) {
+          appliedRate = bracket.rate
+          appliedDeduction = bracket.deduction
+          break
+        }
+      }
+    }
+
+    const calculatedTax = Math.round(taxBase * appliedRate - appliedDeduction)
+    const LOCAL_INCOME_TAX_RATE = 0.10
+    const localTax = Math.round(calculatedTax * LOCAL_INCOME_TAX_RATE)
+    const totalTax = calculatedTax + localTax
+    const effectiveRate = rawGain > 0 ? (totalTax / rawGain * 100).toFixed(2) : '0.00'
+
+    // Display results
+    const totalTaxEl = document.getElementById('total-tax')
+    const effectiveRateEl = document.getElementById('effective-rate')
+    const rawGainEl = document.getElementById('raw-gain')
+    const longTermDeductionDetailEl = document.getElementById('long-term-deduction-detail')
+    const taxableGainEl = document.getElementById('taxable-gain')
+    const taxBaseEl = document.getElementById('tax-base')
+    const appliedRateEl = document.getElementById('applied-rate')
+    const deductionEl = document.getElementById('deduction')
+    const calculatedTaxEl = document.getElementById('calculated-tax')
+    const localTaxEl = document.getElementById('local-tax')
+
+    if (totalTaxEl) totalTaxEl.textContent = formatManWon(totalTax)
+    if (effectiveRateEl) effectiveRateEl.textContent = effectiveRate + '%'
+    if (rawGainEl) rawGainEl.textContent = formatManWon(rawGain)
+    if (longTermDeductionDetailEl) {
+      const ratePercent = (longTermDeductionRate * 100).toFixed(0)
+      longTermDeductionDetailEl.textContent = `${formatManWon(longTermDeduction)} (${ratePercent}%)`
+    }
+    if (taxableGainEl) taxableGainEl.textContent = formatManWon(taxableGain)
+    if (taxBaseEl) taxBaseEl.textContent = formatManWon(taxBase)
+    if (appliedRateEl) appliedRateEl.textContent = (appliedRate * 100).toFixed(0) + '%'
+    if (deductionEl) deductionEl.textContent = formatManWon(appliedDeduction)
+    if (calculatedTaxEl) calculatedTaxEl.textContent = formatManWon(calculatedTax)
+    if (localTaxEl) localTaxEl.textContent = formatManWon(localTax)
+
+    results.classList.remove('hidden')
+  })
+</script>

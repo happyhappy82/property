@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+
+<Layout title="재산세 계산기 - 부동산 트렌드 리뷰" description="주택 재산세를 간편하게 계산하세요. 공시가격을 입력하고 도시지역 여부를 선택하면 재산세를 계산합니다.">
+  <Header />
+  <main class="mt-8">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">재산세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">주택 공시가격을 입력하여 재산세를 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">주택 공시가격</label>
+          <div class="relative">
+            <input type="text" id="officialPrice" placeholder="300,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="isUrban" class="rounded" checked />
+          <label for="isUrban" class="text-sm dark:text-gray-200 cursor-pointer">도시지역</label>
+        </div>
+
+        <button id="calcBtn" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">재산세 합계</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 납부세액</span><span class="font-bold text-blue-700 dark:text-blue-300" id="totalTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">실효세율</span><span class="font-medium dark:text-gray-200" id="effectiveRate"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">과세표준</span><span class="dark:text-gray-200" id="taxBase"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">재산세</span><span class="dark:text-gray-200" id="propertyTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">도시지역분</span><span class="dark:text-gray-200" id="cityTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">지방교육세</span><span class="dark:text-gray-200" id="localEduTax"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세금은 관할 세무서에 확인하시기 바랍니다.<br>
+        ※ 과세표준은 공시가격의 60%로 계산됩니다.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const FAIR_MARKET_VALUE_RATIO = 0.6
+  const CITY_PLANNING_TAX_RATE = 0.0014
+  const LOCAL_EDUCATION_TAX_RATE = 0.2
+
+  const brackets = [
+    { min: 0, max: 60000000, base: 0, rate: 0.001 },
+    { min: 60000000, max: 150000000, base: 60000, rate: 0.0015 },
+    { min: 150000000, max: 300000000, base: 195000, rate: 0.0025 },
+    { min: 300000000, max: Infinity, base: 570000, rate: 0.004 },
+  ]
+
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function calculatePropertyTax(officialPrice, isUrban) {
+    const taxBase = Math.round(officialPrice * FAIR_MARKET_VALUE_RATIO)
+
+    let propertyTax = 0
+    for (const bracket of brackets) {
+      if (taxBase <= bracket.min) break
+      const taxableAmount = Math.min(taxBase, bracket.max) - bracket.min
+      propertyTax += taxableAmount * bracket.rate
+    }
+    propertyTax = Math.round(propertyTax)
+
+    const cityTax = isUrban ? Math.round(taxBase * CITY_PLANNING_TAX_RATE) : 0
+    const localEduTax = Math.round(propertyTax * LOCAL_EDUCATION_TAX_RATE)
+    const totalTax = propertyTax + cityTax + localEduTax
+    const effectiveRate = Math.round((totalTax / officialPrice) * 10000) / 100
+
+    return { taxBase, propertyTax, cityTax, localEduTax, totalTax, effectiveRate }
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+  setupNumberInput(document.getElementById('officialPrice'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const raw = document.getElementById('officialPrice').value.replace(/,/g, '')
+    const officialPrice = parseInt(raw) || 0
+    const isUrban = document.getElementById('isUrban').checked
+
+    if (officialPrice <= 0) {
+      document.getElementById('errorText').textContent = '주택 공시가격을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculatePropertyTax(officialPrice, isUrban)
+
+    document.getElementById('totalTax').textContent = formatManWon(result.totalTax)
+    document.getElementById('effectiveRate').textContent = result.effectiveRate + '%'
+    document.getElementById('taxBase').textContent = formatManWon(result.taxBase)
+    document.getElementById('propertyTax').textContent = formatManWon(result.propertyTax)
+    document.getElementById('cityTax').textContent = formatManWon(result.cityTax)
+    document.getElementById('localEduTax').textContent = formatManWon(result.localEduTax)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

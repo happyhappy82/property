@@ -1,0 +1,368 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+<Layout title="종합부동산세 계산기" description="고가 주택 보유 시 종합부동산세를 계산하고 절세 방법을 확인하세요.">
+  <Header />
+  <main class="mt-8">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">종합부동산세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">고가 주택 보유 시 발생하는 종합부동산세를 계산합니다.</p>
+
+    <!-- 입력 폼 -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+      <form id="calc-form" class="space-y-4">
+        <div>
+          <label for="totalAssessedValue" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            주택 공시가격 합산 (원)
+          </label>
+          <input
+            type="text"
+            id="totalAssessedValue"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            placeholder="0"
+          />
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">보유 주택의 공시가격 합산액</p>
+        </div>
+
+        <div>
+          <label class="flex items-center">
+            <input type="checkbox" id="isSingleHomeOwner" class="mr-2 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400" />
+            <span class="text-sm text-gray-700 dark:text-gray-300">1세대 1주택자</span>
+          </label>
+        </div>
+
+        <div id="age-field" class="hidden">
+          <label for="ownerAge" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            소유자 나이
+          </label>
+          <input
+            type="number"
+            id="ownerAge"
+            min="0"
+            max="120"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            placeholder="0"
+          />
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">고령자 공제 (60세 이상)</p>
+        </div>
+
+        <div id="holding-field" class="hidden">
+          <label for="holdingYears" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            보유기간 (년)
+          </label>
+          <input
+            type="number"
+            id="holdingYears"
+            min="0"
+            max="100"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            placeholder="0"
+          />
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">장기보유 공제 (5년 이상)</p>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+        >
+          계산하기
+        </button>
+      </form>
+    </div>
+
+    <!-- 에러 메시지 -->
+    <div id="error-msg" class="hidden mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+      <p class="text-sm text-red-600 dark:text-red-400"></p>
+    </div>
+
+    <!-- 비과세 메시지 -->
+    <div id="exempt-msg" class="hidden mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+      <h3 class="text-lg font-bold text-green-900 dark:text-green-100 mb-2">과세 대상 아님</h3>
+      <p class="text-sm text-green-700 dark:text-green-300"></p>
+    </div>
+
+    <!-- 결과 -->
+    <div id="results" class="hidden space-y-4">
+      <!-- 요약 -->
+      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+        <h2 class="text-lg font-bold text-blue-900 dark:text-blue-100 mb-4">납부 세액</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-700 dark:text-gray-300">총 납부세액</span>
+            <span id="total-tax" class="text-xl font-bold text-blue-900 dark:text-blue-100"></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-700 dark:text-gray-300">실효세율</span>
+            <span id="effective-rate" class="text-lg font-medium text-blue-800 dark:text-blue-200"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 과세 기준 -->
+      <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+        <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">과세 기준</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">기본공제</span>
+            <span id="basic-deduction" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">과세표준</span>
+            <span id="tax-base" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">산출세액</span>
+            <span id="calculated-tax" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 세액공제 (1세대 1주택만) -->
+      <div id="deduction-section" class="hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+        <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">세액공제</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">고령자 공제율</span>
+            <span id="age-deduction-rate" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">장기보유 공제율</span>
+            <span id="holding-deduction-rate" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">합산 공제율</span>
+            <span id="total-deduction-rate" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">세액공제액</span>
+            <span id="deduction-amount" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 세부 내역 -->
+      <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+        <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">세부 내역</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">종합부동산세</span>
+            <span id="comprehensive-tax" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 dark:text-gray-400">지방교육세 (20%)</span>
+            <span id="local-education-tax" class="text-gray-900 dark:text-white font-medium"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 안내사항 -->
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세액은 관할 세무서에 확인하시기 바랍니다.
+        1세대 1주택자는 12억 원, 다주택자는 9억 원 기본공제가 적용됩니다.
+        고령자 공제(60세 이상)와 장기보유 공제(5년 이상)는 1세대 1주택자에게만 적용되며, 합산 공제율은 최대 80%입니다.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Helper functions
+  function formatNumber(n: number): string {
+    return n.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount: number): string {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el: HTMLInputElement | null) {
+    if (!el) return
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      this.value = raw ? parseInt(raw).toLocaleString('ko-KR') : ''
+    })
+  }
+
+  function getVal(id: string): number {
+    const el = document.getElementById(id) as HTMLInputElement | null
+    if (!el) return 0
+    return parseInt(el.value.replace(/,/g, '')) || 0
+  }
+
+  // Setup
+  setupNumberInput(document.getElementById('totalAssessedValue') as HTMLInputElement)
+
+  const form = document.getElementById('calc-form') as HTMLFormElement
+  const errorMsg = document.getElementById('error-msg') as HTMLDivElement
+  const results = document.getElementById('results') as HTMLDivElement
+  const exemptMsg = document.getElementById('exempt-msg') as HTMLDivElement
+  const deductionSection = document.getElementById('deduction-section') as HTMLDivElement
+  const ageField = document.getElementById('age-field') as HTMLDivElement
+  const holdingField = document.getElementById('holding-field') as HTMLDivElement
+  const isSingleHomeOwnerCheckbox = document.getElementById('isSingleHomeOwner') as HTMLInputElement
+
+  // Toggle additional fields
+  isSingleHomeOwnerCheckbox?.addEventListener('change', function() {
+    if (this.checked) {
+      ageField.classList.remove('hidden')
+      holdingField.classList.remove('hidden')
+    } else {
+      ageField.classList.add('hidden')
+      holdingField.classList.add('hidden')
+    }
+  })
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    // Hide all messages
+    errorMsg.classList.add('hidden')
+    results.classList.add('hidden')
+    exemptMsg.classList.add('hidden')
+    deductionSection.classList.add('hidden')
+
+    // Get inputs
+    const totalAssessedValue = getVal('totalAssessedValue')
+    const isSingleHomeOwner = isSingleHomeOwnerCheckbox?.checked || false
+    const ownerAge = parseInt((document.getElementById('ownerAge') as HTMLInputElement)?.value || '0')
+    const holdingYears = parseFloat((document.getElementById('holdingYears') as HTMLInputElement)?.value || '0')
+
+    // Validation
+    if (totalAssessedValue <= 0) {
+      errorMsg.querySelector('p')!.textContent = '주택 공시가격을 입력해주세요.'
+      errorMsg.classList.remove('hidden')
+      return
+    }
+
+    // Basic deduction
+    const deduction = isSingleHomeOwner ? 1200000000 : 900000000
+
+    // Check if exempt
+    if (totalAssessedValue <= deduction) {
+      const msg = `공시가격 ${formatManWon(totalAssessedValue)}이(가) 기본공제액 ${formatManWon(deduction)} 이하입니다.`
+      exemptMsg.querySelector('p')!.textContent = msg
+      exemptMsg.classList.remove('hidden')
+      return
+    }
+
+    // Calculate tax base
+    const taxBase = Math.max(0, (totalAssessedValue - deduction) * 0.6)
+
+    // Tax brackets
+    const brackets = [
+      { min: 0, max: 300000000, rate: 0.005, deduction: 0 },
+      { min: 300000000, max: 600000000, rate: 0.007, deduction: 600000 },
+      { min: 600000000, max: 1200000000, rate: 0.01, deduction: 2400000 },
+      { min: 1200000000, max: 2500000000, rate: 0.013, deduction: 6000000 },
+      { min: 2500000000, max: 5000000000, rate: 0.015, deduction: 11000000 },
+      { min: 5000000000, max: 9400000000, rate: 0.02, deduction: 36000000 },
+      { min: 9400000000, max: Infinity, rate: 0.027, deduction: 101800000 },
+    ]
+
+    let appliedRate = 0
+    let appliedDeduction = 0
+
+    for (const bracket of brackets) {
+      if (taxBase > bracket.min && taxBase <= bracket.max) {
+        appliedRate = bracket.rate
+        appliedDeduction = bracket.deduction
+        break
+      }
+    }
+
+    let calculatedTax = Math.round(taxBase * appliedRate - appliedDeduction)
+
+    // Age deduction (only for single home owner)
+    let ageDeductionRate = 0
+    if (isSingleHomeOwner) {
+      if (ownerAge >= 70) {
+        ageDeductionRate = 0.40
+      } else if (ownerAge >= 65) {
+        ageDeductionRate = 0.30
+      } else if (ownerAge >= 60) {
+        ageDeductionRate = 0.20
+      }
+    }
+
+    // Holding deduction (only for single home owner)
+    let holdingDeductionRate = 0
+    if (isSingleHomeOwner) {
+      if (holdingYears >= 15) {
+        holdingDeductionRate = 0.50
+      } else if (holdingYears >= 10) {
+        holdingDeductionRate = 0.40
+      } else if (holdingYears >= 5) {
+        holdingDeductionRate = 0.20
+      }
+    }
+
+    // Combined deduction (max 80%)
+    const totalDeductionRate = Math.min(ageDeductionRate + holdingDeductionRate, 0.80)
+    const deductionAmount = Math.round(calculatedTax * totalDeductionRate)
+    const comprehensiveTax = calculatedTax - deductionAmount
+
+    // Local education tax
+    const localEducationTax = Math.round(comprehensiveTax * 0.2)
+    const totalTax = comprehensiveTax + localEducationTax
+
+    // Effective rate
+    const effectiveRate = totalAssessedValue > 0 ? (totalTax / totalAssessedValue * 100).toFixed(3) : '0.000'
+
+    // Display results
+    const totalTaxEl = document.getElementById('total-tax')
+    const effectiveRateEl = document.getElementById('effective-rate')
+    const basicDeductionEl = document.getElementById('basic-deduction')
+    const taxBaseEl = document.getElementById('tax-base')
+    const calculatedTaxEl = document.getElementById('calculated-tax')
+    const comprehensiveTaxEl = document.getElementById('comprehensive-tax')
+    const localEducationTaxEl = document.getElementById('local-education-tax')
+
+    if (totalTaxEl) totalTaxEl.textContent = formatManWon(totalTax)
+    if (effectiveRateEl) effectiveRateEl.textContent = effectiveRate + '%'
+    if (basicDeductionEl) basicDeductionEl.textContent = formatManWon(deduction)
+    if (taxBaseEl) taxBaseEl.textContent = formatManWon(taxBase)
+    if (calculatedTaxEl) calculatedTaxEl.textContent = formatManWon(calculatedTax)
+    if (comprehensiveTaxEl) comprehensiveTaxEl.textContent = formatManWon(comprehensiveTax)
+    if (localEducationTaxEl) localEducationTaxEl.textContent = formatManWon(localEducationTax)
+
+    // Show deduction section if applicable
+    if (isSingleHomeOwner && totalDeductionRate > 0) {
+      deductionSection.classList.remove('hidden')
+      const ageDeductionRateEl = document.getElementById('age-deduction-rate')
+      const holdingDeductionRateEl = document.getElementById('holding-deduction-rate')
+      const totalDeductionRateEl = document.getElementById('total-deduction-rate')
+      const deductionAmountEl = document.getElementById('deduction-amount')
+
+      if (ageDeductionRateEl) ageDeductionRateEl.textContent = (ageDeductionRate * 100).toFixed(0) + '%'
+      if (holdingDeductionRateEl) holdingDeductionRateEl.textContent = (holdingDeductionRate * 100).toFixed(0) + '%'
+      if (totalDeductionRateEl) totalDeductionRateEl.textContent = (totalDeductionRate * 100).toFixed(0) + '%'
+      if (deductionAmountEl) deductionAmountEl.textContent = formatManWon(deductionAmount)
+    }
+
+    results.classList.remove('hidden')
+  })
+</script>

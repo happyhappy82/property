@@ -1,0 +1,551 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+<Layout title="대출/상환 계산기" description="주택담보대출 상환금 계산 및 최대 대출 가능액을 계산하세요.">
+  <Header />
+  <main class="mt-8">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">대출/상환 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">주택담보대출 상환금 계산 및 최대 대출 가능액을 확인합니다.</p>
+
+    <!-- 탭 버튼 -->
+    <div class="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700">
+      <button
+        id="tab-repayment"
+        class="tab-btn px-4 py-2 font-medium text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+      >
+        상환 계산
+      </button>
+      <button
+        id="tab-max-loan"
+        class="tab-btn px-4 py-2 font-medium text-gray-600 dark:text-gray-400 border-b-2 border-transparent hover:text-gray-900 dark:hover:text-gray-200"
+      >
+        최대 대출
+      </button>
+    </div>
+
+    <!-- Tab 1: 상환 계산 -->
+    <div id="repayment-tab" class="tab-content">
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+        <form id="repayment-form" class="space-y-4">
+          <div>
+            <label for="loanAmount" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              대출금액 (원)
+            </label>
+            <input
+              type="text"
+              id="loanAmount"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="interestRate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              연이율 (%)
+            </label>
+            <input
+              type="text"
+              id="interestRate"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="loanYears" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              대출기간 (년)
+            </label>
+            <input
+              type="number"
+              id="loanYears"
+              min="1"
+              max="50"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="repaymentType" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              상환방식
+            </label>
+            <select
+              id="repaymentType"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            >
+              <option value="equal-payment">원리금균등상환</option>
+              <option value="equal-principal">원금균등상환</option>
+              <option value="bullet">만기일시상환</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+          >
+            계산하기
+          </button>
+        </form>
+      </div>
+
+      <div id="repayment-error" class="hidden mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <p class="text-sm text-red-600 dark:text-red-400"></p>
+      </div>
+
+      <div id="repayment-results" class="hidden space-y-4">
+        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+          <h2 class="text-lg font-bold text-blue-900 dark:text-blue-100 mb-4">상환 정보</h2>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700 dark:text-gray-300">월 상환금</span>
+              <span id="monthly-payment" class="text-xl font-bold text-blue-900 dark:text-blue-100"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700 dark:text-gray-300">총 상환금</span>
+              <span id="total-payment" class="text-lg font-medium text-blue-800 dark:text-blue-200"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700 dark:text-gray-300">총 이자</span>
+              <span id="total-interest" class="text-lg font-medium text-blue-800 dark:text-blue-200"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700 dark:text-gray-300">대출원금</span>
+              <span id="principal-display" class="text-lg font-medium text-blue-800 dark:text-blue-200"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">상환 조건</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">금리</span>
+              <span id="rate-display" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">대출기간</span>
+              <span id="years-display" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">상환방식</span>
+              <span id="type-display" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: 최대 대출 -->
+    <div id="max-loan-tab" class="tab-content hidden">
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+        <form id="max-loan-form" class="space-y-4">
+          <div>
+            <label for="propertyValue" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              담보 부동산 가격 (원)
+            </label>
+            <input
+              type="text"
+              id="propertyValue"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="annualIncome" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              연소득 (원)
+            </label>
+            <input
+              type="text"
+              id="annualIncome"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="existingDebt" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              기존 대출 연 상환액 (원)
+            </label>
+            <input
+              type="text"
+              id="existingDebt"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="maxLoanRate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              연이율 (%)
+            </label>
+            <input
+              type="text"
+              id="maxLoanRate"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="maxLoanYears" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              대출기간 (년)
+            </label>
+            <input
+              type="number"
+              id="maxLoanYears"
+              min="1"
+              max="50"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+              placeholder="0"
+            />
+          </div>
+
+          <div>
+            <label for="region" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              지역
+            </label>
+            <select
+              id="region"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            >
+              <option value="capital">수도권</option>
+              <option value="non-capital">비수도권</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="institution" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              금융기관
+            </label>
+            <select
+              id="institution"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
+            >
+              <option value="first-tier">제1금융권(은행)</option>
+              <option value="second-tier">제2금융권</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="flex items-center">
+              <input type="checkbox" id="firstTimeBuyer" class="mr-2 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400" />
+              <span class="text-sm text-gray-700 dark:text-gray-300">생애최초 주택 구입</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+          >
+            계산하기
+          </button>
+        </form>
+      </div>
+
+      <div id="max-loan-error" class="hidden mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <p class="text-sm text-red-600 dark:text-red-400"></p>
+      </div>
+
+      <div id="max-loan-results" class="hidden space-y-4">
+        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+          <h2 class="text-lg font-bold text-blue-900 dark:text-blue-100 mb-4">최대 대출 가능액</h2>
+          <div class="flex justify-center">
+            <span id="max-loan-amount" class="text-2xl font-bold text-blue-900 dark:text-blue-100"></span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">LTV (담보인정비율)</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">LTV 한도</span>
+              <span id="ltv-limit" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">LTV 기준 최대 대출</span>
+              <span id="ltv-max-loan" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <h3 class="text-md font-bold text-gray-900 dark:text-white mb-3">DSR (총부채원리금상환비율)</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">DSR 한도</span>
+              <span id="dsr-limit" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 dark:text-gray-400">DSR 기준 최대 대출</span>
+              <span id="dsr-max-loan" class="text-gray-900 dark:text-white font-medium"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 안내사항 -->
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 대출 조건은 금융기관에 확인하시기 바랍니다.
+        LTV는 생애최초 구입 시 최대 80%, 일반 70%까지 적용됩니다.
+        DSR은 제1금융권 40%, 제2금융권 50%가 적용되며, 스트레스 DSR(금리 +1.5%p 또는 +0.75%p)로 계산됩니다.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Helper functions
+  function formatNumber(n: number): string {
+    return n.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount: number): string {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el: HTMLInputElement | null) {
+    if (!el) return
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      this.value = raw ? parseInt(raw).toLocaleString('ko-KR') : ''
+    })
+  }
+
+  function setupDecimalInput(el: HTMLInputElement | null) {
+    if (!el) return
+    el.addEventListener('input', function() {
+      // Allow digits and one dot
+      let raw = this.value.replace(/[^0-9.]/g, '')
+      const parts = raw.split('.')
+      if (parts.length > 2) {
+        raw = parts[0] + '.' + parts.slice(1).join('')
+      }
+      this.value = raw
+    })
+  }
+
+  function getVal(id: string): number {
+    const el = document.getElementById(id) as HTMLInputElement | null
+    if (!el) return 0
+    return parseInt(el.value.replace(/,/g, '')) || 0
+  }
+
+  function getDecimal(id: string): number {
+    const el = document.getElementById(id) as HTMLInputElement | null
+    if (!el) return 0
+    return parseFloat(el.value) || 0
+  }
+
+  // Setup number inputs
+  setupNumberInput(document.getElementById('loanAmount') as HTMLInputElement)
+  setupDecimalInput(document.getElementById('interestRate') as HTMLInputElement)
+  setupNumberInput(document.getElementById('propertyValue') as HTMLInputElement)
+  setupNumberInput(document.getElementById('annualIncome') as HTMLInputElement)
+  setupNumberInput(document.getElementById('existingDebt') as HTMLInputElement)
+  setupDecimalInput(document.getElementById('maxLoanRate') as HTMLInputElement)
+
+  // Tab switching
+  const tabRepayment = document.getElementById('tab-repayment')
+  const tabMaxLoan = document.getElementById('tab-max-loan')
+  const repaymentTab = document.getElementById('repayment-tab')
+  const maxLoanTab = document.getElementById('max-loan-tab')
+
+  function switchTab(tab: 'repayment' | 'max-loan') {
+    if (tab === 'repayment') {
+      tabRepayment?.classList.add('text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400')
+      tabRepayment?.classList.remove('text-gray-600', 'dark:text-gray-400', 'border-transparent')
+      tabMaxLoan?.classList.remove('text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400')
+      tabMaxLoan?.classList.add('text-gray-600', 'dark:text-gray-400', 'border-transparent')
+      repaymentTab?.classList.remove('hidden')
+      maxLoanTab?.classList.add('hidden')
+    } else {
+      tabMaxLoan?.classList.add('text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400')
+      tabMaxLoan?.classList.remove('text-gray-600', 'dark:text-gray-400', 'border-transparent')
+      tabRepayment?.classList.remove('text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400')
+      tabRepayment?.classList.add('text-gray-600', 'dark:text-gray-400', 'border-transparent')
+      maxLoanTab?.classList.remove('hidden')
+      repaymentTab?.classList.add('hidden')
+    }
+  }
+
+  tabRepayment?.addEventListener('click', () => switchTab('repayment'))
+  tabMaxLoan?.addEventListener('click', () => switchTab('max-loan'))
+
+  // Tab 1: Repayment calculation
+  const repaymentForm = document.getElementById('repayment-form') as HTMLFormElement
+  const repaymentError = document.getElementById('repayment-error') as HTMLDivElement
+  const repaymentResults = document.getElementById('repayment-results') as HTMLDivElement
+
+  repaymentForm?.addEventListener('submit', (e) => {
+    e.preventDefault()
+    repaymentError.classList.add('hidden')
+    repaymentResults.classList.add('hidden')
+
+    const loanAmount = getVal('loanAmount')
+    const interestRate = getDecimal('interestRate')
+    const loanYears = parseInt((document.getElementById('loanYears') as HTMLInputElement)?.value || '0')
+    const repaymentType = (document.getElementById('repaymentType') as HTMLSelectElement)?.value
+
+    if (loanAmount <= 0 || interestRate <= 0 || loanYears <= 0) {
+      repaymentError.querySelector('p')!.textContent = '모든 항목을 올바르게 입력해주세요.'
+      repaymentError.classList.remove('hidden')
+      return
+    }
+
+    const monthlyRate = interestRate / 100 / 12
+    const totalMonths = loanYears * 12
+    let monthlyPayment = 0
+    let totalPayment = 0
+    let totalInterest = 0
+    let typeDisplayText = ''
+
+    if (repaymentType === 'equal-payment') {
+      // 원리금균등상환
+      if (monthlyRate === 0) {
+        monthlyPayment = loanAmount / totalMonths
+      } else {
+        monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
+      }
+      totalPayment = monthlyPayment * totalMonths
+      totalInterest = totalPayment - loanAmount
+      typeDisplayText = '원리금균등상환'
+    } else if (repaymentType === 'equal-principal') {
+      // 원금균등상환
+      const monthlyPrincipal = loanAmount / totalMonths
+      let remaining = loanAmount
+      totalPayment = 0
+      for (let i = 0; i < totalMonths; i++) {
+        const interest = remaining * monthlyRate
+        totalPayment += monthlyPrincipal + interest
+        remaining -= monthlyPrincipal
+      }
+      // First month payment (highest)
+      monthlyPayment = monthlyPrincipal + (loanAmount * monthlyRate)
+      totalInterest = totalPayment - loanAmount
+      typeDisplayText = '원금균등상환 (첫 월 상환금)'
+    } else if (repaymentType === 'bullet') {
+      // 만기일시상환
+      monthlyPayment = loanAmount * monthlyRate
+      totalInterest = monthlyPayment * totalMonths
+      totalPayment = loanAmount + totalInterest
+      typeDisplayText = '만기일시상환 (월 이자)'
+    }
+
+    // Display results
+    const monthlyPaymentEl = document.getElementById('monthly-payment')
+    const totalPaymentEl = document.getElementById('total-payment')
+    const totalInterestEl = document.getElementById('total-interest')
+    const principalDisplayEl = document.getElementById('principal-display')
+    const rateDisplayEl = document.getElementById('rate-display')
+    const yearsDisplayEl = document.getElementById('years-display')
+    const typeDisplayEl = document.getElementById('type-display')
+
+    if (monthlyPaymentEl) monthlyPaymentEl.textContent = formatManWon(monthlyPayment)
+    if (totalPaymentEl) totalPaymentEl.textContent = formatManWon(totalPayment)
+    if (totalInterestEl) totalInterestEl.textContent = formatManWon(totalInterest)
+    if (principalDisplayEl) principalDisplayEl.textContent = formatManWon(loanAmount)
+    if (rateDisplayEl) rateDisplayEl.textContent = interestRate.toFixed(2) + '%'
+    if (yearsDisplayEl) yearsDisplayEl.textContent = loanYears + '년'
+    if (typeDisplayEl) typeDisplayEl.textContent = typeDisplayText
+
+    repaymentResults.classList.remove('hidden')
+  })
+
+  // Tab 2: Max loan calculation
+  const maxLoanForm = document.getElementById('max-loan-form') as HTMLFormElement
+  const maxLoanError = document.getElementById('max-loan-error') as HTMLDivElement
+  const maxLoanResults = document.getElementById('max-loan-results') as HTMLDivElement
+
+  maxLoanForm?.addEventListener('submit', (e) => {
+    e.preventDefault()
+    maxLoanError.classList.add('hidden')
+    maxLoanResults.classList.add('hidden')
+
+    const propertyValue = getVal('propertyValue')
+    const annualIncome = getVal('annualIncome')
+    const existingDebt = getVal('existingDebt')
+    const maxLoanRate = getDecimal('maxLoanRate')
+    const maxLoanYears = parseInt((document.getElementById('maxLoanYears') as HTMLInputElement)?.value || '0')
+    const region = (document.getElementById('region') as HTMLSelectElement)?.value
+    const institution = (document.getElementById('institution') as HTMLSelectElement)?.value
+    const firstTimeBuyer = (document.getElementById('firstTimeBuyer') as HTMLInputElement)?.checked || false
+
+    if (propertyValue <= 0 || annualIncome <= 0 || maxLoanRate <= 0 || maxLoanYears <= 0) {
+      maxLoanError.querySelector('p')!.textContent = '모든 필수 항목을 올바르게 입력해주세요.'
+      maxLoanError.classList.remove('hidden')
+      return
+    }
+
+    // LTV calculation
+    const ltvLimit = firstTimeBuyer ? 0.80 : 0.70
+    const maxLoanByLtv = propertyValue * ltvLimit
+
+    // DSR calculation
+    const dsrLimit = institution === 'first-tier' ? 0.40 : 0.50
+
+    // Stress DSR: add 1.5%p for capital, 0.75%p for non-capital
+    const stressRate = region === 'capital' ? maxLoanRate + 1.5 : maxLoanRate + 0.75
+    const monthlyRate = stressRate / 100 / 12
+    const totalMonths = maxLoanYears * 12
+
+    // Calculate max loan by DSR
+    // DSR = (new loan payment + existing debt) / annual income
+    // new loan payment = P * (r(1+r)^n) / ((1+r)^n - 1) * 12
+    // DSR limit * annual income = new loan payment + existing debt
+    // max new loan payment = DSR limit * annual income - existing debt
+
+    const maxAnnualPayment = annualIncome * dsrLimit - existingDebt
+    const maxMonthlyPayment = maxAnnualPayment / 12
+
+    let maxLoanByDsr = 0
+    if (monthlyRate === 0) {
+      maxLoanByDsr = maxMonthlyPayment * totalMonths
+    } else {
+      // P = M * ((1+r)^n - 1) / (r(1+r)^n)
+      maxLoanByDsr = maxMonthlyPayment * (Math.pow(1 + monthlyRate, totalMonths) - 1) / (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))
+    }
+
+    const maxLoan = Math.min(maxLoanByLtv, maxLoanByDsr)
+
+    // Display results
+    const maxLoanAmountEl = document.getElementById('max-loan-amount')
+    const ltvLimitEl = document.getElementById('ltv-limit')
+    const ltvMaxLoanEl = document.getElementById('ltv-max-loan')
+    const dsrLimitEl = document.getElementById('dsr-limit')
+    const dsrMaxLoanEl = document.getElementById('dsr-max-loan')
+
+    if (maxLoanAmountEl) maxLoanAmountEl.textContent = formatManWon(maxLoan)
+    if (ltvLimitEl) ltvLimitEl.textContent = (ltvLimit * 100).toFixed(0) + '%'
+    if (ltvMaxLoanEl) ltvMaxLoanEl.textContent = formatManWon(maxLoanByLtv)
+    if (dsrLimitEl) dsrLimitEl.textContent = (dsrLimit * 100).toFixed(0) + '%'
+    if (dsrMaxLoanEl) dsrMaxLoanEl.textContent = formatManWon(maxLoanByDsr)
+
+    maxLoanResults.classList.remove('hidden')
+  })
+</script>

@@ -1,0 +1,235 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+
+<Layout title="투자 수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 투자 수익률을 종합적으로 계산하세요. ROI, 연환산 수익률, 캡레이트, 레버리지 배율까지 한번에 확인할 수 있습니다.">
+  <Header />
+  <main class="mt-8">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">투자 수익률 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 투자의 종합적인 수익률을 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium mb-1 dark:text-gray-200">매입가</label>
+            <div class="relative">
+              <input type="text" id="purchasePrice" placeholder="500,000,000"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1 dark:text-gray-200">현재 시세</label>
+            <div class="relative">
+              <input type="text" id="currentPrice" placeholder="600,000,000"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">총 투자금 (자기자본)</label>
+          <div class="relative">
+            <input type="text" id="equity" placeholder="200,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium mb-1 dark:text-gray-200">연 임대수익</label>
+            <div class="relative">
+              <input type="text" id="annualIncome" placeholder="24,000,000"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1 dark:text-gray-200">연 비용</label>
+            <div class="relative">
+              <input type="text" id="annualExpense" placeholder="2,000,000"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">보유기간</label>
+          <div class="relative">
+            <input type="number" id="holdingYears" placeholder="5" value="5" min="1" max="100"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">년</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출금</label>
+            <div class="relative">
+              <input type="text" id="loanAmount" placeholder="300,000,000"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출 금리</label>
+            <div class="relative">
+              <input type="text" id="loanRate" placeholder="3.5"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+            </div>
+          </div>
+        </div>
+
+        <button id="calcBtn" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">투자 수익 요약</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">ROI (총 수익률)</span><span class="font-bold text-blue-700 dark:text-blue-300" id="roi"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연환산 수익률</span><span class="font-medium dark:text-gray-200" id="annualizedReturn"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 순수익</span><span class="font-medium dark:text-gray-200" id="totalProfit"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">시세차익</span><span class="dark:text-gray-200" id="capitalGain"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">순 임대수익 (연)</span><span class="dark:text-gray-200" id="netRentalIncome"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 임대수익</span><span class="dark:text-gray-200" id="totalRentalIncome"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 대출이자</span><span class="dark:text-gray-200" id="totalInterest"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">투자 지표</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">캡레이트</span><span class="dark:text-gray-200" id="capRate"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">레버리지 배율</span><span class="dark:text-gray-200" id="leverage"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 투자 수익은 세금, 거래 비용 등을 고려하여 달라질 수 있습니다.<br>
+        ※ 대출이자는 매년 동일하게 발생하는 것으로 가정합니다 (원금균등상환이나 만기일시상환 고려 안함).
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function setupPercentInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9.]/g, '')
+      this.value = raw
+    })
+  }
+
+  // Setup inputs
+  setupNumberInput(document.getElementById('purchasePrice'))
+  setupNumberInput(document.getElementById('currentPrice'))
+  setupNumberInput(document.getElementById('equity'))
+  setupNumberInput(document.getElementById('annualIncome'))
+  setupNumberInput(document.getElementById('annualExpense'))
+  setupNumberInput(document.getElementById('loanAmount'))
+  setupPercentInput(document.getElementById('loanRate'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const purchasePrice = parseInt(document.getElementById('purchasePrice').value.replace(/,/g, '')) || 0
+    const currentPrice = parseInt(document.getElementById('currentPrice').value.replace(/,/g, '')) || 0
+    const equity = parseInt(document.getElementById('equity').value.replace(/,/g, '')) || 0
+    const annualIncome = parseInt(document.getElementById('annualIncome').value.replace(/,/g, '')) || 0
+    const annualExpense = parseInt(document.getElementById('annualExpense').value.replace(/,/g, '')) || 0
+    const holdingYears = parseInt(document.getElementById('holdingYears').value) || 1
+    const loanAmount = parseInt(document.getElementById('loanAmount').value.replace(/,/g, '')) || 0
+    const loanRate = parseFloat(document.getElementById('loanRate').value) || 0
+
+    if (purchasePrice <= 0) {
+      document.getElementById('errorText').textContent = '매입가를 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+    if (currentPrice <= 0) {
+      document.getElementById('errorText').textContent = '현재 시세를 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+    if (equity <= 0) {
+      document.getElementById('errorText').textContent = '총 투자금을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    // Calculations
+    const capitalGain = currentPrice - purchasePrice
+    const netRentalIncomePerYear = annualIncome - annualExpense
+    const totalRentalIncome = netRentalIncomePerYear * holdingYears
+    const annualInterest = loanAmount * (loanRate / 100)
+    const totalInterest = annualInterest * holdingYears
+    const totalProfit = capitalGain + totalRentalIncome - totalInterest
+    const roi = (totalProfit / equity) * 100
+    const annualizedReturn = roi / holdingYears
+    const capRate = purchasePrice > 0 ? (netRentalIncomePerYear / purchasePrice) * 100 : 0
+    const leverage = equity > 0 ? purchasePrice / equity : 0
+
+    // Display results
+    document.getElementById('roi').textContent = (Math.round(roi * 100) / 100) + '%'
+    document.getElementById('annualizedReturn').textContent = (Math.round(annualizedReturn * 100) / 100) + '%'
+    document.getElementById('totalProfit').textContent = formatManWon(totalProfit)
+    document.getElementById('capitalGain').textContent = formatManWon(capitalGain)
+    document.getElementById('netRentalIncome').textContent = formatManWon(netRentalIncomePerYear)
+    document.getElementById('totalRentalIncome').textContent = formatManWon(totalRentalIncome)
+    document.getElementById('totalInterest').textContent = formatManWon(totalInterest)
+    document.getElementById('capRate').textContent = (Math.round(capRate * 100) / 100) + '%'
+    document.getElementById('leverage').textContent = (Math.round(leverage * 100) / 100) + '배'
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

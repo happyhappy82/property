@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+
+const calculators = [
+  { title: '월세/전세 변환', description: '전세보증금과 월세 간 변환 계산', href: '/calculators/rent-convert', icon: '🔄' },
+  { title: '취득세 계산기', description: '부동산 매매 시 취득세 계산', href: '/calculators/acquisition-tax', icon: '🏠' },
+  { title: '양도소득세 계산기', description: '부동산 양도 시 양도소득세 계산', href: '/calculators/transfer-tax', icon: '💰' },
+  { title: '재산세 계산기', description: '보유 부동산의 재산세 계산', href: '/calculators/property-tax', icon: '📋' },
+  { title: '종합부동산세 계산기', description: '고가 주택 종합부동산세 계산', href: '/calculators/comprehensive-tax', icon: '🏢' },
+  { title: '대출/상환 계산기', description: '대출 상환금 및 최대 대출 가능액 계산', href: '/calculators/loan', icon: '🏦' },
+  { title: '투자 수익률 계산기', description: '부동산 투자 ROI 및 수익 분석', href: '/calculators/investment-return', icon: '📈' },
+]
+---
+
+<Layout title="부동산 계산기 - 부동산 트렌드 리뷰" description="부동산 취득세, 양도소득세, 재산세, 종합부동산세, 대출 상환, 투자 수익률 등 7종의 부동산 계산기를 무료로 이용하세요.">
+  <Header />
+  <main class="mt-8">
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">세금, 대출, 투자 수익률까지 한 곳에서 계산하세요.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {calculators.map((calc) => (
+        <a href={calc.href} class="block p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div class="text-2xl mb-2">{calc.icon}</div>
+          <h2 class="font-bold text-lg mb-1 dark:text-white">{calc.title}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">{calc.description}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세금 및 대출 조건은 관할 세무서 또는 금융기관에 확인하시기 바랍니다.
+        세법 개정에 따라 세율이 변경될 수 있습니다.
+      </p>
+    </div>
+  </main>
+</Layout>
