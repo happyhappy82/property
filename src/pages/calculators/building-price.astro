@@ -1,0 +1,200 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="건물기준시가 계산기 - 부동산 트렌드 리뷰" description="국세청 기준에 따라 건물 기준시가를 계산합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">건물기준시가 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">국세청 기준에 따라 건물 기준시가를 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">건물면적</label>
+          <div class="relative">
+            <input type="text" id="area" placeholder="100.00"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">㎡</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">건물신축가격기준액</label>
+          <div class="relative">
+            <input type="text" id="constructionPrice" placeholder="1,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-16" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원/㎡</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">구조지수</label>
+          <input type="number" id="structureIndex" placeholder="1.0" step="0.01" min="0"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">용도지수</label>
+          <input type="number" id="useIndex" placeholder="1.0" step="0.01" min="0"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">위치지수</label>
+          <input type="number" id="locationIndex" placeholder="1.0" step="0.01" min="0"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">경과연수별잔가율</label>
+          <div class="relative">
+            <input type="number" id="ageRate" placeholder="80" min="0" max="100"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">건물 기준시가</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">기준시가</span><span class="font-bold text-blue-700 dark:text-blue-300" id="standardPrice"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">㎡당 금액</span><span class="dark:text-gray-200" id="pricePerSqm"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">평당 금액</span><span class="dark:text-gray-200" id="pricePerPyeong"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">국세청의 「국세청 건물 기준시가 계산방법 고시」에 따라 소득세법상의 세금 계산 시 사용되는 건물 기준시가를 계산합니다.</p>
+      <ul class="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-400">
+        <li>기준시가 = 평가대상 건물의 면적(㎡) × ㎡당 금액</li>
+        <li>㎡당 금액 = 건물신축가격기준액 × 구조지수 × 용도지수 × 위치지수 × 경과연수별잔가율</li>
+      </ul>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 기준시가는 국세청에 확인하시기 바랍니다.<br>
+        ※ 건물신축가격기준액은 국세청 고시를 참고하세요.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  const SQM_TO_PYEONG = 0.3025
+
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function calculateBuildingPrice(area, constructionPrice, structureIndex, useIndex, locationIndex, ageRate) {
+    const pricePerSqm = Math.round(constructionPrice * structureIndex * useIndex * locationIndex * (ageRate / 100))
+    const standardPrice = Math.round(area * pricePerSqm)
+    const pricePerPyeong = Math.round(pricePerSqm / SQM_TO_PYEONG)
+
+    return { standardPrice, pricePerSqm, pricePerPyeong }
+  }
+
+  setupNumberInput(document.getElementById('constructionPrice'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const area = parseFloat(document.getElementById('area').value) || 0
+    const constructionPrice = parseInt(document.getElementById('constructionPrice').value.replace(/,/g, '')) || 0
+    const structureIndex = parseFloat(document.getElementById('structureIndex').value) || 0
+    const useIndex = parseFloat(document.getElementById('useIndex').value) || 0
+    const locationIndex = parseFloat(document.getElementById('locationIndex').value) || 0
+    const ageRate = parseFloat(document.getElementById('ageRate').value) || 0
+
+    if (area <= 0) {
+      document.getElementById('errorText').textContent = '건물면적을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (constructionPrice <= 0) {
+      document.getElementById('errorText').textContent = '건물신축가격기준액을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (structureIndex <= 0) {
+      document.getElementById('errorText').textContent = '구조지수를 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (useIndex <= 0) {
+      document.getElementById('errorText').textContent = '용도지수를 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (locationIndex <= 0) {
+      document.getElementById('errorText').textContent = '위치지수를 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (ageRate < 0 || ageRate > 100) {
+      document.getElementById('errorText').textContent = '경과연수별잔가율은 0~100 사이의 값을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateBuildingPrice(area, constructionPrice, structureIndex, useIndex, locationIndex, ageRate)
+
+    document.getElementById('standardPrice').textContent = formatManWon(result.standardPrice)
+    document.getElementById('pricePerSqm').textContent = formatManWon(result.pricePerSqm)
+    document.getElementById('pricePerPyeong').textContent = formatManWon(result.pricePerPyeong)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

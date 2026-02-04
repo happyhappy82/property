@@ -1,0 +1,193 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="간주임대료 계산기 - 부동산 트렌드 리뷰" description="보증금에 대한 간주임대료를 계산합니다. 주거용과 상업용 부동산에 따라 다른 기준을 적용합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">간주임대료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">보증금에 대한 간주임대료를 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">보증금</label>
+          <div class="relative">
+            <input type="text" id="deposit" placeholder="500,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">임대기간</label>
+          <div class="relative">
+            <input type="text" id="rentalDays" placeholder="365" value="365"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">일</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">부동산 유형</label>
+          <select id="propertyType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            <option value="residential">주거용 (3억 초과분만 과세)</option>
+            <option value="commercial">상업용 (전액 과세)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">기준이자율</label>
+          <div class="relative">
+            <input type="text" id="interestRate" placeholder="3.1" value="3.1"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">간주임대료</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">간주임대료</span><span class="font-bold text-blue-700 dark:text-blue-300" id="deemedRental"></span></div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">과세 대상 보증금</span><span class="dark:text-gray-200" id="taxableDeposit"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">적용 이자율</span><span class="dark:text-gray-200" id="appliedRate"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">임대 기간</span><span class="dark:text-gray-200" id="rentalPeriod"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        부동산을 임대하고 보증금·전세금 등을 받은 경우 이에 대해 일정 이자율을 곱하여 임대수입이 있는 것으로 계산해야 합니다. 이 수입은 소득세 계산시 포함시켜야 합니다.
+      </p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 list-disc list-inside space-y-1">
+        <li>주택의 경우 보증금이 3억원 이상인 경우에만 해당됩니다. 상가의 경우 금액에 무관하게 모두 포함됩니다.</li>
+        <li>주택을 3채 이상 보유(부부 합산)하고 보증금 등의 합계액이 3억원을 초과하는 경우, 보증금 등에 대한 간주임대료를 임대사업의 총수입에 포함시켜야 합니다.</li>
+        <li>간주임대료 = (보증금 등 - 3억원) × 60% × 대상기간일수 / 365(윤년 366) × 3.5%(정기예금이자율)</li>
+        <li>2026년 간주임대료율은 3.1%입니다.</li>
+      </ul>
+      <div class="text-xs text-gray-500 dark:text-gray-500 mt-2">
+        <p>※ 보증금 등을 받은 주택이 2주택 이상인 경우 보증금의 적수가 가장 큰 주택 순서대로 3억원을 차감합니다.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세금 신고는 세무사와 상담하시기 바랍니다.<br>
+        ※ 간주임대료율은 매년 변경될 수 있습니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function setupPercentInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9.]/g, '')
+      this.value = raw
+    })
+  }
+
+  function roundToWon(amount) {
+    return Math.round(amount)
+  }
+
+  setupNumberInput(document.getElementById('deposit'))
+  setupNumberInput(document.getElementById('rentalDays'))
+  setupPercentInput(document.getElementById('interestRate'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const deposit = parseInt(document.getElementById('deposit').value.replace(/,/g, '')) || 0
+    const rentalDays = parseInt(document.getElementById('rentalDays').value.replace(/,/g, '')) || 0
+    const interestRate = parseFloat(document.getElementById('interestRate').value) || 0
+    const propertyType = document.getElementById('propertyType').value
+
+    if (deposit <= 0) {
+      document.getElementById('errorText').textContent = '보증금은 0보다 커야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+    if (rentalDays <= 0) {
+      document.getElementById('errorText').textContent = '임대기간은 0보다 커야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+    if (interestRate <= 0) {
+      document.getElementById('errorText').textContent = '이자율은 0보다 커야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    let deemedRental = 0
+    let taxableDeposit = 0
+
+    if (propertyType === 'residential') {
+      // 주거용: 3억 초과분만 과세, 60% 적용
+      if (deposit >= 300000000) {
+        taxableDeposit = deposit - 300000000
+        deemedRental = roundToWon((taxableDeposit * 0.6 * (interestRate / 100) * rentalDays) / 365)
+      }
+    } else {
+      // 상업용: 전액 과세
+      taxableDeposit = deposit
+      deemedRental = roundToWon((deposit * (interestRate / 100) * rentalDays) / 365)
+    }
+
+    document.getElementById('deemedRental').textContent = formatManWon(deemedRental)
+    document.getElementById('taxableDeposit').textContent = formatManWon(taxableDeposit)
+    document.getElementById('appliedRate').textContent = interestRate + '%'
+    document.getElementById('rentalPeriod').textContent = formatNumber(rentalDays) + '일'
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

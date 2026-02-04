@@ -1,10 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header.astro'
+import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
-<Layout title="종합부동산세 계산기" description="고가 주택 보유 시 종합부동산세를 계산하고 절세 방법을 확인하세요.">
-  <Header />
-  <main class="mt-8">
+<CalcLayout title="종합부동산세 계산기" description="고가 주택 보유 시 종합부동산세를 계산하고 절세 방법을 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
@@ -168,8 +165,7 @@ import Header from '../../components/Header.astro'
         고령자 공제(60세 이상)와 장기보유 공제(5년 이상)는 1세대 1주택자에게만 적용되며, 합산 공제율은 최대 80%입니다.
       </p>
     </div>
-  </main>
-</Layout>
+</CalcLayout>
 
 <script>
   // Helper functions

@@ -1,11 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header.astro'
+import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<Layout title="취득세 계산기 - 부동산 트렌드 리뷰" description="부동산 취득세를 간편하게 계산하세요. 주택 수, 조정지역 여부, 생애최초 구입 감면까지 반영합니다.">
-  <Header />
-  <main class="mt-8">
+<CalcLayout title="취득세 계산기 - 부동산 트렌드 리뷰" description="부동산 취득세를 간편하게 계산하세요. 주택 수, 조정지역 여부, 생애최초 구입 감면까지 반영합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
@@ -77,8 +74,7 @@ import Header from '../../components/Header.astro'
         ※ 본 계산기는 참고용이며, 실제 세금은 관할 세무서에 확인하시기 바랍니다.
       </p>
     </div>
-  </main>
-</Layout>
+</CalcLayout>
 
 <script>
   function formatNumber(num) {

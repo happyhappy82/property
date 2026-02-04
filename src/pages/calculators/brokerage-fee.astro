@@ -1,0 +1,291 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="중개수수료 계산기 - 부동산 트렌드 리뷰" description="부동산 중개수수료(복비)를 간편하게 계산하세요. 매매·전세·월세 거래유형별 요율 자동 적용.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">중개수수료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 거래 시 중개보수(복비)를 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">거래 유형</label>
+          <select id="transactionType" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="sale">매매</option>
+            <option value="lease">전세</option>
+            <option value="monthly">월세</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">부동산 유형</label>
+          <select id="propertyType" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="housing">주택</option>
+            <option value="officetel">오피스텔</option>
+            <option value="commercial">토지/상가 등</option>
+          </select>
+        </div>
+
+        <div id="transactionAmountField">
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">거래금액</label>
+          <div class="relative">
+            <input type="text" id="transactionAmount" placeholder="500,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div id="depositField" class="hidden">
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">보증금</label>
+          <div class="relative">
+            <input type="text" id="deposit" placeholder="50,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div id="monthlyRentField" class="hidden">
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">월세</label>
+          <div class="relative">
+            <input type="text" id="monthlyRent" placeholder="1,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="includeVAT" class="rounded" />
+          <label for="includeVAT" class="text-sm dark:text-gray-200 cursor-pointer">부가세 10% 포함</label>
+        </div>
+
+        <button id="calcBtn" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">중개수수료</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">중개보수</span><span class="font-bold text-blue-700 dark:text-blue-300" id="totalFee"></span></div>
+          <div id="vatRow" class="hidden flex justify-between"><span class="text-sm dark:text-gray-300">부가세 포함 시</span><span class="font-medium dark:text-gray-200" id="totalWithVAT"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">계산 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">거래금액</span><span class="dark:text-gray-200" id="amountDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">적용 요율</span><span class="dark:text-gray-200" id="feeRate"></span></div>
+          <div id="maxRateRow" class="hidden flex justify-between"><span class="text-sm dark:text-gray-300">상한 요율</span><span class="dark:text-gray-200" id="maxRate"></span></div>
+          <div id="maxFeeRow" class="hidden flex justify-between"><span class="text-sm dark:text-gray-300">상한 금액</span><span class="dark:text-gray-200" id="maxFee"></span></div>
+          <div id="vatAmountRow" class="hidden flex justify-between"><span class="text-sm dark:text-gray-300">부가세</span><span class="dark:text-gray-200" id="vatAmount"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 중개수수료는 공인중개사와 협의하시기 바랍니다.<br>
+        ※ 주택 매매·전세 요율은 법정 상한요율 기준입니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function getVal(id) {
+    return parseInt(document.getElementById(id).value.replace(/,/g, '')) || 0
+  }
+
+  // Rate tables
+  const HOUSING_SALE = [
+    { min: 0, max: 50000000, rate: 0.006, maxFee: 250000 },
+    { min: 50000000, max: 200000000, rate: 0.005, maxFee: 800000 },
+    { min: 200000000, max: 900000000, rate: 0.004, maxFee: null },
+    { min: 900000000, max: 1200000000, rate: 0.005, maxFee: null },
+    { min: 1200000000, max: 1500000000, rate: 0.006, maxFee: null },
+    { min: 1500000000, max: Infinity, rate: 0.007, maxFee: null }
+  ]
+
+  const HOUSING_LEASE = [
+    { min: 0, max: 50000000, rate: 0.005, maxFee: 200000 },
+    { min: 50000000, max: 100000000, rate: 0.004, maxFee: 300000 },
+    { min: 100000000, max: 600000000, rate: 0.003, maxFee: null },
+    { min: 600000000, max: 1200000000, rate: 0.004, maxFee: null },
+    { min: 1200000000, max: 1500000000, rate: 0.005, maxFee: null },
+    { min: 1500000000, max: Infinity, rate: 0.006, maxFee: null }
+  ]
+
+  const OFFICETEL_SALE_RATE = 0.005
+  const OFFICETEL_LEASE_RATE = 0.004
+  const COMMERCIAL_RATE = 0.009
+
+  function getBracket(amount, brackets) {
+    for (const bracket of brackets) {
+      if (amount >= bracket.min && amount < bracket.max) {
+        return bracket
+      }
+    }
+    return brackets[brackets.length - 1]
+  }
+
+  function calculateFee(amount, transactionType, propertyType) {
+    let bracket
+    let rate
+    let maxFee = null
+
+    if (propertyType === 'housing') {
+      if (transactionType === 'sale') {
+        bracket = getBracket(amount, HOUSING_SALE)
+      } else {
+        bracket = getBracket(amount, HOUSING_LEASE)
+      }
+      rate = bracket.rate
+      maxFee = bracket.maxFee
+    } else if (propertyType === 'officetel') {
+      rate = transactionType === 'sale' ? OFFICETEL_SALE_RATE : OFFICETEL_LEASE_RATE
+    } else {
+      rate = COMMERCIAL_RATE
+    }
+
+    let fee = Math.round(amount * rate)
+    if (maxFee !== null && fee > maxFee) {
+      fee = maxFee
+    }
+
+    return { fee, rate, maxFee }
+  }
+
+  // Setup inputs
+  setupNumberInput(document.getElementById('transactionAmount'))
+  setupNumberInput(document.getElementById('deposit'))
+  setupNumberInput(document.getElementById('monthlyRent'))
+
+  // Transaction type change handler
+  document.getElementById('transactionType').addEventListener('change', function() {
+    const transactionAmountField = document.getElementById('transactionAmountField')
+    const depositField = document.getElementById('depositField')
+    const monthlyRentField = document.getElementById('monthlyRentField')
+
+    if (this.value === 'monthly') {
+      transactionAmountField.classList.add('hidden')
+      depositField.classList.remove('hidden')
+      monthlyRentField.classList.remove('hidden')
+    } else {
+      transactionAmountField.classList.remove('hidden')
+      depositField.classList.add('hidden')
+      monthlyRentField.classList.add('hidden')
+    }
+
+    document.getElementById('results').classList.add('hidden')
+    document.getElementById('error').classList.add('hidden')
+  })
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const transactionType = document.getElementById('transactionType').value
+    const propertyType = document.getElementById('propertyType').value
+    const includeVAT = document.getElementById('includeVAT').checked
+
+    let amount = 0
+
+    if (transactionType === 'monthly') {
+      const deposit = getVal('deposit')
+      const monthlyRent = getVal('monthlyRent')
+
+      if (deposit <= 0 && monthlyRent <= 0) {
+        document.getElementById('errorText').textContent = '보증금 또는 월세를 입력해주세요.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      // Calculate conversion amount
+      const baseAmount = deposit + (monthlyRent * 100)
+      if (baseAmount < 50000000) {
+        amount = deposit + (monthlyRent * 70)
+      } else {
+        amount = baseAmount
+      }
+    } else {
+      amount = getVal('transactionAmount')
+
+      if (amount <= 0) {
+        document.getElementById('errorText').textContent = '거래금액을 입력해주세요.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+    }
+
+    const { fee, rate, maxFee } = calculateFee(amount, transactionType === 'monthly' ? 'lease' : transactionType, propertyType)
+    const vatAmount = Math.round(fee * 0.1)
+    const totalWithVAT = fee + vatAmount
+
+    // Display results
+    document.getElementById('totalFee').textContent = formatManWon(fee)
+    document.getElementById('amountDisplay').textContent = formatManWon(amount)
+    document.getElementById('feeRate').textContent = (Math.round(rate * 10000) / 100) + '%'
+
+    // VAT row
+    const vatRow = document.getElementById('vatRow')
+    const vatAmountRow = document.getElementById('vatAmountRow')
+    if (includeVAT) {
+      document.getElementById('totalWithVAT').textContent = formatManWon(totalWithVAT)
+      document.getElementById('vatAmount').textContent = formatManWon(vatAmount)
+      vatRow.classList.remove('hidden')
+      vatAmountRow.classList.remove('hidden')
+    } else {
+      vatRow.classList.add('hidden')
+      vatAmountRow.classList.add('hidden')
+    }
+
+    // Max fee rows
+    const maxRateRow = document.getElementById('maxRateRow')
+    const maxFeeRow = document.getElementById('maxFeeRow')
+    if (maxFee !== null) {
+      document.getElementById('maxRate').textContent = (Math.round(rate * 10000) / 100) + '%'
+      document.getElementById('maxFee').textContent = formatManWon(maxFee)
+      maxRateRow.classList.remove('hidden')
+      maxFeeRow.classList.remove('hidden')
+    } else {
+      maxRateRow.classList.add('hidden')
+      maxFeeRow.classList.add('hidden')
+    }
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

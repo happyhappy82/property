@@ -1,0 +1,444 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout
+  title="상속세 계산기 - 부동산 트렌드 리뷰"
+  description="상속세를 간편하게 계산하세요. 배우자 공제, 일괄공제, 금융재산 공제 등 주요 공제 항목을 반영합니다."
+>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 py-12 px-4 transition-colors">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-3">
+          상속세 계산기
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          상속 재산에 대한 상속세를 계산합니다.
+        </p>
+      </div>
+
+      <!-- Calculator Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-6 transition-colors">
+        <form id="calcForm" class="space-y-6">
+          <!-- 상속재산 총액 -->
+          <div>
+            <label for="totalAsset" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              상속재산 총액
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="totalAsset"
+                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                placeholder="1,000,000,000"
+                required
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- 채무 -->
+          <div>
+            <label for="debts" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              채무
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="debts"
+                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- 장례비용 -->
+          <div>
+            <label for="funeralCost" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              장례비용 <span class="text-sm font-normal text-gray-500">(최대 1,500만원)</span>
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="funeralCost"
+                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- 배우자 유무 -->
+          <div>
+            <label for="hasSpouse" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              배우자 유무
+            </label>
+            <select
+              id="hasSpouse"
+              class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+            >
+              <option value="no">없음</option>
+              <option value="yes">있음</option>
+            </select>
+          </div>
+
+          <!-- 배우자 법정상속분 -->
+          <div id="spouseShareDiv" style="display: none;">
+            <label for="spouseSharePct" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              배우자 법정상속분 <span class="text-sm font-normal text-gray-500">(통상 50%)</span>
+            </label>
+            <div class="relative">
+              <input
+                type="number"
+                id="spouseSharePct"
+                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                placeholder="50"
+                min="0"
+                max="100"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">%</span>
+            </div>
+          </div>
+
+          <!-- 금융재산 -->
+          <div>
+            <label for="financialAssets" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              금융재산
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="financialAssets"
+                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- 동거주택 상속 -->
+          <div>
+            <label class="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="checkbox"
+                id="coResidence"
+                class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+              />
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                10년 이상 동거한 주택 상속
+              </span>
+            </label>
+          </div>
+
+          <!-- 동거주택 가액 -->
+          <div id="coResidenceValueDiv" style="display: none;">
+            <label for="coResidenceValue" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+              동거주택 가액 <span class="text-sm font-normal text-gray-500">(최대 6억원 공제)</span>
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="coResidenceValue"
+                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <button
+            type="submit"
+            id="calcBtn"
+            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+          >
+            계산하기
+          </button>
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="space-y-6" style="display: none;">
+        <!-- Summary -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white">
+          <h2 class="text-2xl font-bold mb-6">상속세 합계</h2>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center pb-4 border-b border-blue-400">
+              <span class="text-lg">총 납부세액</span>
+              <span id="totalTax" class="text-3xl font-bold">0원</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg">실효세율</span>
+              <span id="effectiveRate" class="text-2xl font-bold">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 공제 내역 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 transition-colors">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">공제 내역</h2>
+          <div class="space-y-3 text-gray-700 dark:text-gray-300">
+            <div class="flex justify-between py-2">
+              <span>상속재산 총액</span>
+              <span id="totalAssetDisplay" class="font-semibold">0원</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span>(-)채무·장례비</span>
+              <span id="debtsFuneralDisplay" class="font-semibold text-red-600 dark:text-red-400">0원</span>
+            </div>
+            <div class="flex justify-between py-2 border-t-2 border-gray-200 dark:border-gray-600 pt-3">
+              <span class="font-semibold">상속세 과세가액</span>
+              <span id="taxableInheritance" class="font-bold">0원</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span>(-)일괄공제</span>
+              <span id="lumpSumDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
+            </div>
+            <div id="spouseDeductionDiv" class="flex justify-between py-2" style="display: none;">
+              <span>(-)배우자 공제</span>
+              <span id="spouseDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
+            </div>
+            <div id="financialDeductionDiv" class="flex justify-between py-2" style="display: none;">
+              <span>(-)금융재산 공제</span>
+              <span id="financialDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
+            </div>
+            <div id="coResidenceDeductionDiv" class="flex justify-between py-2" style="display: none;">
+              <span>(-)동거주택 공제</span>
+              <span id="coResidenceDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
+            </div>
+            <div class="flex justify-between py-2 border-t-2 border-gray-200 dark:border-gray-600 pt-3">
+              <span class="font-semibold">과세표준</span>
+              <span id="taxBase" class="font-bold text-lg">0원</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 세액 계산 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 transition-colors">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">세액 계산</h2>
+          <div class="space-y-3 text-gray-700 dark:text-gray-300">
+            <div class="flex justify-between py-2">
+              <span>적용세율</span>
+              <span id="taxRateDisplay" class="font-semibold">0%</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span>산출세액</span>
+              <span id="calculatedTax" class="font-semibold">0원</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span>(-)신고세액공제 3%</span>
+              <span id="filingCredit" class="font-semibold text-green-600 dark:text-green-400">0원</span>
+            </div>
+            <div class="flex justify-between py-2 border-t-2 border-gray-200 dark:border-gray-600 pt-3">
+              <span class="font-semibold">납부할 세액</span>
+              <span id="finalTax" class="font-bold text-lg text-blue-600 dark:text-blue-400">0원</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded">
+          <p class="text-sm text-yellow-800 dark:text-yellow-200">
+            <strong>안내:</strong> 이 계산기는 참고용이며, 실제 세액은 개인의 상황에 따라 달라질 수 있습니다.
+            정확한 세액 산정을 위해서는 전문가와 상담하시기 바랍니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</CalcLayout>
+
+<script>
+  // Utility functions
+  function formatNumber(num: number): string {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(num: number): string {
+    const man = Math.floor(num / 10000)
+    return man > 0 ? `${formatNumber(man)}만원` : '0원'
+  }
+
+  function setupNumberInput(id: string) {
+    const el = document.getElementById(id) as HTMLInputElement
+    if (!el) return
+
+    el.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement
+      const value = target.value.replace(/[^0-9]/g, '')
+      const num = parseInt(value) || 0
+      target.value = num > 0 ? formatNumber(num) : ''
+    })
+  }
+
+  function getVal(id: string): number {
+    const el = document.getElementById(id) as HTMLInputElement
+    if (!el) return 0
+    const value = el.value.replace(/[^0-9]/g, '')
+    return parseInt(value) || 0
+  }
+
+  // Tax brackets
+  const taxBrackets = [
+    { min: 0, max: 100000000, rate: 0.10, deduction: 0 },
+    { min: 100000000, max: 500000000, rate: 0.20, deduction: 10000000 },
+    { min: 500000000, max: 1000000000, rate: 0.30, deduction: 60000000 },
+    { min: 1000000000, max: 3000000000, rate: 0.40, deduction: 160000000 },
+    { min: 3000000000, max: Infinity, rate: 0.50, deduction: 460000000 }
+  ]
+
+  function calculateTax(taxBase: number): { tax: number; rate: number } {
+    if (taxBase <= 0) return { tax: 0, rate: 0 }
+
+    for (const bracket of taxBrackets) {
+      if (taxBase >= bracket.min && taxBase <= bracket.max) {
+        const tax = taxBase * bracket.rate - bracket.deduction
+        return { tax, rate: bracket.rate }
+      }
+    }
+
+    return { tax: 0, rate: 0 }
+  }
+
+  // Show/hide spouse share input
+  const hasSpouseSelect = document.getElementById('hasSpouse') as HTMLSelectElement
+  const spouseShareDiv = document.getElementById('spouseShareDiv') as HTMLDivElement
+
+  hasSpouseSelect?.addEventListener('change', () => {
+    if (hasSpouseSelect.value === 'yes') {
+      spouseShareDiv.style.display = 'block'
+    } else {
+      spouseShareDiv.style.display = 'none'
+    }
+  })
+
+  // Show/hide co-residence value input
+  const coResidenceCheck = document.getElementById('coResidence') as HTMLInputElement
+  const coResidenceValueDiv = document.getElementById('coResidenceValueDiv') as HTMLDivElement
+
+  coResidenceCheck?.addEventListener('change', () => {
+    if (coResidenceCheck.checked) {
+      coResidenceValueDiv.style.display = 'block'
+    } else {
+      coResidenceValueDiv.style.display = 'none'
+    }
+  })
+
+  // Setup number inputs
+  setupNumberInput('totalAsset')
+  setupNumberInput('debts')
+  setupNumberInput('funeralCost')
+  setupNumberInput('financialAssets')
+  setupNumberInput('coResidenceValue')
+
+  // Calculate
+  const form = document.getElementById('calcForm') as HTMLFormElement
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    // Get input values
+    const totalAsset = getVal('totalAsset')
+    const debts = getVal('debts')
+    const funeralCost = Math.min(getVal('funeralCost'), 15000000) // Max 15M
+    const hasSpouse = (document.getElementById('hasSpouse') as HTMLSelectElement).value === 'yes'
+    const spouseSharePct = hasSpouse ? parseFloat((document.getElementById('spouseSharePct') as HTMLInputElement).value) || 50 : 0
+    const financialAssets = getVal('financialAssets')
+    const coResidence = (document.getElementById('coResidence') as HTMLInputElement).checked
+    const coResidenceValue = coResidence ? getVal('coResidenceValue') : 0
+
+    // 1. Calculate taxable inheritance
+    const taxableInheritance = totalAsset - debts - funeralCost
+
+    // 2. Lump sum deduction (일괄공제 5억)
+    const lumpSumDeduction = 500000000
+
+    // 3. Spouse deduction
+    let spouseDeduction = 0
+    if (hasSpouse) {
+      const legalShare = taxableInheritance * (spouseSharePct / 100)
+      spouseDeduction = Math.max(500000000, Math.min(3000000000, legalShare))
+    }
+
+    // 4. Financial asset deduction
+    let financialDeduction = 0
+    if (financialAssets > 0) {
+      if (financialAssets <= 20000000) {
+        financialDeduction = financialAssets
+      } else if (financialAssets <= 100000000) {
+        financialDeduction = 20000000
+      } else if (financialAssets <= 1000000000) {
+        financialDeduction = financialAssets * 0.2
+      } else {
+        financialDeduction = 200000000
+      }
+    }
+
+    // 5. Co-residence deduction (max 6억)
+    const coResidenceDeduction = coResidence ? Math.min(coResidenceValue, 600000000) : 0
+
+    // 6. Calculate tax base
+    const taxBase = Math.max(0, taxableInheritance - lumpSumDeduction - spouseDeduction - financialDeduction - coResidenceDeduction)
+
+    // 7. Calculate tax
+    const { tax, rate } = calculateTax(taxBase)
+
+    // 8. Filing credit (3%)
+    const filingCredit = tax * 0.03
+
+    // 9. Final tax
+    const finalTax = Math.max(0, tax - filingCredit)
+
+    // 10. Effective rate
+    const effectiveRate = totalAsset > 0 ? (finalTax / totalAsset) * 100 : 0
+
+    // Display results
+    document.getElementById('totalTax')!.textContent = formatNumber(Math.round(finalTax)) + '원'
+    document.getElementById('effectiveRate')!.textContent = effectiveRate.toFixed(2) + '%'
+
+    document.getElementById('totalAssetDisplay')!.textContent = formatNumber(totalAsset) + '원'
+    document.getElementById('debtsFuneralDisplay')!.textContent = formatNumber(debts + funeralCost) + '원'
+    document.getElementById('taxableInheritance')!.textContent = formatNumber(taxableInheritance) + '원'
+    document.getElementById('lumpSumDeduction')!.textContent = formatNumber(lumpSumDeduction) + '원'
+    document.getElementById('taxBase')!.textContent = formatNumber(taxBase) + '원'
+
+    // Show/hide spouse deduction
+    const spouseDeductionDiv = document.getElementById('spouseDeductionDiv') as HTMLDivElement
+    if (spouseDeduction > 0) {
+      spouseDeductionDiv.style.display = 'flex'
+      document.getElementById('spouseDeduction')!.textContent = formatNumber(Math.round(spouseDeduction)) + '원'
+    } else {
+      spouseDeductionDiv.style.display = 'none'
+    }
+
+    // Show/hide financial deduction
+    const financialDeductionDiv = document.getElementById('financialDeductionDiv') as HTMLDivElement
+    if (financialDeduction > 0) {
+      financialDeductionDiv.style.display = 'flex'
+      document.getElementById('financialDeduction')!.textContent = formatNumber(Math.round(financialDeduction)) + '원'
+    } else {
+      financialDeductionDiv.style.display = 'none'
+    }
+
+    // Show/hide co-residence deduction
+    const coResidenceDeductionDiv = document.getElementById('coResidenceDeductionDiv') as HTMLDivElement
+    if (coResidenceDeduction > 0) {
+      coResidenceDeductionDiv.style.display = 'flex'
+      document.getElementById('coResidenceDeduction')!.textContent = formatNumber(coResidenceDeduction) + '원'
+    } else {
+      coResidenceDeductionDiv.style.display = 'none'
+    }
+
+    document.getElementById('taxRateDisplay')!.textContent = (rate * 100).toFixed(0) + '%'
+    document.getElementById('calculatedTax')!.textContent = formatNumber(Math.round(tax)) + '원'
+    document.getElementById('filingCredit')!.textContent = formatNumber(Math.round(filingCredit)) + '원'
+    document.getElementById('finalTax')!.textContent = formatNumber(Math.round(finalTax)) + '원'
+
+    // Show results
+    document.getElementById('results')!.style.display = 'block'
+
+    // Scroll to results
+    document.getElementById('results')!.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  })
+</script>

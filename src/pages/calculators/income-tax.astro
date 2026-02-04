@@ -1,0 +1,204 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="소득세 계산기 - 부동산 트렌드 리뷰" description="종합소득세를 간편하게 계산하세요. 임대소득, 기타소득, 필요경비, 부양가족수를 입력하여 소득세를 확인합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">소득세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">종합소득세를 간편하게 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">임대소득</label>
+          <div class="relative">
+            <input type="text" id="rentalIncome" placeholder="50,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">기타소득</label>
+          <div class="relative">
+            <input type="text" id="otherIncome" placeholder="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">필요경비</label>
+          <div class="relative">
+            <input type="text" id="expenses" placeholder="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">부양가족 수</label>
+          <input type="number" id="dependents" placeholder="0" min="0"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">본인 제외, 부양가족만 입력</p>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">총 납부세액</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 세액</span><span class="font-bold text-blue-700 dark:text-blue-300" id="totalTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">실효세율</span><span class="font-medium dark:text-gray-200" id="effectiveRate"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">종합소득금액</span><span class="dark:text-gray-200" id="totalIncome"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">기본공제</span><span class="dark:text-gray-200" id="basicDeduction"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">과세표준</span><span class="dark:text-gray-200" id="taxableIncome"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">산출세액</span><span class="dark:text-gray-200" id="calculatedTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">지방소득세</span><span class="dark:text-gray-200" id="localIncomeTax"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">근로 소득, 사업 소득 등 여러 소득을 합산하여 합산된 금액을 기준으로 부과되는 세금을 계산합니다.</p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+        <li>본 종합소득세 계산기는 부동산임대소득을 주 소득으로 하는 납세자가 종합소득세를 간단히 계산해보기 위한 목적으로 개발되었습니다.</li>
+        <li>양도소득세는 합산되지 않고, 주택·상가 등 임대 소득세는 합산 대상에 포함됩니다.</li>
+      </ul>
+      <p class="text-xs text-gray-500 dark:text-gray-400">※ 종합소득세 실제 납부시엔 전문 세무사를 통해 납부하시는 것을 권장드리며, 본 계산기는 참고용으로만 사용하시기 바랍니다.</p>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세금은 관할 세무서에 확인하시기 바랍니다.<br>
+        ※ 기본공제는 본인 150만원 + 부양가족 1인당 150만원입니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  const TAX_BRACKETS = [
+    { limit: 14000000, rate: 0.06, deduction: 0 },
+    { limit: 50000000, rate: 0.15, deduction: 1260000 },
+    { limit: 88000000, rate: 0.24, deduction: 5760000 },
+    { limit: 150000000, rate: 0.35, deduction: 15440000 },
+    { limit: 300000000, rate: 0.38, deduction: 19940000 },
+    { limit: 500000000, rate: 0.4, deduction: 25940000 },
+    { limit: 1000000000, rate: 0.42, deduction: 35940000 },
+    { limit: Infinity, rate: 0.45, deduction: 65940000 },
+  ]
+
+  const BASIC_DEDUCTION_PER_PERSON = 1500000
+
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function roundToWon(amount) {
+    return Math.round(amount)
+  }
+
+  function calculateIncomeTax(rentalIncome, otherIncome, expenses, dependents) {
+    const totalIncome = rentalIncome + otherIncome - expenses
+    const basicDeduction = BASIC_DEDUCTION_PER_PERSON * (1 + dependents)
+    const taxableIncome = Math.max(0, totalIncome - basicDeduction)
+
+    let calculatedTax = 0
+    for (const bracket of TAX_BRACKETS) {
+      if (taxableIncome <= bracket.limit) {
+        calculatedTax = roundToWon(taxableIncome * bracket.rate - bracket.deduction)
+        break
+      }
+    }
+
+    calculatedTax = Math.max(0, calculatedTax)
+    const localIncomeTax = roundToWon(calculatedTax * 0.1)
+    const totalTax = calculatedTax + localIncomeTax
+    const effectiveRate = totalIncome > 0 ? (totalTax / totalIncome) * 100 : 0
+
+    return {
+      totalIncome,
+      basicDeduction,
+      taxableIncome,
+      calculatedTax,
+      localIncomeTax,
+      totalTax,
+      effectiveRate: Math.round(effectiveRate * 100) / 100
+    }
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  setupNumberInput(document.getElementById('rentalIncome'))
+  setupNumberInput(document.getElementById('otherIncome'))
+  setupNumberInput(document.getElementById('expenses'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const rentalIncome = parseInt(document.getElementById('rentalIncome').value.replace(/,/g, '')) || 0
+    const otherIncome = parseInt(document.getElementById('otherIncome').value.replace(/,/g, '')) || 0
+    const expenses = parseInt(document.getElementById('expenses').value.replace(/,/g, '')) || 0
+    const dependents = parseInt(document.getElementById('dependents').value) || 0
+
+    if (rentalIncome + otherIncome <= 0) {
+      document.getElementById('errorText').textContent = '소득을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateIncomeTax(rentalIncome, otherIncome, expenses, dependents)
+
+    document.getElementById('totalTax').textContent = formatManWon(result.totalTax)
+    document.getElementById('effectiveRate').textContent = result.effectiveRate + '%'
+    document.getElementById('totalIncome').textContent = formatManWon(result.totalIncome)
+    document.getElementById('basicDeduction').textContent = formatManWon(result.basicDeduction)
+    document.getElementById('taxableIncome').textContent = formatManWon(result.taxableIncome)
+    document.getElementById('calculatedTax').textContent = formatManWon(result.calculatedTax)
+    document.getElementById('localIncomeTax').textContent = formatManWon(result.localIncomeTax)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

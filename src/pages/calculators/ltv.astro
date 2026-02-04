@@ -1,0 +1,194 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="LTV 계산기 - 부동산 트렌드 리뷰" description="LTV(담보인정비율)을 확인하여 최대 대출 가능액을 계산하세요.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">LTV 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">LTV(담보인정비율)을 확인하여 최대 대출 가능액을 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">주택가격</label>
+          <div class="relative">
+            <input type="text" id="propertyPrice" placeholder="500,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">차주유형</label>
+          <select id="borrowerType" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="생애최초">생애최초</option>
+            <option value="무주택자">무주택자</option>
+            <option value="1주택자">1주택자</option>
+            <option value="다주택자">다주택자</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">지역</label>
+          <select id="region" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="투기지역">투기과열지구</option>
+            <option value="조정지역">조정대상지역</option>
+            <option value="수도권">수도권(기타)</option>
+            <option value="비수도권">비수도권</option>
+          </select>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">LTV 계산 결과</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">LTV 비율</span><span class="font-bold text-blue-700 dark:text-blue-300" id="ltvRate"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">최대 대출금액</span><span class="font-bold text-blue-700 dark:text-blue-300" id="maxLoanAmount"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">LTV(Loan to Value: 담보인정비율)은 담보 대비 대출금액의 비율을 나타내는 지표로, 주로 주택담보대출의 대출가능금액을 산출할때 사용됩니다.</p>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <caption class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 text-left">2026년 최신 지역별 LTV 기준</caption>
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-700">
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">구분</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">규제지역 및 조정대상지역</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">기타 지역</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700 dark:text-gray-300">
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">다주택자</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">0%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">60% (수도권 0%)</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">무주택(1주택 처분조건)</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">40%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">서민·실수요자</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">생애최초 구매자</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">80% (수도권 70%)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 대출 조건은 금융기관에 확인하시기 바랍니다.<br>
+        ※ LTV는 지역 및 차주 유형에 따라 다르게 적용됩니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return Math.round(num).toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  setupNumberInput(document.getElementById('propertyPrice'))
+
+  const LTV_RATES = {
+    '생애최초': {
+      '투기지역': 0.7,
+      '조정지역': 0.7,
+      '수도권': 0.7,
+      '비수도권': 0.8,
+    },
+    '무주택자': {
+      '투기지역': 0.4,
+      '조정지역': 0.5,
+      '수도권': 0.7,
+      '비수도권': 0.7,
+    },
+    '1주택자': {
+      '투기지역': 0.4,
+      '조정지역': 0.5,
+      '수도권': 0.6,
+      '비수도권': 0.6,
+    },
+    '다주택자': {
+      '투기지역': 0,
+      '조정지역': 0,
+      '수도권': 0,
+      '비수도권': 0.6,
+    },
+  }
+
+  function calculateLtv(propertyPrice, borrowerType, region) {
+    const ltvRate = LTV_RATES[borrowerType][region]
+    const maxLoanAmount = Math.round(propertyPrice * ltvRate)
+
+    return {
+      ltvRate: ltvRate * 100,
+      maxLoanAmount,
+    }
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const propertyPrice = parseInt(document.getElementById('propertyPrice').value.replace(/,/g, '')) || 0
+    const borrowerType = document.getElementById('borrowerType').value
+    const region = document.getElementById('region').value
+
+    if (propertyPrice <= 0) {
+      document.getElementById('errorText').textContent = '주택가격을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateLtv(propertyPrice, borrowerType, region)
+
+    document.getElementById('ltvRate').textContent = result.ltvRate.toFixed(0) + '%'
+    document.getElementById('maxLoanAmount').textContent = formatManWon(result.maxLoanAmount)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

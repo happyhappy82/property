@@ -1,11 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header.astro'
+import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<Layout title="투자 수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 투자 수익률을 종합적으로 계산하세요. ROI, 연환산 수익률, 캡레이트, 레버리지 배율까지 한번에 확인할 수 있습니다.">
-  <Header />
-  <main class="mt-8">
+<CalcLayout title="투자 수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 투자 수익률을 종합적으로 계산하세요. ROI, 연환산 수익률, 캡레이트, 레버리지 배율까지 한번에 확인할 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
@@ -132,8 +129,7 @@ import Header from '../../components/Header.astro'
         ※ 대출이자는 매년 동일하게 발생하는 것으로 가정합니다 (원금균등상환이나 만기일시상환 고려 안함).
       </p>
     </div>
-  </main>
-</Layout>
+</CalcLayout>
 
 <script>
   function formatNumber(num) {

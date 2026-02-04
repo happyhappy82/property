@@ -1,0 +1,249 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="장래소득 계산기 - 부동산 트렌드 리뷰" description="젊은층의 DSR 계산 시 적용되는 장래소득 증가율을 확인하세요.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">장래소득 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">젊은층의 DSR 계산 시 적용되는 장래소득 증가율을 확인합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">현재 연소득</label>
+          <div class="relative">
+            <input type="text" id="currentIncome" placeholder="40,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">현재 나이</label>
+          <div class="relative">
+            <input type="number" id="age" placeholder="30" min="20" max="70"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">세</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출기간</label>
+          <select id="loanTermYears" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="10">10년</option>
+            <option value="15">15년</option>
+            <option value="20">20년</option>
+            <option value="30">30년</option>
+          </select>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">장래소득 계산 결과</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">소득증가율</span><span class="font-bold text-blue-700 dark:text-blue-300" id="growthRate"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">장래소득</span><span class="font-bold text-xl text-blue-700 dark:text-blue-300" id="futureIncome"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">소득증가액</span><span class="font-medium dark:text-gray-200" id="incomeIncrease"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">현재 정보</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">현재 연소득</span><span class="dark:text-gray-200" id="currentIncomeDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">현재 나이</span><span class="dark:text-gray-200" id="ageDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">대출기간</span><span class="dark:text-gray-200" id="loanTermDisplay"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">장래 소득이란, DSR 계산 시 현재의 소득 기준으로만 계산할 경우 상대적으로 젊은 층들이 주택 구입이 어려워지는 문제를 완화하기 위해 도입된 개념입니다.</p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+        <li>20세 이상 35세 미만의 근로소득자는 향후 소득의 증가를 반영하여 상대적으로 낮은 DSR을 적용받을 수 있습니다.</li>
+      </ul>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <caption class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 text-left">장래소득증가율</caption>
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-700">
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">연령대</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">만기 10년</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">만기 15년</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">만기 20년</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">만기 30년</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700 dark:text-gray-300">
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">20~24세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">20.6%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">31.1%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">39.7%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">50.7%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">25~29세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">16.8%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">23.5%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">28.4%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">31.6%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">30~34세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">13.0%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">16.6%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">18.4%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">13.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <caption class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 text-left">연령대별 연소득 통계자료 (2024년)</caption>
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-700">
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">연령대</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">월소득</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">연환산 소득</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700 dark:text-gray-300">
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">20~24세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">253.6만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">3,043.2만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">25~29세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">307.2만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">3,686.4만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">30~34세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">357.1만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">4,285.2만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">35~39세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">412.3만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">4,947.6만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">40~44세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">441.1만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">5,293.2만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">45~49세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">455.1만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">5,461.2만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">50~54세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">448.6만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">5,383.2만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">55~59세</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">408.9만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">4,906.8만원</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">60세 이상</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">314.7만원</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">3,776.4만원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 대출 조건은 금융기관에 확인하시기 바랍니다.<br>
+        ※ 장래소득 증가율은 35세 미만 근로소득자에게만 적용됩니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return Math.round(num).toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  setupNumberInput(document.getElementById('currentIncome'))
+
+  const GROWTH_RATES = {
+    '20-24': {
+      10: 20.6,
+      15: 31.1,
+      20: 39.7,
+      30: 50.7,
+    },
+    '25-29': {
+      10: 16.8,
+      15: 23.5,
+      20: 28.4,
+      30: 31.6,
+    },
+    '30-34': {
+      10: 13.0,
+      15: 16.6,
+      20: 18.4,
+      30: 13.5,
+    },
+  }
+
+  function getAgeGroup(age) {
+    if (age >= 20 && age <= 24) return '20-24'
+    if (age >= 25 && age <= 29) return '25-29'
+    if (age >= 30 && age <= 34) return '30-34'
+    return null
+  }
+
+  function calculateFutureIncome(currentIncome, age, loanTermYears) {
+    const ageGroup = getAgeGroup(age)
+    let growthRate = 0
+
+    if (ageGroup && GROWTH_RATES[ageGroup]) {
+      growthRate = GROWTH_RATES[ageGroup][loanTermYears] || 0
+    }
+
+    const futureIncome = Math.round(currentIncome * (1 + growthRate / 100))
+    const incomeIncrease = Math.round(futureIncome - currentIncome)
+
+    return {
+      currentIncome,
+      growthRate,
+      futureIncome,
+      incomeIncrease,
+    }
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const currentIncome = parseInt(document.getElementById('currentIncome').value.replace(/,/g, '')) || 0
+    const age = parseInt(document.getElementById('age').value) || 0
+    const loanTermYears = parseInt(document.getElementById('loanTermYears').value) || 0
+
+    if (currentIncome <= 0 || age < 20 || age > 70) {
+      document.getElementById('errorText').textContent = '모든 항목을 올바르게 입력해주세요. (나이: 20~70세)'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateFutureIncome(currentIncome, age, loanTermYears)
+
+    if (result.growthRate === 0) {
+      document.getElementById('errorText').textContent = '장래소득 증가율은 20세 이상 35세 미만에게만 적용됩니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    document.getElementById('growthRate').textContent = result.growthRate.toFixed(1) + '%'
+    document.getElementById('futureIncome').textContent = formatManWon(result.futureIncome)
+    document.getElementById('incomeIncrease').textContent = formatManWon(result.incomeIncrease)
+    document.getElementById('currentIncomeDisplay').textContent = formatManWon(result.currentIncome)
+    document.getElementById('ageDisplay').textContent = age + '세'
+    document.getElementById('loanTermDisplay').textContent = loanTermYears + '년'
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

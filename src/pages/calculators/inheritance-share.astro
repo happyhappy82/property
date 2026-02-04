@@ -1,0 +1,204 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="상속지분 계산기 - 부동산 트렌드 리뷰" description="민법상 법정상속분을 계산하여 배우자와 자녀의 상속 지분을 계산합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">상속지분 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">민법상 법정상속분을 계산하여 배우자와 자녀의 상속 지분을 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">상속재산 총액</label>
+          <div class="relative">
+            <input type="text" id="totalAssets" placeholder="1,000,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="hasSpouse" class="rounded" />
+          <label for="hasSpouse" class="text-sm dark:text-gray-200 cursor-pointer">배우자 있음</label>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">자녀 수</label>
+          <input type="number" id="numberOfChildren" placeholder="2" min="0"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">법정상속분</h2>
+        <div id="sharesContainer" class="space-y-2">
+          <!-- Dynamic content -->
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">망자의 배우자, 자녀, 형제, 친척들을 기준으로 민법상 상속 지분을 계산합니다.</p>
+      <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        <p class="font-medium">민법상 법정상속분</p>
+        <ul class="list-disc list-inside space-y-1 mt-1">
+          <li>배우자와 자녀가 공동상속인인 경우: 배우자는 자녀 지분의 1.5배</li>
+          <li>배우자만 있는 경우: 배우자가 전액 상속</li>
+          <li>자녀만 있는 경우: 자녀들이 균등 분배</li>
+          <li>자녀는 직계비속(손자녀 포함)을 의미합니다.</li>
+        </ul>
+      </div>
+      <div class="text-xs text-gray-500 dark:text-gray-500 mt-3">
+        <p>※ 실제 상속은 유언, 특별수익, 기여분 등에 따라 달라질 수 있습니다.</p>
+        <p>※ 직계비속, 직계존속, 형제자매, 4촌 이내 방계혈족 순으로 상속순위가 정해집니다.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 상속은 전문가와 상담하시기 바랍니다.<br>
+        ※ 배우자와 자녀(직계비속)가 공동상속인인 경우만 계산합니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function calculateInheritanceShare(totalAssets, hasSpouse, numberOfChildren) {
+    const shares = []
+
+    if (!hasSpouse && numberOfChildren === 0) {
+      throw new Error('상속인이 없습니다. 배우자 또는 자녀를 입력해주세요.')
+    }
+
+    if (hasSpouse && numberOfChildren === 0) {
+      shares.push({
+        heir: '배우자',
+        shareRatio: 100,
+        amount: Math.round(totalAssets),
+      })
+    } else if (!hasSpouse && numberOfChildren > 0) {
+      const perChild = totalAssets / numberOfChildren
+      const ratio = (100 / numberOfChildren).toFixed(2)
+      for (let i = 1; i <= numberOfChildren; i++) {
+        shares.push({
+          heir: `자녀 ${i}`,
+          shareRatio: parseFloat(ratio),
+          amount: Math.round(perChild),
+        })
+      }
+    } else {
+      // 배우자 1.5배, 자녀 균등
+      const totalShares = 1.5 + numberOfChildren
+      const spouseShare = totalAssets * (1.5 / totalShares)
+      const childShare = totalAssets * (1 / totalShares)
+
+      shares.push({
+        heir: '배우자',
+        shareRatio: parseFloat(((1.5 / totalShares) * 100).toFixed(2)),
+        amount: Math.round(spouseShare),
+      })
+
+      for (let i = 1; i <= numberOfChildren; i++) {
+        shares.push({
+          heir: `자녀 ${i}`,
+          shareRatio: parseFloat(((1 / totalShares) * 100).toFixed(2)),
+          amount: Math.round(childShare),
+        })
+      }
+    }
+
+    return { shares }
+  }
+
+  setupNumberInput(document.getElementById('totalAssets'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const totalAssets = parseInt(document.getElementById('totalAssets').value.replace(/,/g, '')) || 0
+    const hasSpouse = document.getElementById('hasSpouse').checked
+    const numberOfChildren = parseInt(document.getElementById('numberOfChildren').value) || 0
+
+    if (totalAssets <= 0) {
+      document.getElementById('errorText').textContent = '상속재산 총액을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (numberOfChildren < 0) {
+      document.getElementById('errorText').textContent = '자녀 수는 0 이상이어야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    try {
+      const result = calculateInheritanceShare(totalAssets, hasSpouse, numberOfChildren)
+
+      const container = document.getElementById('sharesContainer')
+      container.innerHTML = ''
+
+      result.shares.forEach(share => {
+        const div = document.createElement('div')
+        div.className = 'flex justify-between items-center'
+        div.innerHTML = `
+          <span class="text-sm dark:text-gray-300">${share.heir}</span>
+          <div class="text-right">
+            <span class="font-bold text-blue-700 dark:text-blue-300">${formatManWon(share.amount)}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">(${formatNumber(share.shareRatio)}%)</span>
+          </div>
+        `
+        container.appendChild(div)
+      })
+
+      resultsEl.classList.remove('hidden')
+    } catch (error) {
+      document.getElementById('errorText').textContent = error.message
+      errorEl.classList.remove('hidden')
+    }
+  })
+</script>

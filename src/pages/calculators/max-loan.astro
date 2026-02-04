@@ -1,0 +1,278 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="최대대출한도 계산기 - 부동산 트렌드 리뷰" description="LTV와 DSR을 기반으로 최대 대출 가능액을 계산하세요.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">최대대출한도 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">LTV와 DSR을 기반으로 최대 대출 가능액을 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">주택가격</label>
+          <div class="relative">
+            <input type="text" id="propertyPrice" placeholder="500,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">연소득</label>
+          <div class="relative">
+            <input type="text" id="annualIncome" placeholder="50,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">차주유형</label>
+          <select id="borrowerType" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="생애최초">생애최초</option>
+            <option value="무주택자">무주택자</option>
+            <option value="1주택자">1주택자</option>
+            <option value="다주택자">다주택자</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">지역</label>
+          <select id="region" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="투기지역">투기과열지구</option>
+            <option value="조정지역">조정대상지역</option>
+            <option value="수도권">수도권(기타)</option>
+            <option value="비수도권">비수도권</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출금리</label>
+          <div class="relative">
+            <input type="text" id="interestRate" placeholder="3.5"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출기간</label>
+          <div class="relative">
+            <input type="number" id="loanTermYears" placeholder="30" min="1" max="50"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">년</span>
+          </div>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">최대 대출 가능액</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">최대 대출액</span><span class="font-bold text-xl text-blue-700 dark:text-blue-300" id="maxLoanAmount"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">LTV 한도</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">LTV 비율</span><span class="dark:text-gray-200" id="ltvRate"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">LTV 기준 한도</span><span class="dark:text-gray-200" id="ltvLimit"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">DSR 한도</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">DSR 비율</span><span class="dark:text-gray-200" id="dsrRate"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">DSR 기준 한도</span><span class="dark:text-gray-200" id="dsrLimit"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">지역별 LTV(Loan to Value: 담보인정비율)를 기준으로 담보가능금액을 계산해드립니다.</p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+        <li>실제 대출에선 DTI, DSR, 개별 여신 상품별 한도 등이 추가로 적용되어 대출금액이 더 작아질 수도 있습니다.</li>
+      </ul>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <caption class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 text-left">2026년 최신 지역별 LTV 기준</caption>
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-700">
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">구분</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">규제지역 및 조정대상지역</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">기타 지역</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700 dark:text-gray-300">
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">다주택자</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">0%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">60% (수도권 0%)</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">무주택(1주택 처분조건)</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">50%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">서민·실수요자</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">생애최초 구매자</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">70%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">80% (수도권 70%)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 대출 조건은 금융기관에 확인하시기 바랍니다.<br>
+        ※ 최대 대출액은 LTV 한도와 DSR 한도 중 낮은 금액으로 결정됩니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return Math.round(num).toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function setupDecimalInput(el) {
+    el.addEventListener('input', function() {
+      let raw = this.value.replace(/[^0-9.]/g, '')
+      const parts = raw.split('.')
+      if (parts.length > 2) {
+        raw = parts[0] + '.' + parts.slice(1).join('')
+      }
+      this.value = raw
+    })
+  }
+
+  setupNumberInput(document.getElementById('propertyPrice'))
+  setupNumberInput(document.getElementById('annualIncome'))
+  setupDecimalInput(document.getElementById('interestRate'))
+
+  const LTV_RATES = {
+    '생애최초': {
+      '투기지역': 0.7,
+      '조정지역': 0.7,
+      '수도권': 0.7,
+      '비수도권': 0.8,
+    },
+    '무주택자': {
+      '투기지역': 0.4,
+      '조정지역': 0.5,
+      '수도권': 0.7,
+      '비수도권': 0.7,
+    },
+    '1주택자': {
+      '투기지역': 0.4,
+      '조정지역': 0.5,
+      '수도권': 0.6,
+      '비수도권': 0.6,
+    },
+    '다주택자': {
+      '투기지역': 0,
+      '조정지역': 0,
+      '수도권': 0,
+      '비수도권': 0.6,
+    },
+  }
+
+  const DSR_RATE = 0.4
+
+  function calculateMaxLoan(input) {
+    const ltvRate = LTV_RATES[input.borrowerType][input.region]
+    const ltvLimit = Math.round(input.propertyPrice * ltvRate)
+
+    const maxAnnualPayment = input.annualIncome * DSR_RATE
+    const annualInterestRate = input.interestRate / 100
+    const totalPeriods = input.loanTermYears
+
+    const dsrLimit = Math.round(
+      maxAnnualPayment / (annualInterestRate + 1 / totalPeriods)
+    )
+
+    const maxLoanAmount = Math.min(ltvLimit, dsrLimit)
+
+    return {
+      ltvLimit,
+      ltvRate: ltvRate * 100,
+      dsrLimit,
+      dsrRate: DSR_RATE * 100,
+      maxLoanAmount,
+    }
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const propertyPrice = parseInt(document.getElementById('propertyPrice').value.replace(/,/g, '')) || 0
+    const annualIncome = parseInt(document.getElementById('annualIncome').value.replace(/,/g, '')) || 0
+    const borrowerType = document.getElementById('borrowerType').value
+    const region = document.getElementById('region').value
+    const interestRate = parseFloat(document.getElementById('interestRate').value) || 0
+    const loanTermYears = parseInt(document.getElementById('loanTermYears').value) || 0
+
+    if (propertyPrice <= 0 || annualIncome <= 0 || interestRate <= 0 || loanTermYears <= 0) {
+      document.getElementById('errorText').textContent = '모든 항목을 올바르게 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateMaxLoan({
+      propertyPrice,
+      annualIncome,
+      borrowerType,
+      region,
+      interestRate,
+      loanTermYears,
+    })
+
+    document.getElementById('maxLoanAmount').textContent = formatManWon(result.maxLoanAmount)
+    document.getElementById('ltvRate').textContent = result.ltvRate.toFixed(0) + '%'
+    document.getElementById('ltvLimit').textContent = formatManWon(result.ltvLimit)
+    document.getElementById('dsrRate').textContent = result.dsrRate.toFixed(0) + '%'
+    document.getElementById('dsrLimit').textContent = formatManWon(result.dsrLimit)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

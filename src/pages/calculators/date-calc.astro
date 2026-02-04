@@ -1,0 +1,261 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="날짜 계산기 - 부동산 트렌드 리뷰" description="두 날짜 사이의 일수를 계산하거나 날짜에서 일수를 더하고 뺄 수 있습니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">날짜 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">두 날짜 사이의 일수를 계산하거나 날짜에서 일수를 더하고 뺄 수 있습니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">계산 모드</label>
+          <div class="flex gap-4">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="mode" value="diff" checked class="rounded" />
+              <span class="text-sm dark:text-gray-200">두 날짜 차이</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="mode" value="add" class="rounded" />
+              <span class="text-sm dark:text-gray-200">날짜 더하기/빼기</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="diffMode">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 dark:text-gray-200">시작일</label>
+              <input type="date" id="startDate"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-1 dark:text-gray-200">종료일</label>
+              <input type="date" id="endDate"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+            </div>
+
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="includeStart" class="rounded" checked />
+              <label for="includeStart" class="text-sm dark:text-gray-200 cursor-pointer">시작일 포함 (초일 산입)</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="addMode" class="hidden">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 dark:text-gray-200">기준일</label>
+              <input type="date" id="baseDate"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-1 dark:text-gray-200">일수</label>
+              <input type="number" id="daysToAdd" placeholder="100"
+                class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+            </div>
+
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="operation" value="add" checked class="rounded" />
+                <span class="text-sm dark:text-gray-200">더하기 (+)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="operation" value="subtract" class="rounded" />
+                <span class="text-sm dark:text-gray-200">빼기 (-)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="resultsDiff" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">날짜 차이</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 일수</span><span class="font-bold text-blue-700 dark:text-blue-300" id="totalDays"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">개월 수 (약)</span><span class="font-medium dark:text-gray-200" id="totalMonths"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">년 수 (약)</span><span class="font-medium dark:text-gray-200" id="totalYears"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultsAdd" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">결과 날짜</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">결과일</span><span class="font-bold text-blue-700 dark:text-blue-300" id="resultDate"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">양도세 계산 및 각종 일상 생활속의 계산에 필요한 두 날짜간 차이를 쉽게 계산해드립니다. 법률에 따라 초일 산입(시작일을 포함하는지) 여부 등이 다를 수 있는데 이를 고려하여 계산해볼 수 있습니다.</p>
+      <ul class="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-400">
+        <li>초일 산입: 시작일을 포함하여 계산 (기간 +1일)</li>
+        <li>개월 수는 30.44일 기준, 년 수는 365.25일 기준으로 근사값입니다.</li>
+      </ul>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용입니다.<br>
+        ※ 법적 효력이 필요한 경우 관련 기관에 확인하시기 바랍니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatDate(date) {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${year}년 ${month}월 ${day}일`
+  }
+
+  const modeRadios = document.querySelectorAll('input[name="mode"]')
+  const diffMode = document.getElementById('diffMode')
+  const addMode = document.getElementById('addMode')
+
+  modeRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      if (e.target.value === 'diff') {
+        diffMode.classList.remove('hidden')
+        addMode.classList.add('hidden')
+      } else {
+        diffMode.classList.add('hidden')
+        addMode.classList.remove('hidden')
+      }
+      document.getElementById('resultsDiff').classList.add('hidden')
+      document.getElementById('resultsAdd').classList.add('hidden')
+    })
+  })
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsDiffEl = document.getElementById('resultsDiff')
+    const resultsAddEl = document.getElementById('resultsAdd')
+    errorEl.classList.add('hidden')
+    resultsDiffEl.classList.add('hidden')
+    resultsAddEl.classList.add('hidden')
+
+    const mode = document.querySelector('input[name="mode"]:checked').value
+
+    if (mode === 'diff') {
+      const startDateStr = document.getElementById('startDate').value
+      const endDateStr = document.getElementById('endDate').value
+      const includeStart = document.getElementById('includeStart').checked
+
+      if (!startDateStr) {
+        document.getElementById('errorText').textContent = '시작일을 입력해주세요.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      if (!endDateStr) {
+        document.getElementById('errorText').textContent = '종료일을 입력해주세요.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      const startDate = new Date(startDateStr)
+      const endDate = new Date(endDateStr)
+
+      if (isNaN(startDate.getTime())) {
+        document.getElementById('errorText').textContent = '시작일이 유효하지 않습니다.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      if (isNaN(endDate.getTime())) {
+        document.getElementById('errorText').textContent = '종료일이 유효하지 않습니다.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      if (endDate < startDate) {
+        document.getElementById('errorText').textContent = '종료일은 시작일보다 이후여야 합니다.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      const diffMs = endDate.getTime() - startDate.getTime()
+      let totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+      if (includeStart) {
+        totalDays += 1
+      }
+
+      const totalMonths = (totalDays / 30.44).toFixed(1)
+      const totalYears = (totalDays / 365.25).toFixed(2)
+
+      document.getElementById('totalDays').textContent = formatNumber(totalDays) + ' 일'
+      document.getElementById('totalMonths').textContent = formatNumber(parseFloat(totalMonths)) + ' 개월'
+      document.getElementById('totalYears').textContent = formatNumber(parseFloat(totalYears)) + ' 년'
+
+      resultsDiffEl.classList.remove('hidden')
+    } else {
+      const baseDateStr = document.getElementById('baseDate').value
+      const daysToAdd = parseInt(document.getElementById('daysToAdd').value) || 0
+      const operation = document.querySelector('input[name="operation"]:checked').value
+
+      if (!baseDateStr) {
+        document.getElementById('errorText').textContent = '기준일을 입력해주세요.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      const baseDate = new Date(baseDateStr)
+
+      if (isNaN(baseDate.getTime())) {
+        document.getElementById('errorText').textContent = '기준일이 유효하지 않습니다.'
+        errorEl.classList.remove('hidden')
+        return
+      }
+
+      const resultDate = new Date(baseDate)
+      if (operation === 'add') {
+        resultDate.setDate(resultDate.getDate() + daysToAdd)
+      } else {
+        resultDate.setDate(resultDate.getDate() - daysToAdd)
+      }
+
+      document.getElementById('resultDate').textContent = formatDate(resultDate)
+
+      resultsAddEl.classList.remove('hidden')
+    }
+  })
+
+  // Set default dates
+  const today = new Date()
+  const todayStr = today.toISOString().split('T')[0]
+  const nextMonth = new Date(today)
+  nextMonth.setMonth(nextMonth.getMonth() + 1)
+  const nextMonthStr = nextMonth.toISOString().split('T')[0]
+
+  document.getElementById('startDate').value = todayStr
+  document.getElementById('endDate').value = nextMonthStr
+  document.getElementById('baseDate').value = todayStr
+</script>

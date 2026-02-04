@@ -1,0 +1,367 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout
+  title="등기비용 계산기 - 부동산 트렌드 리뷰"
+  description="부동산 등기비용을 간편하게 계산하세요. 국민주택채권, 인지세, 법무사 보수까지 한번에 확인."
+>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          등기비용 계산기
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          부동산 소유권 이전 등기에 필요한 비용을 계산합니다.
+        </p>
+      </div>
+
+      <!-- Calculator Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
+        <div class="space-y-6">
+          <!-- 매매가격 -->
+          <div>
+            <label for="purchasePrice" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              매매가격
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="purchasePrice"
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- 시가표준액 -->
+          <div>
+            <label for="assessedValue" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              시가표준액
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="assessedValue"
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">국토교통부 공시가격 기준</p>
+          </div>
+
+          <!-- 지역 -->
+          <div>
+            <label for="region" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              지역
+            </label>
+            <select
+              id="region"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            >
+              <option value="seoul">서울특별시</option>
+              <option value="metro">광역시/세종시</option>
+              <option value="other">기타 지역</option>
+            </select>
+          </div>
+
+          <!-- 대출금액 -->
+          <div>
+            <label for="loanAmount" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              대출금액
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="loanAmount"
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="0"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
+            </div>
+          </div>
+
+          <!-- 채권할인율 -->
+          <div>
+            <label for="bondDiscount" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              채권할인율
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="bondDiscount"
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="6"
+                value="6"
+              />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">%</span>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <button
+            id="calcBtn"
+            class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            계산하기
+          </button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="space-y-6 hidden">
+        <!-- Summary -->
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-8 text-white">
+          <h2 class="text-2xl font-bold mb-4">등기비용 합계</h2>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-2xl font-bold">
+              <span>총 등기비용</span>
+              <span id="totalCost">0원</span>
+            </div>
+            <div class="flex justify-between items-center text-lg opacity-90">
+              <span>매매가 대비 비율</span>
+              <span id="costRate">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 소유권이전 등기 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">소유권이전 등기</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-gray-700 dark:text-gray-300">국민주택채권 매입액</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="bondAmount">0원</span>
+            </div>
+            <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-gray-700 dark:text-gray-300">채권 할인비용</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="bondDiscountCost">0원</span>
+            </div>
+            <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-gray-700 dark:text-gray-300">인지세</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="stampTax">0원</span>
+            </div>
+            <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-gray-700 dark:text-gray-300">등기신청 수수료</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="regFee">0원</span>
+            </div>
+            <div class="flex justify-between items-center py-3">
+              <span class="text-gray-700 dark:text-gray-300">법무사 보수 (예상)</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="scrivenerFee">0원</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 근저당 설정 등기 -->
+        <div id="mortgageSection" class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hidden">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">근저당 설정 등기</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-gray-700 dark:text-gray-300">등록면허세</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="mortgageRegTax">0원</span>
+            </div>
+            <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-gray-700 dark:text-gray-300">지방교육세</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="mortgageEduTax">0원</span>
+            </div>
+            <div class="flex justify-between items-center py-3">
+              <span class="text-gray-700 dark:text-gray-300">법무사 보수</span>
+              <span class="font-semibold text-gray-900 dark:text-white" id="mortgageScrivenerFee">0원</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+          <p class="text-sm text-yellow-800 dark:text-yellow-200">
+            ※ 본 계산 결과는 참고용이며, 실제 비용은 지역 및 개별 상황에 따라 달라질 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</CalcLayout>
+
+<script>
+  // Utility functions
+  function formatNumber(num: number): string {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(num: number): string {
+    const man = Math.floor(num / 10000)
+    return man > 0 ? `${formatNumber(man)}만원` : `${formatNumber(num)}원`
+  }
+
+  function setupNumberInput(id: string) {
+    const input = document.getElementById(id) as HTMLInputElement
+    if (!input) return
+
+    input.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement
+      const value = target.value.replace(/[^\d]/g, '')
+      const numValue = parseInt(value) || 0
+      target.value = formatNumber(numValue)
+    })
+
+    input.addEventListener('focus', (e) => {
+      const target = e.target as HTMLInputElement
+      if (target.value === '0') {
+        target.value = ''
+      }
+    })
+  }
+
+  function getVal(id: string): number {
+    const input = document.getElementById(id) as HTMLInputElement
+    if (!input) return 0
+    return parseInt(input.value.replace(/[^\d]/g, '')) || 0
+  }
+
+  // Bond rate tables
+  const BOND_RATES_SEOUL = [
+    { min: 0, max: 20000000, rate: 0 },
+    { min: 20000000, max: 50000000, rate: 0.011 },
+    { min: 50000000, max: 100000000, rate: 0.016 },
+    { min: 100000000, max: 160000000, rate: 0.021 },
+    { min: 160000000, max: 260000000, rate: 0.026 },
+    { min: 260000000, max: 600000000, rate: 0.031 },
+    { min: 600000000, max: Infinity, rate: 0.035 }
+  ]
+
+  const BOND_RATES_METRO = [
+    { min: 0, max: 20000000, rate: 0 },
+    { min: 20000000, max: 50000000, rate: 0.008 },
+    { min: 50000000, max: 100000000, rate: 0.011 },
+    { min: 100000000, max: 160000000, rate: 0.016 },
+    { min: 160000000, max: 260000000, rate: 0.019 },
+    { min: 260000000, max: 600000000, rate: 0.021 },
+    { min: 600000000, max: Infinity, rate: 0.030 }
+  ]
+
+  const BOND_RATES_OTHER = [
+    { min: 0, max: 20000000, rate: 0 },
+    { min: 20000000, max: 50000000, rate: 0.005 },
+    { min: 50000000, max: 100000000, rate: 0.008 },
+    { min: 100000000, max: 160000000, rate: 0.011 },
+    { min: 160000000, max: 260000000, rate: 0.013 },
+    { min: 260000000, max: 600000000, rate: 0.016 },
+    { min: 600000000, max: Infinity, rate: 0.022 }
+  ]
+
+  const STAMP_TAX = [
+    { min: 0, max: 10000000, amount: 0 },
+    { min: 10000000, max: 30000000, amount: 20000 },
+    { min: 30000000, max: 50000000, amount: 40000 },
+    { min: 50000000, max: 100000000, amount: 70000 },
+    { min: 100000000, max: 1000000000, amount: 150000 },
+    { min: 1000000000, max: Infinity, amount: 350000 }
+  ]
+
+  function getBondRate(assessedValue: number, region: string): number {
+    let rates = BOND_RATES_OTHER
+    if (region === 'seoul') rates = BOND_RATES_SEOUL
+    else if (region === 'metro') rates = BOND_RATES_METRO
+
+    for (const bracket of rates) {
+      if (assessedValue >= bracket.min && assessedValue < bracket.max) {
+        return bracket.rate
+      }
+    }
+    return 0
+  }
+
+  function getStampTax(purchasePrice: number): number {
+    for (const bracket of STAMP_TAX) {
+      if (purchasePrice >= bracket.min && purchasePrice < bracket.max) {
+        return bracket.amount
+      }
+    }
+    return 0
+  }
+
+  function getScrivenerFee(purchasePrice: number): number {
+    if (purchasePrice < 100000000) return 300000
+    if (purchasePrice < 500000000) return 400000
+    if (purchasePrice < 1000000000) return 600000
+    return 800000
+  }
+
+  function calculate() {
+    const purchasePrice = getVal('purchasePrice')
+    const assessedValue = getVal('assessedValue')
+    const loanAmount = getVal('loanAmount')
+    const bondDiscountRate = parseFloat((document.getElementById('bondDiscount') as HTMLInputElement).value) || 6
+    const region = (document.getElementById('region') as HTMLSelectElement).value
+
+    if (purchasePrice === 0 || assessedValue === 0) {
+      alert('매매가격과 시가표준액을 입력해주세요.')
+      return
+    }
+
+    // Calculate ownership transfer costs
+    const bondRate = getBondRate(assessedValue, region)
+    const bondAmount = Math.round(assessedValue * bondRate)
+    const bondDiscountCost = Math.round(bondAmount * (bondDiscountRate / 100))
+    const stampTax = getStampTax(purchasePrice)
+    const regFee = 15000
+    const scrivenerFee = getScrivenerFee(purchasePrice)
+
+    const ownershipCost = bondDiscountCost + stampTax + regFee + scrivenerFee
+
+    // Calculate mortgage costs
+    let mortgageCost = 0
+    let mortgageRegTax = 0
+    let mortgageEduTax = 0
+    let mortgageScrivenerFee = 0
+
+    if (loanAmount > 0) {
+      mortgageRegTax = Math.round(loanAmount * 0.002)
+      mortgageEduTax = Math.round(mortgageRegTax * 0.2)
+      mortgageScrivenerFee = 200000
+      mortgageCost = mortgageRegTax + mortgageEduTax + mortgageScrivenerFee
+    }
+
+    const totalCost = ownershipCost + mortgageCost
+    const costRate = ((totalCost / purchasePrice) * 100).toFixed(2)
+
+    // Display results
+    document.getElementById('totalCost')!.textContent = formatManWon(totalCost)
+    document.getElementById('costRate')!.textContent = `${costRate}%`
+    document.getElementById('bondAmount')!.textContent = formatManWon(bondAmount)
+    document.getElementById('bondDiscountCost')!.textContent = formatManWon(bondDiscountCost)
+    document.getElementById('stampTax')!.textContent = formatManWon(stampTax)
+    document.getElementById('regFee')!.textContent = formatManWon(regFee)
+    document.getElementById('scrivenerFee')!.textContent = formatManWon(scrivenerFee)
+
+    if (loanAmount > 0) {
+      document.getElementById('mortgageRegTax')!.textContent = formatManWon(mortgageRegTax)
+      document.getElementById('mortgageEduTax')!.textContent = formatManWon(mortgageEduTax)
+      document.getElementById('mortgageScrivenerFee')!.textContent = formatManWon(mortgageScrivenerFee)
+      document.getElementById('mortgageSection')!.classList.remove('hidden')
+    } else {
+      document.getElementById('mortgageSection')!.classList.add('hidden')
+    }
+
+    document.getElementById('results')!.classList.remove('hidden')
+    document.getElementById('results')!.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }
+
+  // Initialize
+  setupNumberInput('purchasePrice')
+  setupNumberInput('assessedValue')
+  setupNumberInput('loanAmount')
+
+  document.getElementById('calcBtn')!.addEventListener('click', calculate)
+
+  // Enter key support
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') calculate()
+    })
+  })
+</script>

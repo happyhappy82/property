@@ -1,0 +1,136 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="면적변환 계산기 - 부동산 트렌드 리뷰" description="평, 제곱미터, 제곱피트, 에이커 등 면적 단위를 간편하게 변환합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">면적변환 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">평, 제곱미터, 제곱피트, 에이커 등 면적 단위를 간편하게 변환합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">입력 단위</label>
+          <select id="fromUnit" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="pyeong">평</option>
+            <option value="sqm" selected>제곱미터 (㎡)</option>
+            <option value="sqft">제곱피트 (ft²)</option>
+            <option value="acre">에이커 (acre)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">면적</label>
+          <input type="text" id="value" placeholder="100.00"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          변환하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">변환 결과</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">평 (pyeong)</span><span class="font-bold text-blue-700 dark:text-blue-300" id="pyeong"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">제곱미터 (㎡)</span><span class="font-bold text-blue-700 dark:text-blue-300" id="sqm"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">제곱피트 (ft²)</span><span class="font-bold text-blue-700 dark:text-blue-300" id="sqft"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">에이커 (acre)</span><span class="font-bold text-blue-700 dark:text-blue-300" id="acre"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">간단한 평수 ↔ m² 및 기타 자주 사용되는 면적을 빠르게 환산해볼 수 있는 계산기입니다. 평, ㎡, sqft(제곱피트), acre(에이커) 환산을 지원합니다.</p>
+      <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        <p class="font-medium">환산 기준</p>
+        <ul class="list-disc list-inside space-y-1 mt-1">
+          <li>1평 = 3.305785 ㎡</li>
+          <li>1㎡ = 10.7639 ft²</li>
+          <li>1 acre = 4,046.856 ㎡</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용입니다.<br>
+        ※ 소수점 이하는 반올림하여 표시될 수 있습니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  const CONVERSION_TO_SQM = {
+    pyeong: 3.305785,
+    sqm: 1,
+    sqft: 0.09290304,
+    acre: 4046.86,
+  }
+
+  function formatNumber(num, decimals = 2) {
+    return num.toLocaleString('ko-KR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+  }
+
+  function setupDecimalInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9.]/g, '')
+      if (raw && !isNaN(parseFloat(raw))) {
+        this.value = raw
+      } else if (raw === '') {
+        this.value = ''
+      }
+    })
+  }
+
+  function calculateAreaConvert(value, fromUnit) {
+    const valueInSqm = value * CONVERSION_TO_SQM[fromUnit]
+
+    return {
+      pyeong: (valueInSqm / CONVERSION_TO_SQM.pyeong).toFixed(2),
+      sqm: valueInSqm.toFixed(2),
+      sqft: (valueInSqm / CONVERSION_TO_SQM.sqft).toFixed(2),
+      acre: (valueInSqm / CONVERSION_TO_SQM.acre).toFixed(4),
+    }
+  }
+
+  setupDecimalInput(document.getElementById('value'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const value = parseFloat(document.getElementById('value').value) || 0
+    const fromUnit = document.getElementById('fromUnit').value
+
+    if (value <= 0) {
+      document.getElementById('errorText').textContent = '면적을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateAreaConvert(value, fromUnit)
+
+    document.getElementById('pyeong').textContent = formatNumber(parseFloat(result.pyeong)) + ' 평'
+    document.getElementById('sqm').textContent = formatNumber(parseFloat(result.sqm)) + ' ㎡'
+    document.getElementById('sqft').textContent = formatNumber(parseFloat(result.sqft)) + ' ft²'
+    document.getElementById('acre').textContent = formatNumber(parseFloat(result.acre), 4) + ' acre'
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

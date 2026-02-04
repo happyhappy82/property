@@ -1,0 +1,170 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="연체이자 계산기 - 부동산 트렌드 리뷰" description="임대료 연체 시 발생하는 연체이자를 계산하세요.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">연체이자 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">임대료 연체 시 발생하는 연체이자를 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">연체원금</label>
+          <div class="relative">
+            <input type="text" id="overdueAmount" placeholder="10,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">연체이율</label>
+          <div class="relative">
+            <input type="text" id="annualRate" placeholder="12.0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">연체일수</label>
+          <div class="relative">
+            <input type="number" id="days" placeholder="30" min="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">일</span>
+          </div>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">연체이자 계산 결과</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연체이자</span><span class="font-bold text-xl text-blue-700 dark:text-blue-300" id="overdueInterest"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 납부금액</span><span class="font-medium dark:text-gray-200" id="totalAmount"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연체원금</span><span class="dark:text-gray-200" id="overdueAmountDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연체이율</span><span class="dark:text-gray-200" id="annualRateDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연체일수</span><span class="dark:text-gray-200" id="daysDisplay"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">임대료 연체 시 정해진 이율에 따른 이자액을 일할계산하여 보여줍니다.</p>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 연체이자는 계약서에 따라 다를 수 있습니다.<br>
+        ※ 계산식: 연체원금 × 연체이율 × (연체일수 ÷ 365)
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return Math.round(num).toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function setupDecimalInput(el) {
+    el.addEventListener('input', function() {
+      let raw = this.value.replace(/[^0-9.]/g, '')
+      const parts = raw.split('.')
+      if (parts.length > 2) {
+        raw = parts[0] + '.' + parts.slice(1).join('')
+      }
+      this.value = raw
+    })
+  }
+
+  setupNumberInput(document.getElementById('overdueAmount'))
+  setupDecimalInput(document.getElementById('annualRate'))
+
+  function calculateOverdueInterest(overdueAmount, annualRate, days) {
+    const overdueInterest = overdueAmount * (annualRate / 100) * (days / 365)
+    const totalAmount = overdueAmount + overdueInterest
+
+    return {
+      overdueInterest: Math.round(overdueInterest),
+      totalAmount: Math.round(totalAmount),
+    }
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const overdueAmount = parseInt(document.getElementById('overdueAmount').value.replace(/,/g, '')) || 0
+    const annualRate = parseFloat(document.getElementById('annualRate').value) || 0
+    const days = parseInt(document.getElementById('days').value) || 0
+
+    if (overdueAmount <= 0 || annualRate < 0 || days < 0) {
+      document.getElementById('errorText').textContent = '모든 항목을 올바르게 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateOverdueInterest(overdueAmount, annualRate, days)
+
+    document.getElementById('overdueInterest').textContent = formatManWon(result.overdueInterest)
+    document.getElementById('totalAmount').textContent = formatManWon(result.totalAmount)
+    document.getElementById('overdueAmountDisplay').textContent = formatManWon(overdueAmount)
+    document.getElementById('annualRateDisplay').textContent = annualRate.toFixed(2) + '%'
+    document.getElementById('daysDisplay').textContent = days + '일'
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

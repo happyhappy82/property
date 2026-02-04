@@ -1,0 +1,266 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="보유세 계산기 - 부동산 트렌드 리뷰" description="재산세와 종합부동산세를 통합하여 계산합니다. 공시가격과 주택보유수를 입력하여 보유세를 확인하세요.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">보유세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">재산세와 종합부동산세를 통합하여 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">공시가격</label>
+          <div class="relative">
+            <input type="text" id="publicPrice" placeholder="1,000,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="isSingleHousehold" class="rounded" checked />
+          <label for="isSingleHousehold" class="text-sm dark:text-gray-200 cursor-pointer">1세대 1주택</label>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">보유 주택 수</label>
+          <select id="housingCount" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="1">1주택</option>
+            <option value="2">2주택</option>
+            <option value="3">3주택 이상</option>
+          </select>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">총 보유세</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 납부세액</span><span class="font-bold text-blue-700 dark:text-blue-300" id="totalTax"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">재산세 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">과세표준</span><span class="dark:text-gray-200" id="taxBase"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">재산세</span><span class="dark:text-gray-200" id="propertyTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">도시지역분</span><span class="dark:text-gray-200" id="urbanTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">지방교육세</span><span class="dark:text-gray-200" id="educationTax"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">종합부동산세 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">종부세 과세표준</span><span class="dark:text-gray-200" id="comprehensiveTaxBase"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">종합부동산세</span><span class="dark:text-gray-200" id="comprehensiveTax"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">농어촌특별세</span><span class="dark:text-gray-200" id="ruralTax"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">매년 6월 1일을 기준으로 보유한 자산에 대해 부과되는 세금입니다. 재산세는 개별 자산을 기준으로 과세하며, 종합부동산세는 개인이 가진 부동산의 합계액을 기준으로 과세합니다.</p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+        <li>재산세: 매년 7월, 9월 납부</li>
+        <li>종합부동산세: 12월 한번 납부</li>
+        <li>각 물건마다 "공동명의"에 체크하고 소유지분을 입력하면 지분을 감안하여 인별 재산세 및 종부세가 계산됩니다.</li>
+      </ul>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-600">
+          <caption class="text-left font-medium mb-2 text-gray-700 dark:text-gray-300">재산세 과세 기준표</caption>
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-700">
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-gray-200">과세표준</th>
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-gray-200">일반 세율</th>
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-gray-200">1세대1주택 특례</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600 dark:text-gray-400">
+            <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6천만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.1%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.05%</td></tr>
+            <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.5억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6만원 + 초과금액의 0.15%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3만원 + 초과금액의 0.1%</td></tr>
+            <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">19.5만원 + 초과금액의 0.25%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">12만원 + 초과금액의 0.2%</td></tr>
+            <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3억원 초과</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">57만원 + 초과금액의 0.4%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">42만원 + 초과금액의 0.35%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-gray-500 dark:text-gray-400">※ 검수: 부동산세금 전문 세무사 강동균</p>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세금은 관할 세무서에 확인하시기 바랍니다.<br>
+        ※ 과세표준은 공시가격의 60%로 계산됩니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  const FAIR_MARKET_RATIO = 0.6
+
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function roundToWon(amount) {
+    return Math.round(amount)
+  }
+
+  function calculatePropertyTax(taxBase, isSingleHousehold) {
+    if (isSingleHousehold) {
+      if (taxBase <= 60000000) {
+        return taxBase * 0.0005
+      } else if (taxBase <= 150000000) {
+        return 30000 + (taxBase - 60000000) * 0.001
+      } else if (taxBase <= 300000000) {
+        return 120000 + (taxBase - 150000000) * 0.002
+      } else {
+        return 420000 + (taxBase - 300000000) * 0.0035
+      }
+    } else {
+      if (taxBase <= 60000000) {
+        return taxBase * 0.001
+      } else if (taxBase <= 150000000) {
+        return 60000 + (taxBase - 60000000) * 0.0015
+      } else if (taxBase <= 300000000) {
+        return 195000 + (taxBase - 150000000) * 0.0025
+      } else {
+        return 570000 + (taxBase - 300000000) * 0.004
+      }
+    }
+  }
+
+  function calculateComprehensiveTax(comprehensiveTaxBase, housingCount) {
+    if (comprehensiveTaxBase <= 0) {
+      return 0
+    }
+
+    if (housingCount <= 2) {
+      if (comprehensiveTaxBase <= 300000000) {
+        return comprehensiveTaxBase * 0.005
+      } else if (comprehensiveTaxBase <= 600000000) {
+        return comprehensiveTaxBase * 0.007 - 600000
+      } else if (comprehensiveTaxBase <= 1200000000) {
+        return comprehensiveTaxBase * 0.01 - 2400000
+      } else if (comprehensiveTaxBase <= 2500000000) {
+        return comprehensiveTaxBase * 0.013 - 6000000
+      } else if (comprehensiveTaxBase <= 5000000000) {
+        return comprehensiveTaxBase * 0.015 - 11000000
+      } else if (comprehensiveTaxBase <= 9400000000) {
+        return comprehensiveTaxBase * 0.02 - 36000000
+      } else {
+        return comprehensiveTaxBase * 0.027 - 101800000
+      }
+    } else {
+      if (comprehensiveTaxBase <= 300000000) {
+        return comprehensiveTaxBase * 0.005
+      } else if (comprehensiveTaxBase <= 600000000) {
+        return comprehensiveTaxBase * 0.007 - 600000
+      } else if (comprehensiveTaxBase <= 1200000000) {
+        return comprehensiveTaxBase * 0.01 - 2400000
+      } else if (comprehensiveTaxBase <= 2500000000) {
+        return comprehensiveTaxBase * 0.02 - 14400000
+      } else if (comprehensiveTaxBase <= 5000000000) {
+        return comprehensiveTaxBase * 0.03 - 39400000
+      } else if (comprehensiveTaxBase <= 9400000000) {
+        return comprehensiveTaxBase * 0.04 - 89400000
+      } else {
+        return comprehensiveTaxBase * 0.05 - 183400000
+      }
+    }
+  }
+
+  function calculateHoldingTax(publicPrice, isSingleHousehold, housingCount) {
+    const taxBase = roundToWon(publicPrice * FAIR_MARKET_RATIO)
+    const propertyTax = roundToWon(calculatePropertyTax(taxBase, isSingleHousehold))
+    const urbanTax = roundToWon(propertyTax * 0.14)
+    const educationTax = roundToWon(propertyTax * 0.2)
+
+    const deduction = (isSingleHousehold && housingCount === 1) ? 1200000000 : 900000000
+    const comprehensiveTaxBase = roundToWon(Math.max(0, (publicPrice - deduction) * FAIR_MARKET_RATIO))
+    const comprehensiveTax = roundToWon(calculateComprehensiveTax(comprehensiveTaxBase, housingCount))
+    const ruralTax = roundToWon(comprehensiveTax * 0.2)
+
+    const totalHoldingTax = propertyTax + urbanTax + educationTax + comprehensiveTax + ruralTax
+
+    return {
+      taxBase,
+      propertyTax,
+      urbanTax,
+      educationTax,
+      comprehensiveTaxBase,
+      comprehensiveTax,
+      ruralTax,
+      totalHoldingTax
+    }
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  setupNumberInput(document.getElementById('publicPrice'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const raw = document.getElementById('publicPrice').value.replace(/,/g, '')
+    const publicPrice = parseInt(raw) || 0
+    const isSingleHousehold = document.getElementById('isSingleHousehold').checked
+    const housingCount = parseInt(document.getElementById('housingCount').value)
+
+    if (publicPrice <= 0) {
+      document.getElementById('errorText').textContent = '공시가격을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateHoldingTax(publicPrice, isSingleHousehold, housingCount)
+
+    document.getElementById('totalTax').textContent = formatManWon(result.totalHoldingTax)
+    document.getElementById('taxBase').textContent = formatManWon(result.taxBase)
+    document.getElementById('propertyTax').textContent = formatManWon(result.propertyTax)
+    document.getElementById('urbanTax').textContent = formatManWon(result.urbanTax)
+    document.getElementById('educationTax').textContent = formatManWon(result.educationTax)
+    document.getElementById('comprehensiveTaxBase').textContent = formatManWon(result.comprehensiveTaxBase)
+    document.getElementById('comprehensiveTax').textContent = formatManWon(result.comprehensiveTax)
+    document.getElementById('ruralTax').textContent = formatManWon(result.ruralTax)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

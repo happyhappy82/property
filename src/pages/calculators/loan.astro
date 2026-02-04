@@ -1,10 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header.astro'
+import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
-<Layout title="대출/상환 계산기" description="주택담보대출 상환금 계산 및 최대 대출 가능액을 계산하세요.">
-  <Header />
-  <main class="mt-8">
+<CalcLayout title="대출/상환 계산기" description="주택담보대출 상환금 계산 및 최대 대출 가능액을 계산하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
@@ -298,8 +295,7 @@ import Header from '../../components/Header.astro'
         DSR은 제1금융권 40%, 제2금융권 50%가 적용되며, 스트레스 DSR(금리 +1.5%p 또는 +0.75%p)로 계산됩니다.
       </p>
     </div>
-  </main>
-</Layout>
+</CalcLayout>
 
 <script>
   // Helper functions

@@ -1,10 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header.astro'
+import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
-<Layout title="양도소득세 계산기" description="부동산 양도 시 양도소득세를 계산하고 절세 방법을 확인하세요.">
-  <Header />
-  <main class="mt-8">
+<CalcLayout title="양도소득세 계산기" description="부동산 양도 시 양도소득세를 계산하고 절세 방법을 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
@@ -208,8 +205,7 @@ import Header from '../../components/Header.astro'
         세법 개정에 따라 세율 및 공제율이 변경될 수 있습니다.
       </p>
     </div>
-  </main>
-</Layout>
+</CalcLayout>
 
 <script>
   // Helper functions

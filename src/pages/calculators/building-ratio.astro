@@ -1,0 +1,191 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="건폐율/용적률 계산기 - 부동산 트렌드 리뷰" description="대지면적, 건축면적, 연면적을 입력하여 건폐율과 용적률을 계산합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">건폐율/용적률 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">건폐율과 용적률, 연면적 등을 계산할 수 있습니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대지면적</label>
+          <div class="relative">
+            <input type="text" id="landArea" placeholder="300.00"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">㎡</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">건축면적</label>
+          <div class="relative">
+            <input type="text" id="buildingArea" placeholder="150.00"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">㎡</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">연면적</label>
+          <div class="relative">
+            <input type="text" id="totalFloorArea" placeholder="450.00"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">㎡</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">층수</label>
+          <input type="number" id="floors" placeholder="5" min="1"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">계산 결과</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">건폐율</span><span class="font-bold text-blue-700 dark:text-blue-300" id="buildingCoverageRatio"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">용적률</span><span class="font-bold text-blue-700 dark:text-blue-300" id="floorAreaRatio"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">평균 층별면적</span><span class="font-medium dark:text-gray-200" id="avgFloorArea"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">면적 변환</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">대지면적</span><span class="dark:text-gray-200" id="landAreaDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">건축면적</span><span class="dark:text-gray-200" id="buildingAreaDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연면적</span><span class="dark:text-gray-200" id="totalFloorAreaDisplay"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">건폐율과 용적률, 연면적 등을 계산할 수 있는 간단한 계산기입니다.</p>
+      <ul class="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-400">
+        <li>건폐율: 대지 면적에 대한 건축면적(대지에 닿아있는 건축물 면적)의 비율</li>
+        <li>용적률: 대지면적에 대한 건축물의 연면적(지하층 제외) 비율</li>
+        <li>연면적: 건축물 모든 층(지하 제외)의 면적을 다 합한 면적</li>
+      </ul>
+      <div class="text-xs text-gray-500 dark:text-gray-500 mt-3">
+        <p>※ 계산에 적용하지 않는 면적: 지하층, 지상층 주차용 면적, 주민공동시설, 초고층 건축물의 피난안전구역 등</p>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 건폐율/용적률은 관할 구청 등에 확인하시기 바랍니다.<br>
+        ※ 1평 = 3.305785㎡ 기준으로 환산합니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  const SQM_TO_PYEONG = 0.3025
+
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9.]/g, '')
+      if (raw && !isNaN(parseFloat(raw))) {
+        this.value = raw
+      } else if (raw === '') {
+        this.value = ''
+      }
+    })
+  }
+
+  function calculateBuildingRatio(landArea, buildingArea, totalFloorArea, floors) {
+    const buildingCoverageRatio = (buildingArea / landArea) * 100
+    const floorAreaRatio = (totalFloorArea / landArea) * 100
+    const avgFloorArea = totalFloorArea / floors
+
+    const buildingAreaPyeong = buildingArea * SQM_TO_PYEONG
+    const totalFloorAreaPyeong = totalFloorArea * SQM_TO_PYEONG
+    const landAreaPyeong = landArea * SQM_TO_PYEONG
+
+    return {
+      buildingCoverageRatio: buildingCoverageRatio.toFixed(2),
+      floorAreaRatio: floorAreaRatio.toFixed(2),
+      avgFloorArea: avgFloorArea.toFixed(2),
+      buildingAreaSqm: buildingArea.toFixed(2),
+      buildingAreaPyeong: buildingAreaPyeong.toFixed(2),
+      totalFloorAreaSqm: totalFloorArea.toFixed(2),
+      totalFloorAreaPyeong: totalFloorAreaPyeong.toFixed(2),
+      landAreaSqm: landArea.toFixed(2),
+      landAreaPyeong: landAreaPyeong.toFixed(2),
+    }
+  }
+
+  setupNumberInput(document.getElementById('landArea'))
+  setupNumberInput(document.getElementById('buildingArea'))
+  setupNumberInput(document.getElementById('totalFloorArea'))
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const landArea = parseFloat(document.getElementById('landArea').value) || 0
+    const buildingArea = parseFloat(document.getElementById('buildingArea').value) || 0
+    const totalFloorArea = parseFloat(document.getElementById('totalFloorArea').value) || 0
+    const floors = parseInt(document.getElementById('floors').value) || 0
+
+    if (landArea <= 0) {
+      document.getElementById('errorText').textContent = '대지면적을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (buildingArea <= 0) {
+      document.getElementById('errorText').textContent = '건축면적을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (totalFloorArea <= 0) {
+      document.getElementById('errorText').textContent = '연면적을 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    if (floors <= 0) {
+      document.getElementById('errorText').textContent = '층수를 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const result = calculateBuildingRatio(landArea, buildingArea, totalFloorArea, floors)
+
+    document.getElementById('buildingCoverageRatio').textContent = result.buildingCoverageRatio + '%'
+    document.getElementById('floorAreaRatio').textContent = result.floorAreaRatio + '%'
+    document.getElementById('avgFloorArea').textContent = formatNumber(parseFloat(result.avgFloorArea)) + ' ㎡'
+
+    document.getElementById('landAreaDisplay').textContent = formatNumber(parseFloat(result.landAreaSqm)) + ' ㎡ (' + formatNumber(parseFloat(result.landAreaPyeong)) + ' 평)'
+    document.getElementById('buildingAreaDisplay').textContent = formatNumber(parseFloat(result.buildingAreaSqm)) + ' ㎡ (' + formatNumber(parseFloat(result.buildingAreaPyeong)) + ' 평)'
+    document.getElementById('totalFloorAreaDisplay').textContent = formatNumber(parseFloat(result.totalFloorAreaSqm)) + ' ㎡ (' + formatNumber(parseFloat(result.totalFloorAreaPyeong)) + ' 평)'
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

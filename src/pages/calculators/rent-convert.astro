@@ -1,11 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header.astro'
+import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<Layout title="전월세 전환 계산기 - 부동산 트렌드 리뷰" description="전세를 월세로, 월세를 전세로 간편하게 환산하세요. 전환율을 입력하여 정확한 금액을 계산합니다.">
-  <Header />
-  <main class="mt-8">
+<CalcLayout title="전월세 전환 계산기 - 부동산 트렌드 리뷰" description="전세를 월세로, 월세를 전세로 간편하게 환산하세요. 전환율을 입력하여 정확한 금액을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
@@ -108,8 +105,7 @@ import Header from '../../components/Header.astro'
         ※ 법정 전환율은 매년 변경될 수 있으니 최신 정보를 확인하세요.
       </p>
     </div>
-  </main>
-</Layout>
+</CalcLayout>
 
 <script>
   function formatNumber(num) {

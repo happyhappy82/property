@@ -1,0 +1,213 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="RTI 계산기 - 부동산 트렌드 리뷰" description="부동산 임대업 여신 심사 시 사용되는 RTI(Rent to Interest) 비율을 계산합니다.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">RTI 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 임대업 대출 적정성을 판단하는 RTI 비율을 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">연간 임대소득</label>
+          <div class="relative">
+            <input type="text" id="annualRentalIncome" placeholder="24,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출금액</label>
+          <div class="relative">
+            <input type="text" id="loanAmount" placeholder="300,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출이자율</label>
+          <div class="relative">
+            <input type="text" id="interestRate" placeholder="4.5" value="4.5"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">부동산 유형</label>
+          <select id="propertyType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            <option value="주거용">주거용 (기준 1.25배)</option>
+            <option value="비주거용">비주거용 (기준 1.5배)</option>
+          </select>
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div id="qualifiedBox" class="rounded-lg border p-4">
+        <h2 class="text-sm font-medium mb-3" id="qualifiedTitle"></h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm" id="qualifiedLabel1"></span><span class="font-bold" id="rtiRatio"></span></div>
+          <div class="flex justify-between"><span class="text-sm" id="qualifiedLabel2"></span><span class="font-medium" id="requiredRti"></span></div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">상세 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연간 임대소득</span><span class="dark:text-gray-200" id="annualRentalIncomeDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">연간 이자비용</span><span class="dark:text-gray-200" id="annualInterestCost"></span></div>
+          <div class="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-2"><span class="text-sm dark:text-gray-300">최대 대출가능액</span><span class="font-medium dark:text-gray-200" id="maxLoanAmount"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        RTI(Rent to Interest)는 부동산임대업 여신심사시 임대업자들의 대출 적정성 여부를 판단하기 위한 것으로 연간 이자비용 대비 연간 임대소득 비율을 말합니다.
+      </p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 list-disc list-inside space-y-1">
+        <li>은행연합회의 가이드라인에 따르면 주택 1.25배, 비주택 1.5배 이상만 신규 대출 취급토록 하고 있습니다.</li>
+      </ul>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 대출 심사는 금융기관의 내부 규정에 따라 다를 수 있습니다.<br>
+        ※ RTI = 연간 임대소득 / 연간 이자비용
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return num.toLocaleString('ko-KR')
+  }
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) { r += formatNumber(eok) + '억'; if (man > 0) r += ' ' + formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else if (man > 0) { r += formatNumber(man) + '만'; if (rem > 0) r += ' ' + formatNumber(rem); r += '원' }
+    else { r += formatNumber(abs) + '원' }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function setupPercentInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9.]/g, '')
+      this.value = raw
+    })
+  }
+
+  function roundTo(num, decimals) {
+    return Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
+  }
+
+  setupNumberInput(document.getElementById('annualRentalIncome'))
+  setupNumberInput(document.getElementById('loanAmount'))
+  setupPercentInput(document.getElementById('interestRate'))
+
+  const RTI_REQUIREMENTS = {
+    '주거용': 1.25,
+    '비주거용': 1.5
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const annualRentalIncome = parseInt(document.getElementById('annualRentalIncome').value.replace(/,/g, '')) || 0
+    const loanAmount = parseInt(document.getElementById('loanAmount').value.replace(/,/g, '')) || 0
+    const interestRate = parseFloat(document.getElementById('interestRate').value) || 0
+    const propertyType = document.getElementById('propertyType').value
+
+    if (annualRentalIncome <= 0) {
+      document.getElementById('errorText').textContent = '연간임대소득은 0보다 커야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+    if (loanAmount <= 0) {
+      document.getElementById('errorText').textContent = '대출금액은 0보다 커야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+    if (interestRate <= 0) {
+      document.getElementById('errorText').textContent = '대출이자율은 0보다 커야 합니다.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const annualInterestCost = loanAmount * interestRate / 100
+    const rtiRatio = roundTo(annualRentalIncome / annualInterestCost, 2)
+    const requiredRti = RTI_REQUIREMENTS[propertyType]
+    const isQualified = rtiRatio >= requiredRti
+
+    const maxLoanAmount = Math.floor((annualRentalIncome / requiredRti) / (interestRate / 100))
+
+    // Update qualified box styling
+    const qualifiedBox = document.getElementById('qualifiedBox')
+    const qualifiedTitle = document.getElementById('qualifiedTitle')
+    const qualifiedLabel1 = document.getElementById('qualifiedLabel1')
+    const qualifiedLabel2 = document.getElementById('qualifiedLabel2')
+
+    if (isQualified) {
+      qualifiedBox.className = 'bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800 p-4'
+      qualifiedTitle.className = 'text-sm font-medium text-green-800 dark:text-green-300 mb-3'
+      qualifiedTitle.textContent = 'RTI 기준 적격'
+      qualifiedLabel1.className = 'text-sm text-green-700 dark:text-green-300'
+      qualifiedLabel2.className = 'text-sm text-green-700 dark:text-green-300'
+      document.getElementById('rtiRatio').className = 'font-bold text-green-700 dark:text-green-300'
+      document.getElementById('requiredRti').className = 'font-medium text-green-700 dark:text-green-300'
+    } else {
+      qualifiedBox.className = 'bg-red-50 dark:bg-red-900/30 rounded-lg border border-red-200 dark:border-red-800 p-4'
+      qualifiedTitle.className = 'text-sm font-medium text-red-800 dark:text-red-300 mb-3'
+      qualifiedTitle.textContent = 'RTI 기준 부적격'
+      qualifiedLabel1.className = 'text-sm text-red-700 dark:text-red-300'
+      qualifiedLabel2.className = 'text-sm text-red-700 dark:text-red-300'
+      document.getElementById('rtiRatio').className = 'font-bold text-red-700 dark:text-red-300'
+      document.getElementById('requiredRti').className = 'font-medium text-red-700 dark:text-red-300'
+    }
+
+    qualifiedLabel1.textContent = 'RTI 비율'
+    qualifiedLabel2.textContent = '요구 RTI'
+
+    document.getElementById('rtiRatio').textContent = rtiRatio.toFixed(2) + '배'
+    document.getElementById('requiredRti').textContent = requiredRti.toFixed(2) + '배'
+    document.getElementById('annualRentalIncomeDisplay').textContent = formatManWon(annualRentalIncome)
+    document.getElementById('annualInterestCost').textContent = formatManWon(Math.round(annualInterestCost))
+    document.getElementById('maxLoanAmount').textContent = formatManWon(maxLoanAmount)
+
+    resultsEl.classList.remove('hidden')
+  })
+</script>

@@ -1,0 +1,232 @@
+---
+import CalcLayout from '../../layouts/CalcLayout.astro'
+---
+
+<CalcLayout title="중도상환수수료 계산기 - 부동산 트렌드 리뷰" description="대출 중도상환 시 발생하는 수수료를 계산하세요.">
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">중도상환수수료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">대출 중도상환 시 발생하는 수수료를 계산합니다.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">중도상환금액</label>
+          <div class="relative">
+            <input type="text" id="repaymentAmount" placeholder="100,000,000"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">수수료율</label>
+          <div class="relative">
+            <input type="text" id="feeRate" placeholder="1.2"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">대출일</label>
+          <input type="date" id="loanDate"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">상환일</label>
+          <input type="date" id="repaymentDate"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 dark:text-gray-200">만기일</label>
+          <input type="date" id="maturityDate"
+            class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        </div>
+
+        <button id="calcBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+          계산하기
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="hidden bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-3 rounded-lg mb-6">
+      <p class="text-red-700 dark:text-red-400 text-sm" id="errorText"></p>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">중도상환수수료</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">수수료</span><span class="font-bold text-xl text-blue-700 dark:text-blue-300" id="earlyRepaymentFee"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">실상환금액</span><span class="font-medium dark:text-gray-200" id="netAmount"></span></div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세부 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">중도상환금액</span><span class="dark:text-gray-200" id="repaymentAmountDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">수수료율</span><span class="dark:text-gray-200" id="feeRateDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">잔여일수 비율</span><span class="dark:text-gray-200" id="dayRatioDisplay"></span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">경과일수 / 전체일수</span><span class="dark:text-gray-200" id="daysDisplay"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-4">
+      <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h3 class="text-sm font-semibold">참고 정보</h3>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">대출을 본래 정해진 기일보다 일찍 상환하는 경우 금융기관에서 고객에게 물리는 벌칙성 수수료입니다.</p>
+      <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+        <li>계산식: 중도상환원금 × 수수료율 × (잔존일수 ÷ 대출기간)</li>
+        <li>대출 실행 후 3년이 지나면 면제되는 경우가 많음</li>
+        <li>연간 대출총액의 10%~20% 이내 상환 시 면제되기도 함</li>
+      </ul>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <caption class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 text-left">2025년 1월 13일 수수료 인하</caption>
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-700">
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">구분</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">2025.1.12 이전</th>
+              <th class="border border-gray-300 dark:border-gray-600 px-2 py-1.5 text-left">2025.1.13 이후</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700 dark:text-gray-300">
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">주택담보대출</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">변동 1.20%, 그 외 1.40%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">0.58%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">신용대출</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">변동 0.60%, 그 외 0.70%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">0.02%</td></tr>
+            <tr><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">기타대출</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">변동 0.60%, 그 외 0.70%</td><td class="border border-gray-300 dark:border-gray-600 px-2 py-1.5">변동 0.59%, 그 외 0.79%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 수수료는 금융기관에 확인하시기 바랍니다.<br>
+        ※ 금융기관별로 면제 조건이 다를 수 있습니다.
+      </p>
+    </div>
+</CalcLayout>
+
+<script>
+  function formatNumber(num) {
+    return Math.round(num).toLocaleString('ko-KR')
+  }
+
+  function formatManWon(amount) {
+    const abs = Math.abs(Math.round(amount))
+    const sign = amount < 0 ? '-' : ''
+    const eok = Math.floor(abs / 100000000)
+    const man = Math.floor((abs % 100000000) / 10000)
+    const rem = abs % 10000
+    let r = sign
+    if (eok > 0) {
+      r += formatNumber(eok) + '억'
+      if (man > 0) r += ' ' + formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else if (man > 0) {
+      r += formatNumber(man) + '만'
+      if (rem > 0) r += ' ' + formatNumber(rem)
+      r += '원'
+    } else {
+      r += formatNumber(abs) + '원'
+    }
+    return r
+  }
+
+  function setupNumberInput(el) {
+    el.addEventListener('input', function() {
+      const raw = this.value.replace(/[^0-9]/g, '')
+      if (raw) { this.value = parseInt(raw).toLocaleString('ko-KR') }
+      else { this.value = '' }
+    })
+  }
+
+  function setupDecimalInput(el) {
+    el.addEventListener('input', function() {
+      let raw = this.value.replace(/[^0-9.]/g, '')
+      const parts = raw.split('.')
+      if (parts.length > 2) {
+        raw = parts[0] + '.' + parts.slice(1).join('')
+      }
+      this.value = raw
+    })
+  }
+
+  setupNumberInput(document.getElementById('repaymentAmount'))
+  setupDecimalInput(document.getElementById('feeRate'))
+
+  function calculateEarlyRepayment(repaymentAmount, feeRate, remainingDays, totalDays) {
+    if (remainingDays > totalDays) {
+      throw new Error('대출잔여일수는 대출전체기간보다 클 수 없습니다.')
+    }
+
+    const dayRatio = remainingDays / totalDays
+    const earlyRepaymentFee = Math.round(repaymentAmount * (feeRate / 100) * dayRatio)
+    const netAmount = repaymentAmount - earlyRepaymentFee
+
+    return {
+      earlyRepaymentFee,
+      netAmount,
+      repaymentAmount,
+      feeRate,
+      dayRatio,
+    }
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const errorEl = document.getElementById('error')
+    const resultsEl = document.getElementById('results')
+    errorEl.classList.add('hidden')
+    resultsEl.classList.add('hidden')
+
+    const repaymentAmount = parseInt(document.getElementById('repaymentAmount').value.replace(/,/g, '')) || 0
+    const feeRate = parseFloat(document.getElementById('feeRate').value) || 0
+    const loanDateStr = document.getElementById('loanDate').value
+    const repaymentDateStr = document.getElementById('repaymentDate').value
+    const maturityDateStr = document.getElementById('maturityDate').value
+
+    if (repaymentAmount <= 0 || feeRate < 0 || !loanDateStr || !repaymentDateStr || !maturityDateStr) {
+      document.getElementById('errorText').textContent = '모든 항목을 올바르게 입력해주세요.'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    const loanDate = new Date(loanDateStr)
+    const repaymentDate = new Date(repaymentDateStr)
+    const maturityDate = new Date(maturityDateStr)
+
+    const elapsedDays = Math.floor((repaymentDate - loanDate) / (1000 * 60 * 60 * 24))
+    const totalDays = Math.floor((maturityDate - loanDate) / (1000 * 60 * 60 * 24))
+    const remainingDays = Math.floor((maturityDate - repaymentDate) / (1000 * 60 * 60 * 24))
+
+    if (elapsedDays < 0 || remainingDays < 0 || totalDays <= 0) {
+      document.getElementById('errorText').textContent = '날짜를 올바르게 입력해주세요. (대출일 < 상환일 < 만기일)'
+      errorEl.classList.remove('hidden')
+      return
+    }
+
+    try {
+      const result = calculateEarlyRepayment(repaymentAmount, feeRate, remainingDays, totalDays)
+
+      document.getElementById('earlyRepaymentFee').textContent = formatManWon(result.earlyRepaymentFee)
+      document.getElementById('netAmount').textContent = formatManWon(result.netAmount)
+      document.getElementById('repaymentAmountDisplay').textContent = formatManWon(result.repaymentAmount)
+      document.getElementById('feeRateDisplay').textContent = result.feeRate.toFixed(2) + '%'
+      document.getElementById('dayRatioDisplay').textContent = (result.dayRatio * 100).toFixed(2) + '%'
+      document.getElementById('daysDisplay').textContent = `${elapsedDays}일 / ${totalDays}일 (잔여: ${remainingDays}일)`
+
+      resultsEl.classList.remove('hidden')
+    } catch (error) {
+      document.getElementById('errorText').textContent = error.message
+      errorEl.classList.remove('hidden')
+    }
+  })
+</script>

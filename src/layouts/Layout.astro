@@ -6,6 +6,7 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  wide?: boolean;
   article?: {
     publishedTime: string;
     modifiedTime: string;
@@ -21,6 +22,7 @@ const {
   description = defaultDescription,
   canonical = baseUrl,
   ogImage = "/opengraph-image.png",
+  wide = false,
   article,
 } = Astro.props;
 
@@ -80,6 +82,7 @@ const organizationSchema = {
     <!-- Critical CSS inline for faster LCP -->
     <style>
       body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;margin:0 auto;max-width:42rem;padding:3rem 1.25rem;background:#fff;color:#000;transition:background-color .2s,color .2s}
+      body.layout-wide{max-width:80rem}
       html.dark body{background:#111827;color:#f3f4f6}
       h1,h2,h3,h4{scroll-margin-top:80px}
       .text-\[42px\]{font-size:42px}.text-\[28px\]{font-size:28px}.font-black{font-weight:900}.leading-tight{line-height:1.25}.mb-4{margin-bottom:1rem}.mb-2{margin-bottom:0.5rem}.mb-8{margin-bottom:2rem}.mb-14{margin-bottom:3.5rem}
@@ -179,7 +182,7 @@ const organizationSchema = {
       gtag('config', 'G-DWB3TENH1D');
     </script>
   </head>
-  <body class="mx-auto max-w-2xl px-5 py-12">
+  <body class={`mx-auto ${wide ? 'layout-wide max-w-7xl' : 'max-w-2xl'} px-5 py-12`}>
     <slot />
   </body>
 </html>
