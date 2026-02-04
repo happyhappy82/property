@@ -1,6 +1,8 @@
 ---
 import Layout from './Layout.astro'
 import CalcHeader from '../components/CalcHeader.astro'
+import { getSortedPropertiesData } from '../../lib/properties'
+import { formatDisplayDate } from '../../lib/date-utils'
 
 interface Props {
   title: string;
@@ -9,6 +11,7 @@ interface Props {
 }
 
 const { title, description, wide = false } = Astro.props;
+const recentPosts = getSortedPropertiesData().slice(0, 10);
 ---
 
 <Layout title={title} description={description} wide={wide}>
@@ -16,4 +19,106 @@ const { title, description, wide = false } = Astro.props;
   <main class="mt-8">
     <slot />
   </main>
+
+  {recentPosts.length > 0 && (
+    <section class="calc-recent-posts">
+      <h2 class="calc-rp-title">최신 부동산 글</h2>
+      <ul class="calc-rp-list">
+        {recentPosts.map((post) => (
+          <li>
+            <a href={`/${post.slug}`} class="calc-rp-link">
+              <span class="calc-rp-post-title">{post.title}</span>
+              <span class="calc-rp-date">{formatDisplayDate(post.date)}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/" class="calc-rp-more">더 많은 글 보기 &rarr;</a>
+    </section>
+  )}
 </Layout>
+
+<style>
+  .calc-recent-posts {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  :global(.dark) .calc-recent-posts {
+    border-top-color: #374151;
+  }
+
+  .calc-rp-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #111827;
+  }
+  :global(.dark) .calc-rp-title {
+    color: #f3f4f6;
+  }
+
+  .calc-rp-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .calc-rp-list li {
+    border-bottom: 1px solid #f3f4f6;
+  }
+  :global(.dark) .calc-rp-list li {
+    border-bottom-color: #1f2937;
+  }
+
+  .calc-rp-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.625rem 0;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .calc-rp-link:hover .calc-rp-post-title {
+    color: #2563eb;
+  }
+  :global(.dark) .calc-rp-link:hover .calc-rp-post-title {
+    color: #60a5fa;
+  }
+
+  .calc-rp-post-title {
+    font-size: 0.875rem;
+    color: #374151;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  :global(.dark) .calc-rp-post-title {
+    color: #d1d5db;
+  }
+
+  .calc-rp-date {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .calc-rp-more {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+  }
+  .calc-rp-more:hover {
+    text-decoration: underline;
+  }
+  :global(.dark) .calc-rp-more {
+    color: #60a5fa;
+  }
+</style>
