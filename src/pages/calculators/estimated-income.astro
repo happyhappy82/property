@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="추정소득 계산기 - 부동산 트렌드 리뷰" description="국민연금 또는 건강보험 납부액을 기반으로 추정소득을 계산합니다.">
+<CalcLayout title="부동산 추정소득 계산기 - 부동산 트렌드 리뷰" description="국민연금 또는 건강보험 납부액을 기반으로 추정소득을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">추정소득 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">국민연금 또는 건강보험 납부액으로 추정소득을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 추정소득 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 추정소득 계산기는 국민연금 또는 건강보험 납부액을 기반으로 연간 추정소득을 산출합니다. 소득 증빙이 어려운 경우 부동산 대출 심사에 활용되는 추정소득 금액을 미리 확인할 수 있습니다. 이 계산기를 통해 부동산 담보대출 신청 전 본인의 추정소득 수준을 파악해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -81,6 +81,97 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 국민연금: 납부액 / 4.5%, 건강보험: 납부액 / 7.09%
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">추정소득이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">추정소득이란 원천징수영수증이나 소득금액증명원 등 공식적인 소득 증빙 서류를 제출하기 어려운 경우, 국민연금 납부액이나 건강보험료 납부액을 기반으로 역산하여 추정하는 소득을 말합니다. 금융기관에서 DTI, DSR 등 대출 심사 시 소득 증빙 대안으로 활용됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">추정소득은 크게 인정소득과 신고소득으로 구분됩니다. 인정소득은 국민연금 또는 건강보험료 납부 내역을 기반으로 산출하며, 신고소득은 카드 사용액 등을 활용합니다. 금융기관마다 인정하는 추정소득의 범위와 적용 비율이 다를 수 있으므로, 대출 신청 전 해당 기관에 확인하는 것이 중요합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">추정소득 산출 방법별 비교</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">추정 방법</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">산출 공식</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">적용 요율</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비고</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">국민연금 기반</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월 납부액 / 4.5%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">4.5% (근로자 부담분)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">직장가입자 기준, 전체 요율 9%의 절반</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">건강보험 기반</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월 납부액 / 3.545%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3.545% (근로자 부담분)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">직장가입자 기준, 전체 요율 7.09%의 절반</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">추정소득 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 국민연금 월 20만 원 납부자</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 추정 방식: 국민연금 기반</p>
+            <p>· 월 납부액: 200,000원</p>
+            <p>· 적용 요율: 4.5% (근로자 부담분)</p>
+            <p>· 월 추정소득: 200,000 / 0.045 = 4,444,444원</p>
+            <p>· 연 추정소득: 4,444,444 x 12 = 53,333,333원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: 월 추정소득 <span class="text-blue-600 dark:text-blue-400">약 444만 원</span>, 연 추정소득 <span class="text-blue-600 dark:text-blue-400">약 5,333만 원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">추정소득 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 추정소득은 어디에 활용되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">추정소득은 주로 금융기관의 대출 심사에서 활용됩니다. 원천징수영수증이나 소득금액증명원 등 공식 서류로 소득을 증빙하기 어려운 자영업자, 프리랜서, 일용직 근로자 등이 주택담보대출이나 신용대출을 신청할 때 소득 증빙 대안으로 사용됩니다. DTI, DSR 산출 시 소득 기준으로 적용됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 국민연금 기반과 건강보험 기반 중 어떤 것이 유리한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">일반적으로 국민연금 기반 추정소득이 더 높게 산출되는 경우가 많습니다. 국민연금 요율(4.5%)이 건강보험 요율(3.545%)보다 높아서 같은 납부액 대비 역산 소득이 다르기 때문입니다. 다만 금융기관에 따라 인정하는 추정 방식이 다를 수 있으므로, 대출 신청 시 둘 다 확인하여 유리한 방식을 선택하는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 프리랜서나 자영업자도 추정소득으로 대출받을 수 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 프리랜서나 자영업자도 추정소득을 활용하여 대출을 받을 수 있습니다. 다만 추정소득만으로는 대출 한도가 제한될 수 있으며, 종합소득세 신고내역, 사업자등록증, 카드매출 내역 등을 추가로 제출하면 더 높은 소득을 인정받을 수 있습니다. 금융기관마다 요구 서류가 다르므로 사전에 확인하시기 바랍니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 추정소득의 한계는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">추정소득은 실제 소득과 차이가 있을 수 있다는 한계가 있습니다. 국민연금은 상한액(월 590만 원 기준)이 있어 고소득자의 실제 소득을 반영하지 못하며, 건강보험료는 피부양자 유무나 지역가입자 여부에 따라 납부액이 달라집니다. 또한 금융기관에 따라 추정소득에 일정 할인율(80~90%)을 적용하는 경우도 있어, 공식 소득 증빙보다 인정 금액이 낮을 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "추정소득은 어디에 활용되나요?", "acceptedAnswer": { "@type": "Answer", "text": "추정소득은 주로 금융기관의 대출 심사에서 활용됩니다. 원천징수영수증이나 소득금액증명원 등 공식 서류로 소득을 증빙하기 어려운 자영업자, 프리랜서, 일용직 근로자 등이 주택담보대출이나 신용대출을 신청할 때 소득 증빙 대안으로 사용됩니다. DTI, DSR 산출 시 소득 기준으로 적용됩니다." } },
+        { "@type": "Question", "name": "국민연금 기반과 건강보험 기반 중 어떤 것이 유리한가요?", "acceptedAnswer": { "@type": "Answer", "text": "일반적으로 국민연금 기반 추정소득이 더 높게 산출되는 경우가 많습니다. 국민연금 요율(4.5%)이 건강보험 요율(3.545%)보다 높아서 같은 납부액 대비 역산 소득이 다르기 때문입니다. 다만 금융기관에 따라 인정하는 추정 방식이 다를 수 있으므로, 대출 신청 시 둘 다 확인하여 유리한 방식을 선택하는 것이 좋습니다." } },
+        { "@type": "Question", "name": "프리랜서나 자영업자도 추정소득으로 대출받을 수 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 프리랜서나 자영업자도 추정소득을 활용하여 대출을 받을 수 있습니다. 다만 추정소득만으로는 대출 한도가 제한될 수 있으며, 종합소득세 신고내역, 사업자등록증, 카드매출 내역 등을 추가로 제출하면 더 높은 소득을 인정받을 수 있습니다. 금융기관마다 요구 서류가 다르므로 사전에 확인하시기 바랍니다." } },
+        { "@type": "Question", "name": "추정소득의 한계는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "추정소득은 실제 소득과 차이가 있을 수 있다는 한계가 있습니다. 국민연금은 상한액(월 590만 원 기준)이 있어 고소득자의 실제 소득을 반영하지 못하며, 건강보험료는 피부양자 유무나 지역가입자 여부에 따라 납부액이 달라집니다. 또한 금융기관에 따라 추정소득에 일정 할인율(80~90%)을 적용하는 경우도 있어, 공식 소득 증빙보다 인정 금액이 낮을 수 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

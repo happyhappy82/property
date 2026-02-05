@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="예적금이자 계산기 - 부동산 트렌드 리뷰" description="예금 및 적금 이자 수익을 계산하세요. 단리/복리, 세금 옵션 지원.">
+<CalcLayout title="부동산 예적금이자 계산기 - 부동산 트렌드 리뷰" description="예금 및 적금 이자 수익을 계산하세요. 단리/복리, 세금 옵션 지원.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">예적금이자 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">예금 및 적금 이자 수익을 계산합니다. 단리/복리, 세금 옵션을 지원합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 예적금이자 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 예적금이자 계산기를 활용하면 목돈을 예치했을 때 받을 수 있는 이자 수익을 미리 확인할 수 있습니다. 단리·복리 방식과 이자소득세를 반영하여 부동산 자금 마련을 위한 예적금이자를 정확히 산출합니다. 부동산 매입 자금을 저축으로 준비한다면 이 계산기로 예적금이자 수익을 미리 계산해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -99,6 +99,143 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 비과세: 이자소득세 0% (비과세 저축 상품)
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">예적금 이자 계산 개요</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">예적금 이자 계산은 은행에 예치한 원금에 대해 일정 기간 동안 발생하는 이자를 산출하는 과정입니다. 이자 계산 방식에는 크게 단리와 복리가 있으며, 단리는 원금에만 이자가 붙고 복리는 원금과 이자에 다시 이자가 붙어 기간이 길수록 수익 차이가 커집니다. 예금은 목돈을 한 번에 예치하는 방식이고, 적금은 매월 일정액을 납입하는 방식입니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">이자소득에는 15.4%의 세금(소득세 14% + 주민세 1.4%)이 부과되므로, 실제 수령하는 세후 이자는 세전 이자보다 적습니다. 비과세 저축이나 세금우대(9.5%) 상품을 활용하면 세금 부담을 줄일 수 있습니다. 부동산 투자를 고려할 때 예적금 수익률과 비교하여 투자 판단의 기준으로 활용할 수도 있습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">이자 계산 방식 비교</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">계산 공식</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">특징</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">단리</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">원금 x 이율 x 기간</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">원금에만 이자 발생, 계산 단순</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">복리</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">원금 x (1 + 이율)^기간 - 원금</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">이자에도 이자 발생, 장기 유리</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세후 이자</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세전 이자 x (1 - 15.4%)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">일반과세 기준 실수령 이자</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세금우대</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세전 이자 x (1 - 9.5%)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">농특세만 부과, 대상자 한정</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">예적금 이자 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 정기예금 1억 원, 연 3.5%, 1년, 단리 (일반과세)</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 원금: 1억 원</p>
+            <p>· 연이율: 3.5%</p>
+            <p>· 기간: 1년 (12개월)</p>
+            <p>· 이자 계산 방식: 단리</p>
+            <p>· 세전 이자: 1억 x 3.5% x 1년 = 350만 원</p>
+            <p>· 이자소득세: 350만 원 x 15.4% = 53만 9,000원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 세후 수령 이자: <span class="text-blue-600 dark:text-blue-400">약 296만 1,000원 (세후 수령액: 1억 296만 1,000원)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">예적금 이자 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 단리와 복리의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">단리는 최초 원금에만 이자가 발생하는 방식이고, 복리는 원금에 붙은 이자에도 다시 이자가 붙는 방식입니다. 예를 들어 1억 원을 연 3%로 3년간 예치하면, 단리는 900만 원의 이자가 발생하지만 복리(월복리)는 약 941만 원의 이자가 발생합니다. 기간이 길수록 복리의 효과가 커집니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 이자소득세율은 얼마인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">일반과세 기준 이자소득세율은 15.4%입니다. 이는 소득세 14%와 주민세 1.4%(소득세의 10%)를 합산한 것입니다. 세금우대 저축의 경우 9.5%의 세율이 적용되고, 비과세 저축 상품은 이자소득세가 0%입니다. 연간 이자소득이 2,000만 원을 초과하면 종합소득세에 합산 과세됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 비과세 예금 조건은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">비과세 종합저축은 만 65세 이상 고령자, 장애인, 독립유공자 등이 가입할 수 있으며, 1인당 5,000만 원 한도 내에서 이자소득세가 면제됩니다. 또한 청년도약저축 등 정부 정책 상품도 비과세 혜택이 제공됩니다. 가입 자격과 한도는 상품에 따라 다르므로 금융기관에서 확인이 필요합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 예금자보호 한도는 얼마인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">예금자보호법에 따라 금융기관별로 1인당 최대 5,000만 원까지 원금과 이자를 합산하여 보호됩니다. 같은 금융기관에 여러 계좌가 있으면 합산하여 5,000만 원까지만 보호되며, 다른 금융기관의 예금은 별도로 각각 5,000만 원까지 보호됩니다. 단, 증권사 CMA, 투자 상품 등은 예금자보호 대상에서 제외됩니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "단리와 복리의 차이는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "단리는 최초 원금에만 이자가 발생하는 방식이고, 복리는 원금에 붙은 이자에도 다시 이자가 붙는 방식입니다. 예를 들어 1억 원을 연 3%로 3년간 예치하면, 단리는 900만 원의 이자가 발생하지만 복리(월복리)는 약 941만 원의 이자가 발생합니다. 기간이 길수록 복리의 효과가 커집니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "이자소득세율은 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "일반과세 기준 이자소득세율은 15.4%입니다. 이는 소득세 14%와 주민세 1.4%(소득세의 10%)를 합산한 것입니다. 세금우대 저축의 경우 9.5%의 세율이 적용되고, 비과세 저축 상품은 이자소득세가 0%입니다. 연간 이자소득이 2,000만 원을 초과하면 종합소득세에 합산 과세됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "비과세 예금 조건은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "비과세 종합저축은 만 65세 이상 고령자, 장애인, 독립유공자 등이 가입할 수 있으며, 1인당 5,000만 원 한도 내에서 이자소득세가 면제됩니다. 또한 청년도약저축 등 정부 정책 상품도 비과세 혜택이 제공됩니다. 가입 자격과 한도는 상품에 따라 다르므로 금융기관에서 확인이 필요합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "예금자보호 한도는 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예금자보호법에 따라 금융기관별로 1인당 최대 5,000만 원까지 원금과 이자를 합산하여 보호됩니다. 같은 금융기관에 여러 계좌가 있으면 합산하여 5,000만 원까지만 보호되며, 다른 금융기관의 예금은 별도로 각각 5,000만 원까지 보호됩니다. 단, 증권사 CMA, 투자 상품 등은 예금자보호 대상에서 제외됩니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

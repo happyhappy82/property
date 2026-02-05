@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="투자 수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 투자 수익률을 종합적으로 계산하세요. ROI, 연환산 수익률, 캡레이트, 레버리지 배율까지 한번에 확인할 수 있습니다.">
+<CalcLayout title="부동산 투자 수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 투자 수익률을 종합적으로 계산하세요. ROI, 연환산 수익률, 캡레이트, 레버리지 배율까지 한번에 확인할 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">투자 수익률 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 투자의 종합적인 수익률을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 투자 수익률 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 투자 수익률 계산기로 매입가 대비 임대 수입과 시세 차익을 종합한 실질 수익률을 확인할 수 있습니다. 취득 비용, 보유 비용, 양도 비용까지 반영하여 부동산 투자 수익률을 정확하게 산출합니다. 매수 결정 전 이 계산기를 활용하면 부동산 투자의 예상 수익률을 객관적으로 비교·분석할 수 있습니다.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -129,6 +129,103 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 대출이자는 매년 동일하게 발생하는 것으로 가정합니다 (원금균등상환이나 만기일시상환 고려 안함).
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 투자 수익률(ROI)이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">부동산 투자 수익률(ROI, Return on Investment)은 부동산에 투자한 자본 대비 얼마나 많은 수익을 얻었는지를 나타내는 핵심 지표입니다. 시세차익과 임대수익을 모두 포함하여 종합적인 투자 성과를 평가하며, 투자 의사결정의 기초 자료로 활용됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">부동산 투자 수익률은 크게 총수익률, 연환산수익률, 캡레이트(Cap Rate), 레버리지 수익률로 구분됩니다. 총수익률은 전체 보유기간 동안의 수익을 측정하고, 연환산수익률은 이를 연 단위로 환산하여 다른 투자상품과 비교할 수 있게 합니다. 캡레이트는 순영업소득 대비 부동산 가치를 평가하며, 레버리지를 활용하면 자기자본 대비 수익률을 극대화할 수 있습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 수익률 지표 비교</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">수익률 지표</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">산출 공식</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">의미</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">총수익률 (ROI)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">(총수익 - 총비용) / 투자원금 x 100</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">전체 보유기간 총 수익률</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">연환산수익률</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">총수익률 / 보유기간(년)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">연간 기준으로 환산한 수익률</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">캡레이트 (Cap Rate)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">순영업소득(NOI) / 매입가격 x 100</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">부동산 자체의 수익 창출 능력</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">현금수익률 (Cash-on-Cash)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">연간 순현금흐름 / 자기자본 x 100</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">실제 투입한 현금 대비 수익률</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">투자 수익률 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 5억 아파트 매수 후 3년 보유, 6억에 매도</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 매입가: 5억 원</p>
+            <p>· 매도가: 6억 원 (시세차익 1억 원)</p>
+            <p>· 보유기간: 3년</p>
+            <p>· 연 임대수익: 2,000만 원</p>
+            <p>· 연 비용(관리비 등): 200만 원</p>
+            <p>· 대출금: 3억 원 (금리 4.0%)</p>
+            <p>· 자기자본: 2억 원</p>
+            <p>· 총 임대순수익(3년): (2,000만 - 200만) x 3 = 5,400만 원</p>
+            <p>· 총 대출이자(3년): 3억 x 4.0% x 3 = 3,600만 원</p>
+            <p>· 총 순수익: 1억 + 5,400만 - 3,600만 = 1억 1,800만 원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: 총수익률(ROI) <span class="text-blue-600 dark:text-blue-400">59.0%</span>, 연환산수익률 <span class="text-blue-600 dark:text-blue-400">약 19.67%</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 투자 수익률 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 부동산 투자 수익률(ROI)은 어떻게 계산하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">부동산 ROI는 (총순수익 / 총투자금) x 100으로 계산합니다. 총순수익에는 시세차익과 임대수익에서 대출이자, 관리비, 세금 등 비용을 차감한 금액이 포함됩니다. 예를 들어 2억 원을 투자하여 5,000만 원의 순수익을 얻었다면 ROI는 25%입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 캡레이트(Cap Rate)란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">캡레이트(자본환원율)는 순영업소득(NOI)을 부동산 매입가격으로 나눈 비율입니다. 대출 조건과 무관하게 부동산 자체의 수익 창출 능력을 평가하는 지표로, 서로 다른 부동산의 투자 가치를 비교할 때 유용합니다. 한국 상업용 부동산의 캡레이트는 보통 3~6% 수준입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 레버리지 효과란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">레버리지 효과란 대출(타인자본)을 활용하여 자기자본 대비 수익률을 높이는 것을 말합니다. 예를 들어 5억 원 부동산을 자기자본 2억, 대출 3억으로 매입하면 레버리지 배율은 2.5배입니다. 부동산 가격이 상승하면 자기자본 수익률이 크게 높아지지만, 반대로 하락 시에는 손실도 확대되므로 주의가 필요합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 부동산 투자에서 좋은 수익률 기준은 어떻게 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">일반적으로 부동산 투자 수익률이 은행 예금 금리를 상회하면 기본적인 투자 가치가 있다고 봅니다. 임대수익률 기준으로 연 4~6% 이상이면 양호한 수준이며, 시세차익까지 포함한 총수익률은 연 10% 이상이면 우수한 투자로 평가됩니다. 다만 부동산 유형, 지역, 시장 상황에 따라 기준이 달라지므로 단순 수치만으로 판단하기보다 종합적으로 분석해야 합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "부동산 투자 수익률(ROI)은 어떻게 계산하나요?", "acceptedAnswer": { "@type": "Answer", "text": "부동산 ROI는 (총순수익 / 총투자금) x 100으로 계산합니다. 총순수익에는 시세차익과 임대수익에서 대출이자, 관리비, 세금 등 비용을 차감한 금액이 포함됩니다. 예를 들어 2억 원을 투자하여 5,000만 원의 순수익을 얻었다면 ROI는 25%입니다." } },
+        { "@type": "Question", "name": "캡레이트(Cap Rate)란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "캡레이트(자본환원율)는 순영업소득(NOI)을 부동산 매입가격으로 나눈 비율입니다. 대출 조건과 무관하게 부동산 자체의 수익 창출 능력을 평가하는 지표로, 서로 다른 부동산의 투자 가치를 비교할 때 유용합니다. 한국 상업용 부동산의 캡레이트는 보통 3~6% 수준입니다." } },
+        { "@type": "Question", "name": "레버리지 효과란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "레버리지 효과란 대출(타인자본)을 활용하여 자기자본 대비 수익률을 높이는 것을 말합니다. 예를 들어 5억 원 부동산을 자기자본 2억, 대출 3억으로 매입하면 레버리지 배율은 2.5배입니다. 부동산 가격이 상승하면 자기자본 수익률이 크게 높아지지만, 반대로 하락 시에는 손실도 확대되므로 주의가 필요합니다." } },
+        { "@type": "Question", "name": "부동산 투자에서 좋은 수익률 기준은 어떻게 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "일반적으로 부동산 투자 수익률이 은행 예금 금리를 상회하면 기본적인 투자 가치가 있다고 봅니다. 임대수익률 기준으로 연 4~6% 이상이면 양호한 수준이며, 시세차익까지 포함한 총수익률은 연 10% 이상이면 우수한 투자로 평가됩니다. 다만 부동산 유형, 지역, 시장 상황에 따라 기준이 달라지므로 단순 수치만으로 판단하기보다 종합적으로 분석해야 합니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

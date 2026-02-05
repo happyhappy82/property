@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="보유세 계산기 - 부동산 트렌드 리뷰" description="재산세와 종합부동산세를 통합하여 계산합니다. 공시가격과 주택보유수를 입력하여 보유세를 확인하세요.">
+<CalcLayout title="부동산 보유세 통합 계산기 - 부동산 트렌드 리뷰" description="재산세와 종합부동산세를 통합하여 계산합니다. 공시가격과 주택보유수를 입력하여 보유세를 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">보유세 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">재산세와 종합부동산세를 통합하여 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 보유세 통합 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 보유세 통합 계산기는 재산세와 종합부동산세를 한번에 산출하여 연간 보유세 총액을 파악할 수 있도록 도와줍니다. 공시가격을 입력하면 부동산 보유세 각 항목의 세부 내역을 통합적으로 확인할 수 있습니다. 주택 보유 시 매년 부담하는 부동산 보유세를 이 통합 계산기로 미리 점검해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -108,6 +108,158 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 과세표준은 공시가격의 60%로 계산됩니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 보유세란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">부동산 보유세는 부동산을 보유하고 있는 동안 매년 납부해야 하는 세금으로, 재산세와 종합부동산세(종부세)로 구성됩니다. 매년 6월 1일(과세기준일)에 부동산을 소유하고 있는 자에게 부과됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">재산세는 지방세로 개별 부동산 단위로 부과되며 7월과 9월에 납부합니다. 종합부동산세는 국세로 개인이 보유한 주택의 공시가격 합산액이 기본공제(1세대1주택 12억, 다주택 9억)를 초과할 때 12월에 부과됩니다. 두 세금을 합산한 것이 총 보유세입니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">재산세 + 종합부동산세 통합 세율 비교</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">재산세</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">종합부동산세</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">과세기준일</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6월 1일</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6월 1일</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세금 종류</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">지방세</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">국세</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">납부 시기</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">7월·9월</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">12월</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">과세표준</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">공시가격 × 60%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">(공시가격 - 기본공제) × 60%</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세율 범위</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.1% ~ 0.4%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.5% ~ 2.7% (일반)</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">부가세</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">도시지역분(0.14%), 지방교육세(20%)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">농어촌특별세(20%)</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기본공제</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">없음</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1세대1주택 12억 / 다주택 9억</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">보유세 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700 mb-4">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시 1: 공시가격 5억 원, 1세대 1주택</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 재산세 과세표준: 5억 × 60% = 3억 원</p>
+            <p>· 재산세: 57만 + 0원(초과분 없음) = 57만 원</p>
+            <p>· 도시지역분: 3억 × 0.14% = 42만 원</p>
+            <p>· 지방교육세: 57만 × 20% = 11.4만 원</p>
+            <p>· 종부세: 공시가격 5억 < 기본공제 12억 → 해당 없음</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">총 보유세 약 110.4만 원 (재산세만 납부)</span></p>
+          </div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시 2: 공시가격 15억 원, 1세대 1주택</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 재산세 과세표준: 15억 × 60% = 9억 원</p>
+            <p>· 재산세: 57만 + (9억 - 3억) × 0.4% = 57만 + 240만 = 297만 원</p>
+            <p>· 도시지역분: 9억 × 0.14% = 126만 원</p>
+            <p>· 지방교육세: 297만 × 20% = 59.4만 원</p>
+            <p>· 종부세 과세표준: (15억 - 12억) × 60% = 1.8억 원</p>
+            <p>· 종부세: 1.8억 × 0.5% = 90만 원</p>
+            <p>· 농어촌특별세: 90만 × 20% = 18만 원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">총 보유세 약 590.4만 원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">보유세 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 보유세는 어떤 세금으로 구성되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">보유세는 재산세와 종합부동산세(종부세)로 구성됩니다. 재산세는 모든 부동산 소유자에게 부과되는 지방세이며, 종부세는 공시가격 합산이 일정 금액(1세대1주택 12억, 다주택 9억)을 초과하는 경우에만 추가로 부과되는 국세입니다. 여기에 도시지역분, 지방교육세, 농어촌특별세 등 부가세가 포함됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 보유세 납부 시기는 각각 언제인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">재산세는 7월(주택분 1/2, 건축물분)과 9월(주택분 1/2, 토지분)에 나누어 납부합니다. 종합부동산세는 12월 1일~15일에 납부합니다. 따라서 한 해에 보유세는 7월, 9월, 12월 총 3번에 걸쳐 납부하게 됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 공시가격은 어디서 확인할 수 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">아파트·연립 등 공동주택의 공시가격은 국토교통부 부동산공시가격알리미(realtyprice.kr) 사이트에서 확인할 수 있습니다. 단독주택은 개별주택가격으로 관할 시·군·구청에서 확인 가능합니다. 매년 4월경 공시가격이 발표됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 세부담상한이란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">세부담상한은 공시가격이 급등하여 보유세가 급격히 늘어나는 것을 방지하기 위한 제도입니다. 재산세는 전년 대비 일정 비율(공시가격 구간에 따라 105~130%) 이상 증가할 수 없으며, 종부세도 전년 대비 일반 150%, 다주택 300%를 상한으로 합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "보유세는 어떤 세금으로 구성되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "보유세는 재산세와 종합부동산세(종부세)로 구성됩니다. 재산세는 모든 부동산 소유자에게 부과되는 지방세이며, 종부세는 공시가격 합산이 일정 금액(1세대1주택 12억, 다주택 9억)을 초과하는 경우에만 추가로 부과되는 국세입니다. 여기에 도시지역분, 지방교육세, 농어촌특별세 등 부가세가 포함됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "보유세 납부 시기는 각각 언제인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "재산세는 7월(주택분 1/2, 건축물분)과 9월(주택분 1/2, 토지분)에 나누어 납부합니다. 종합부동산세는 12월 1일~15일에 납부합니다. 따라서 한 해에 보유세는 7월, 9월, 12월 총 3번에 걸쳐 납부하게 됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "공시가격은 어디서 확인할 수 있나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "아파트·연립 등 공동주택의 공시가격은 국토교통부 부동산공시가격알리미(realtyprice.kr) 사이트에서 확인할 수 있습니다. 단독주택은 개별주택가격으로 관할 시·군·구청에서 확인 가능합니다. 매년 4월경 공시가격이 발표됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "세부담상한이란 무엇인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "세부담상한은 공시가격이 급등하여 보유세가 급격히 늘어나는 것을 방지하기 위한 제도입니다. 재산세는 전년 대비 일정 비율(공시가격 구간에 따라 105~130%) 이상 증가할 수 없으며, 종부세도 전년 대비 일반 150%, 다주택 300%를 상한으로 합니다." }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

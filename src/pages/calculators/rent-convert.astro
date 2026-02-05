@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="전월세 전환 계산기 - 부동산 트렌드 리뷰" description="전세를 월세로, 월세를 전세로 간편하게 환산하세요. 전환율을 입력하여 정확한 금액을 계산합니다.">
+<CalcLayout title="부동산 전월세 전환 계산기 - 부동산 트렌드 리뷰" description="전세를 월세로, 월세를 전세로 간편하게 환산하세요. 전환율을 입력하여 정확한 금액을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">전월세 전환 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">전세를 월세로, 월세를 전세로 환산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 전월세 전환 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 전월세 전환 계산기로 전세를 월세로, 월세를 전세로 간편하게 환산할 수 있습니다. 법정 전환율과 시장 전환율을 적용하여 부동산 전월세 전환 금액을 자동으로 산출합니다. 임대 조건을 비교할 때 이 계산기를 활용하면 부동산 전월세 전환 결과를 객관적으로 확인할 수 있습니다.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="flex gap-2 mb-4 border-b border-gray-200 dark:border-gray-700">
@@ -105,6 +105,114 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 법정 전환율은 매년 변경될 수 있으니 최신 정보를 확인하세요.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 전환이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">전월세 전환이란 전세 계약을 월세 계약으로, 또는 월세 계약을 전세 계약으로 변환하는 것을 말합니다. 전세보증금의 일부를 월세로 전환하거나, 반대로 월세를 보증금으로 환산할 때 전월세전환율을 기준으로 계산합니다. 주택임대차보호법에서는 임차인 보호를 위해 법정 전환율 상한을 정하고 있습니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">법정 전월세전환율은 한국은행 기준금리에 대통령령으로 정하는 이율(현재 2%)을 더한 값으로, 임대인은 이 비율을 초과하여 월세를 전환할 수 없습니다. 전세에서 월세로 전환하는 공식은 &lsquo;월세 = (전세보증금 - 월세보증금) &times; 전환율 &divide; 12&rsquo;이며, 월세에서 전세로 전환할 때는 &lsquo;전세보증금 = 월세보증금 + (월세 &times; 12) &divide; 전환율&rsquo;로 계산합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 전환율 비교 및 산정 공식</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">내용</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비고</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">법정 전환율</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기준금리 + 2.0%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주택임대차보호법 시행령 기준</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">시장 전환율</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">지역·시세에 따라 상이 (보통 4~7%)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">실거래 기반 산정</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">전세→월세 공식</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월세 = (전세보증금 - 월세보증금) &times; 전환율 &divide; 12</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보증금 차액 기준</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월세→전세 공식</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">전세금 = 월세보증금 + (월세 &times; 12) &divide; 전환율</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월세의 연간 환산</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 전환 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 전세 3억원을 보증금 1억원 + 월세로 전환 (전환율 4.5%)</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>&middot; 전세보증금: 3억원</p>
+            <p>&middot; 월세보증금: 1억원</p>
+            <p>&middot; 전환 대상 금액: 3억원 - 1억원 = 2억원</p>
+            <p>&middot; 적용 전환율: 4.5%</p>
+            <p>&middot; 연간 월세 환산: 2억원 &times; 4.5% = 900만원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">&middot; 결과: 보증금 1억원 / 월세 <span class="text-blue-600 dark:text-blue-400">75만원</span> (900만원 &divide; 12개월)</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 전환 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전월세전환율이란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">전월세전환율은 전세보증금을 월세로 전환하거나, 월세를 전세로 전환할 때 적용하는 비율입니다. 보증금과 월세 사이의 교환 비율을 의미하며, 이 비율이 높을수록 같은 보증금 차액에 대해 더 많은 월세가 산정됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 법정 전환율의 기준은 어떻게 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">법정 전월세전환율은 주택임대차보호법 제7조의2에 따라 한국은행 기준금리에 대통령령으로 정하는 이율(현행 2%)을 더한 값입니다. 임대인이 전세를 월세로 전환할 때 이 비율을 초과하여 월세를 책정할 수 없습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전세를 월세로 전환할 때 어떻게 계산하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">전세를 월세로 전환하는 공식은 '월세 = (전세보증금 - 월세보증금) &times; 전환율 &divide; 12'입니다. 예를 들어 전세 2억원에서 보증금 5,000만원으로 줄이고 전환율 4.5%를 적용하면, (2억 - 5,000만) &times; 4.5% &divide; 12 = 약 56만 2,500원의 월세가 됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 월세를 전세로 전환할 때는 어떻게 계산하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">월세를 전세로 전환하는 공식은 '전세보증금 = 월세보증금 + (월세 &times; 12) &divide; 전환율'입니다. 예를 들어 보증금 5,000만원에 월세 50만원이고 전환율 4.5%를 적용하면, 5,000만 + (50만 &times; 12) &divide; 0.045 = 약 1억 8,333만원의 전세금으로 환산됩니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "전월세전환율이란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "전월세전환율은 전세보증금을 월세로 전환하거나, 월세를 전세로 전환할 때 적용하는 비율입니다. 보증금과 월세 사이의 교환 비율을 의미하며, 이 비율이 높을수록 같은 보증금 차액에 대해 더 많은 월세가 산정됩니다." } },
+        { "@type": "Question", "name": "법정 전환율의 기준은 어떻게 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "법정 전월세전환율은 주택임대차보호법 제7조의2에 따라 한국은행 기준금리에 대통령령으로 정하는 이율(현행 2%)을 더한 값입니다. 임대인이 전세를 월세로 전환할 때 이 비율을 초과하여 월세를 책정할 수 없습니다." } },
+        { "@type": "Question", "name": "전세를 월세로 전환할 때 어떻게 계산하나요?", "acceptedAnswer": { "@type": "Answer", "text": "전세를 월세로 전환하는 공식은 '월세 = (전세보증금 - 월세보증금) × 전환율 ÷ 12'입니다. 예를 들어 전세 2억원에서 보증금 5,000만원으로 줄이고 전환율 4.5%를 적용하면, (2억 - 5,000만) × 4.5% ÷ 12 = 약 56만 2,500원의 월세가 됩니다." } },
+        { "@type": "Question", "name": "월세를 전세로 전환할 때는 어떻게 계산하나요?", "acceptedAnswer": { "@type": "Answer", "text": "월세를 전세로 전환하는 공식은 '전세보증금 = 월세보증금 + (월세 × 12) ÷ 전환율'입니다. 예를 들어 보증금 5,000만원에 월세 50만원이고 전환율 4.5%를 적용하면, 5,000만 + (50만 × 12) ÷ 0.045 = 약 1억 8,333만원의 전세금으로 환산됩니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

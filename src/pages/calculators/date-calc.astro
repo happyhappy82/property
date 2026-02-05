@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="날짜 계산기 - 부동산 트렌드 리뷰" description="두 날짜 사이의 일수를 계산하거나 날짜에서 일수를 더하고 뺄 수 있습니다.">
+<CalcLayout title="부동산 날짜 계산기 - 부동산 트렌드 리뷰" description="두 날짜 사이의 일수를 계산하거나 날짜에서 일수를 더하고 뺄 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">날짜 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">두 날짜 사이의 일수를 계산하거나 날짜에서 일수를 더하고 뺄 수 있습니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 날짜 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 날짜 계산기로 계약일, 잔금일, 신고 기한 등 주요 일정 사이의 일수를 정확히 계산할 수 있습니다. 부동산 거래에서 중요한 취득세 신고 기한이나 전입신고 기한 등을 놓치지 않도록 날짜를 산출합니다. 이 계산기를 활용하면 부동산 매매·임대 일정 관리에 필요한 날짜 계산을 간편하게 처리할 수 있습니다.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -121,6 +121,157 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 법적 효력이 필요한 경우 관련 기관에 확인하시기 바랍니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 날짜 계산이 필요한 이유</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">부동산 거래에서는 다양한 법적 기한을 정확히 지켜야 합니다. 취득세 신고기한(60일), 양도소득세 예정신고기한(양도일이 속하는 달의 말일부터 2개월), 전입신고 기한(14일) 등 기한을 놓치면 가산세 등 불이익이 발생할 수 있습니다. 특히 잔금일 기준으로 각종 신고 기한을 미리 계산해두는 것이 중요합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">본 계산기는 두 날짜 사이의 일수 차이를 계산하거나, 특정 날짜에서 일수를 더하고 빼는 기능을 제공합니다. 부동산 계약 시 잔금일로부터 각종 신고 기한을 산출하거나, 전세 계약 만료일을 확인하는 등 실무에서 유용하게 활용할 수 있습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 주요 기한 정리표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기한</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기산일</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">근거 법령</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">취득세 신고·납부</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">60일</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">취득일(잔금일 또는 등기일 중 빠른 날)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">지방세법 제20조</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">양도소득세 예정신고</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">2개월</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">양도일이 속하는 달의 말일</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">소득세법 제105조</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">상속세 신고</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">6개월</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">상속개시일(사망일)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">상속세 및 증여세법 제67조</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">증여세 신고</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">3개월</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">증여받은 날이 속하는 달의 말일</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">상속세 및 증여세법 제68조</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">전입신고</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">14일</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">전입한 날</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주민등록법 제16조</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">확정일자 부여</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">즉시 가능</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">전입신고 시 함께 신청 권장</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주택임대차보호법 제3조의6</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">날짜 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 2025년 3월 15일 잔금일 기준 취득세 신고기한 계산</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 잔금일(취득일): 2025년 3월 15일</p>
+            <p>· 취득세 신고기한: 취득일로부터 60일 이내</p>
+            <p>· 계산: 2025년 3월 15일 + 60일</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">2025년 5월 14일까지 취득세 신고·납부 완료 필요</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 날짜 계산 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 취득세 신고기한은 어떻게 계산하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">취득세는 부동산 취득일(잔금 지급일 또는 등기 접수일 중 빠른 날)로부터 60일 이내에 신고·납부해야 합니다. 상속으로 취득한 경우에는 상속개시일(사망일)이 속하는 달의 말일로부터 6개월 이내입니다. 기한 내 신고·납부하지 않으면 무신고가산세(20%)와 납부지연가산세가 부과됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 양도소득세 신고기한은 언제인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">양도소득세 예정신고는 부동산을 양도한 날이 속하는 달의 말일로부터 2개월 이내에 해야 합니다. 예를 들어 3월 15일에 양도했다면 3월 말일(3월 31일)로부터 2개월 후인 5월 31일까지 신고해야 합니다. 확정신고는 다음 해 5월 1일~31일 사이에 합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전입신고 기한은 며칠인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">전입신고는 새로운 주소지로 이사한 날로부터 14일 이내에 해야 합니다(주민등록법 제16조). 전입신고를 하면 주택임대차보호법상 대항력의 요건 중 하나를 갖추게 되며, 동시에 확정일자를 받아두면 우선변제권도 확보할 수 있습니다. 전입신고 지연 시 최대 5만원의 과태료가 부과될 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 신고 기한을 넘기면 어떤 불이익이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">취득세 미신고 시 무신고가산세(납부세액의 20%)와 납부지연가산세(1일당 약 0.022%)가 부과됩니다. 양도소득세 미신고 시에도 무신고가산세(일반 20%, 부당 40%)와 납부지연가산세가 부과됩니다. 상속세·증여세도 기한 내 미신고 시 동일한 가산세 규정이 적용됩니다. 따라서 부동산 거래 후에는 반드시 각 기한을 확인하고 기한 내 신고·납부를 완료해야 합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "취득세 신고기한은 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "취득세는 부동산 취득일(잔금 지급일 또는 등기 접수일 중 빠른 날)로부터 60일 이내에 신고·납부해야 합니다. 상속으로 취득한 경우에는 상속개시일(사망일)이 속하는 달의 말일로부터 6개월 이내입니다. 기한 내 신고·납부하지 않으면 무신고가산세(20%)와 납부지연가산세가 부과됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "양도소득세 신고기한은 언제인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "양도소득세 예정신고는 부동산을 양도한 날이 속하는 달의 말일로부터 2개월 이내에 해야 합니다. 예를 들어 3월 15일에 양도했다면 3월 말일(3월 31일)로부터 2개월 후인 5월 31일까지 신고해야 합니다. 확정신고는 다음 해 5월 1일~31일 사이에 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "전입신고 기한은 며칠인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전입신고는 새로운 주소지로 이사한 날로부터 14일 이내에 해야 합니다(주민등록법 제16조). 전입신고를 하면 주택임대차보호법상 대항력의 요건 중 하나를 갖추게 되며, 동시에 확정일자를 받아두면 우선변제권도 확보할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "신고 기한을 넘기면 어떤 불이익이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "취득세 미신고 시 무신고가산세(납부세액의 20%)와 납부지연가산세(1일당 약 0.022%)가 부과됩니다. 양도소득세 미신고 시에도 무신고가산세(일반 20%, 부당 40%)와 납부지연가산세가 부과됩니다. 상속세·증여세도 기한 내 미신고 시 동일한 가산세 규정이 적용됩니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

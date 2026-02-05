@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="명도비용 계산기 - 부동산 트렌드 리뷰" description="명도소송 승소 후 강제집행에 필요한 비용을 계산하세요. 면적을 입력하면 집행비용, 집행관 비용 등을 확인할 수 있습니다.">
+<CalcLayout title="부동산 명도비용 계산기 - 부동산 트렌드 리뷰" description="명도소송 승소 후 강제집행에 필요한 비용을 계산하세요. 면적을 입력하면 집행비용, 집행관 비용 등을 확인할 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">명도비용 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">명도소송 승소 후 강제집행에 필요한 비용을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 명도비용 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 명도비용 계산기를 활용하면 명도소송 후 강제집행에 드는 예상 비용을 사전에 파악할 수 있습니다. 부동산 인도 집행 시 발생하는 집행관 수수료, 운반비, 보관료 등 명도비용 항목을 종합적으로 산출합니다. 경매 낙찰이나 임차인 퇴거 시 이 계산기로 부동산 명도비용을 미리 계산하여 자금 계획을 세워 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -82,6 +82,124 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 집행비용은 면적 구간에 따라 차등 적용됩니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">명도(인도) 강제집행이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">명도(인도) 강제집행이란 부동산의 점유자가 자발적으로 퇴거하지 않을 경우, 법원의 판결(명도소송 승소)에 기초하여 집행관이 강제로 점유를 해제하고 부동산을 인도받는 절차입니다. 경매 낙찰 후 점유자가 퇴거를 거부하거나, 임대차 종료 후 임차인이 퇴거하지 않는 경우에 주로 활용됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">명도 강제집행 비용은 집행관 수수료, 노무비(인부 비용), 운반비, 보관비, 개정비(잠금장치 교체) 등으로 구성되며, 부동산의 면적과 물건의 양에 따라 달라집니다. 통상 강제집행 전에 계고(경고) 절차를 거치며, 이를 통해 자진 퇴거를 유도하기도 합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">명도비용 항목별 안내</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비용 항목</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">예상 금액</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비고</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">집행관 수수료</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">약 4만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">법원 집행관 비용</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">노무비 (인부)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50~200만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">면적 및 물건 양에 따라 변동</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">운반비</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30~100만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">물건 이동 차량 비용</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보관비</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">약 20만원~</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">점유자 물건 임시 보관</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">개정비 (잠금장치)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5~15만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">도어락/자물쇠 교체</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">신청수수료 및 송달료</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">약 5만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">법원 신청 비용</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">명도비용 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 전용면적 84㎡ 아파트 명도 강제집행 비용</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>&middot; 신청수수료: 3,000원</p>
+            <p>&middot; 송달료: 44,800원</p>
+            <p>&middot; 집행관 수수료: 40,000원</p>
+            <p>&middot; 집행비용 (66~99㎡ 구간): 1,200,000원</p>
+            <p>&middot; 보관비: 200,000원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">&middot; 결과: 총 명도비용 약 <span class="text-blue-600 dark:text-blue-400">148만 7,800원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">명도비용 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 명도소송 절차는 어떻게 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">명도소송은 소장 접수 후 재판을 거쳐 판결을 받고, 판결 확정 후 강제집행을 신청하는 순서로 진행됩니다. 소장 접수 후 약 1~3개월 내 1심 판결이 나오며, 판결 확정 후 집행문을 부여받아 강제집행을 신청합니다. 집행 시에는 먼저 계고(경고)를 하고, 이행하지 않으면 본 집행을 실시합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 명도비용은 누가 부담하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">강제집행 비용은 원칙적으로 채권자(신청인)가 먼저 납부합니다. 그러나 집행비용은 법률상 채무자(점유자)의 부담이므로, 집행 후 채무자에게 비용 상환을 청구할 수 있습니다. 다만 실무적으로 채무자로부터 회수가 어려운 경우가 많습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 자진퇴거를 유도하는 방법이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">강제집행 전 이사비 명목으로 일정 금액을 제안하여 자진퇴거를 유도하는 것이 일반적입니다. 강제집행 비용보다 적은 금액으로 합의하면 양측 모두에게 이익이 됩니다. 또한 계고 단계에서 집행 일자를 통보하면 상당수가 자진 퇴거하는 경우도 많습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 명도 절차에 소요되는 기간은 얼마나 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">명도소송 제기부터 강제집행 완료까지 통상 3~6개월이 소요됩니다. 소송 기간이 1~3개월, 판결 확정 후 집행문 부여에 1~2주, 강제집행 신청 후 계고까지 2~4주, 본 집행까지 추가 2~4주 정도 걸립니다. 피고가 항소하면 기간이 더 늘어날 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "명도소송 절차는 어떻게 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "명도소송은 소장 접수 후 재판을 거쳐 판결을 받고, 판결 확정 후 강제집행을 신청하는 순서로 진행됩니다. 소장 접수 후 약 1~3개월 내 1심 판결이 나오며, 판결 확정 후 집행문을 부여받아 강제집행을 신청합니다. 집행 시에는 먼저 계고(경고)를 하고, 이행하지 않으면 본 집행을 실시합니다." } },
+        { "@type": "Question", "name": "명도비용은 누가 부담하나요?", "acceptedAnswer": { "@type": "Answer", "text": "강제집행 비용은 원칙적으로 채권자(신청인)가 먼저 납부합니다. 그러나 집행비용은 법률상 채무자(점유자)의 부담이므로, 집행 후 채무자에게 비용 상환을 청구할 수 있습니다. 다만 실무적으로 채무자로부터 회수가 어려운 경우가 많습니다." } },
+        { "@type": "Question", "name": "자진퇴거를 유도하는 방법이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "강제집행 전 이사비 명목으로 일정 금액을 제안하여 자진퇴거를 유도하는 것이 일반적입니다. 강제집행 비용보다 적은 금액으로 합의하면 양측 모두에게 이익이 됩니다. 또한 계고 단계에서 집행 일자를 통보하면 상당수가 자진 퇴거하는 경우도 많습니다." } },
+        { "@type": "Question", "name": "명도 절차에 소요되는 기간은 얼마나 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "명도소송 제기부터 강제집행 완료까지 통상 3~6개월이 소요됩니다. 소송 기간이 1~3개월, 판결 확정 후 집행문 부여에 1~2주, 강제집행 신청 후 계고까지 2~4주, 본 집행까지 추가 2~4주 정도 걸립니다. 피고가 항소하면 기간이 더 늘어날 수 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

@@ -1,13 +1,13 @@
 ---
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
-<CalcLayout title="대출/상환 계산기" description="주택담보대출 상환금 계산 및 최대 대출 가능액을 계산하세요.">
+<CalcLayout title="부동산 대출/상환 계산기" description="주택담보대출 상환금 계산 및 최대 대출 가능액을 계산하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
 
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">대출/상환 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6">주택담보대출 상환금 계산 및 최대 대출 가능액을 확인합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 대출/상환 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">부동산 대출/상환 계산기는 원리금균등, 원금균등, 만기일시 등 상환 방식별 월 납입금을 비교할 수 있습니다. 대출 금리와 기간을 입력하면 부동산 담보대출의 상환 스케줄을 자동으로 산출합니다. 주택 구입 전 이 계산기로 부동산 대출 상환 부담을 미리 파악하고 자금 계획을 세워 보세요.</p>
 
     <!-- 탭 버튼 -->
     <div class="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700">
@@ -295,6 +295,154 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         DSR은 제1금융권 40%, 제2금융권 50%가 적용되며, 스트레스 DSR(금리 +1.5%p 또는 +0.75%p)로 계산됩니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">주택담보대출 상환 계산기란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">주택담보대출은 부동산을 담보로 금융기관에서 자금을 빌리는 대출 상품입니다. 대출금은 약정된 기간 동안 원금과 이자를 함께 상환하며, 상환방식에 따라 매월 납부하는 금액이 달라집니다. 대표적인 상환방식으로는 원리금균등상환, 원금균등상환, 만기일시상환이 있습니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">대출금리는 고정금리와 변동금리로 나뉘며, 고정금리는 대출 기간 동안 금리가 변하지 않고, 변동금리는 시장 금리에 따라 주기적으로 변동됩니다. 또한 주택담보대출은 LTV(담보인정비율), DTI(총부채상환비율), DSR(총부채원리금상환비율) 등의 규제가 적용되어 대출 한도가 결정됩니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">상환방식 비교표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">원리금균등상환</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">원금균등상환</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">만기일시상환</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">월 납부액</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">매월 동일 금액 납부</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">매월 원금 동일, 이자 점차 감소</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">이자만 납부, 만기에 원금 일시 상환</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">초기 부담</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">중간 수준</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">초기 부담 큼</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">초기 부담 가장 적음</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">총 이자</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">원금균등 대비 많음</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세 방식 중 가장 적음</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세 방식 중 가장 많음</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">장점</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">매월 일정액으로 자금 계획 용이</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">총 이자 부담이 가장 적음</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월 부담이 가장 낮아 유동성 확보</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">단점</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">초기 이자 비중이 높음</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">초기 상환 부담이 큼</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">만기 시 원금 상환 부담 큼</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">대출 상환 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 원리금균등상환 방식으로 주택담보대출을 받는 경우</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 대출금액: 3억원</p>
+            <p>· 연이율: 4.0%</p>
+            <p>· 대출기간: 30년 (360개월)</p>
+            <p>· 상환방식: 원리금균등상환</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 월 상환액: <span class="text-blue-600 dark:text-blue-400">약 143만원</span></p>
+            <p class="font-semibold dark:text-white">· 총 이자: <span class="text-blue-600 dark:text-blue-400">약 2억 1,549만원</span></p>
+            <p class="font-semibold dark:text-white">· 총 상환액: <span class="text-blue-600 dark:text-blue-400">약 5억 1,549만원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">주택담보대출 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 원리금균등상환과 원금균등상환의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">원리금균등상환은 매월 동일한 금액(원금+이자)을 납부하는 방식으로 자금 계획이 쉽지만 초기에 이자 비중이 높습니다. 원금균등상환은 매월 동일한 원금에 잔액에 대한 이자를 더해 납부하므로 초기 상환액이 크지만 시간이 지날수록 줄어들며 총 이자 부담이 적습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 고정금리와 변동금리 중 어떤 것을 선택해야 하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">고정금리는 대출 기간 동안 금리가 변하지 않아 금리 상승기에 유리하고 상환 계획이 안정적입니다. 변동금리는 시장 금리에 따라 주기적으로 조정되어 금리 하락기에 유리하지만 상승 시 부담이 커질 수 있습니다. 금리 전망과 개인 재무 상황을 고려하여 선택하는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중도상환수수료란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">중도상환수수료는 대출 약정 기간 만료 전에 대출금을 조기에 상환할 경우 부과되는 수수료입니다. 일반적으로 대출 후 3년 이내에 상환 시 남은 기간에 비례하여 부과되며, 보통 상환 원금의 1.0~1.5% 수준입니다. 3년 경과 후에는 면제되는 경우가 대부분입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 대출한도는 어떻게 결정되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">대출한도는 크게 담보가치 기준(LTV)과 소득 기준(DSR)으로 결정됩니다. LTV는 담보 부동산 가격 대비 대출 가능 비율이며, DSR은 연소득 대비 연간 모든 대출 원리금 상환액의 비율입니다. 최종 대출한도는 LTV 한도와 DSR 한도 중 낮은 금액이 적용되며, 지역, 주택 수, 금융기관에 따라 기준이 달라집니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "원리금균등상환과 원금균등상환의 차이는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "원리금균등상환은 매월 동일한 금액(원금+이자)을 납부하는 방식으로 자금 계획이 쉽지만 초기에 이자 비중이 높습니다. 원금균등상환은 매월 동일한 원금에 잔액에 대한 이자를 더해 납부하므로 초기 상환액이 크지만 시간이 지날수록 줄어들며 총 이자 부담이 적습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "고정금리와 변동금리 중 어떤 것을 선택해야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "고정금리는 대출 기간 동안 금리가 변하지 않아 금리 상승기에 유리하고 상환 계획이 안정적입니다. 변동금리는 시장 금리에 따라 주기적으로 조정되어 금리 하락기에 유리하지만 상승 시 부담이 커질 수 있습니다. 금리 전망과 개인 재무 상황을 고려하여 선택하는 것이 좋습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "중도상환수수료란 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "중도상환수수료는 대출 약정 기간 만료 전에 대출금을 조기에 상환할 경우 부과되는 수수료입니다. 일반적으로 대출 후 3년 이내에 상환 시 남은 기간에 비례하여 부과되며, 보통 상환 원금의 1.0~1.5% 수준입니다. 3년 경과 후에는 면제되는 경우가 대부분입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "대출한도는 어떻게 결정되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대출한도는 크게 담보가치 기준(LTV)과 소득 기준(DSR)으로 결정됩니다. LTV는 담보 부동산 가격 대비 대출 가능 비율이며, DSR은 연소득 대비 연간 모든 대출 원리금 상환액의 비율입니다. 최종 대출한도는 LTV 한도와 DSR 한도 중 낮은 금액이 적용되며, 지역, 주택 수, 금융기관에 따라 기준이 달라집니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

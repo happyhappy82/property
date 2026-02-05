@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="감정평가 수수료 계산기 - 부동산 트렌드 리뷰" description="감정평가 수수료를 계산하세요. 감정평가 대상 가액을 입력하면 기본 수수료와 부가세를 포함한 총 비용을 확인할 수 있습니다.">
+<CalcLayout title="부동산 감정평가 수수료 계산기 - 부동산 트렌드 리뷰" description="감정평가 수수료를 계산하세요. 감정평가 대상 가액을 입력하면 기본 수수료와 부가세를 포함한 총 비용을 확인할 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">감정평가 수수료 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">감정평가 시 지급하는 수수료를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 감정평가 수수료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 감정평가 수수료 계산기로 감정가액 구간별 보수 기준을 한눈에 파악할 수 있습니다. 담보 대출, 경매, 소송 등 목적에 따라 달라지는 부동산 감정평가 수수료를 자동으로 산출해 드립니다. 감정평가사에게 의뢰하기 전 이 계산기로 예상 비용을 미리 확인해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -88,6 +88,100 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 실비(여비, 물건조사비 등)는 별도로 청구될 수 있습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 감정평가란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">감정평가란 부동산의 경제적 가치를 판정하여 그 결과를 가액으로 표시하는 것을 말합니다. 감정평가사가 관련 법률과 기준에 따라 객관적이고 전문적으로 부동산의 적정 가치를 평가합니다. 감정평가 수수료는 '감정평가법인등의 보수에 관한 기준'에 따라 산정됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">감정평가가 필요한 대표적인 상황으로는 담보대출 시 담보가치 산정, 법원 경매·공매, 재산분할·상속 분쟁, 보상평가, 세무 신고 등이 있습니다. 정확한 부동산 가치 파악이 필요할 때 감정평가를 의뢰하게 됩니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">감정평가 수수료율표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">평가 대상 가액</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기준 수수료</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">500만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">110,000원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2,000만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">110,000원 + 초과액의 0.33%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5,000만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">159,500원 + 초과액의 0.25%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">234,500원 + 초과액의 0.21%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">339,500원 + 초과액의 0.17%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">509,500원 + 초과액의 0.11%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">839,500원 + 초과액의 0.09%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,289,500원 + 초과액의 0.06%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">감정평가 수수료 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 시가 5억원 부동산 감정평가 수수료</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 평가 대상 가액: 5억원</p>
+            <p>· 적용 구간: 2억 초과 ~ 5억 이하</p>
+            <p>· 기본 수수료: 509,500원 + (5억 - 2억) x 0.11% = 509,500 + 330,000 = 839,500원</p>
+            <p>· 부가세 (10%): 83,950원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 총 감정평가 수수료: <span class="text-blue-600 dark:text-blue-400">약 923,450원 (VAT 포함)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">감정평가 수수료 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 감정평가는 어떤 경우에 필요한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">감정평가는 담보대출 시 담보가치 산정, 법원 경매나 공매 절차, 이혼·상속 등 재산분할 분쟁, 공익사업을 위한 보상평가, 세무 신고(양도세·상속세·증여세) 시 시가 입증 등의 경우에 필요합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 감정평가 수수료는 어떻게 산정되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">'감정평가법인등의 보수에 관한 기준'에 따라 평가 대상 가액 구간별로 누진 요율이 적용됩니다. 기본 수수료에 부가세(10%)가 추가되며, 실비(여비, 물건조사비, 공부발급비 등)가 별도로 청구될 수 있습니다. 또한 특수 물건이나 소급 평가의 경우 1.5배 할증이 적용됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 복수 감정평가란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">복수 감정평가란 2개 이상의 감정평가법인에 동시에 평가를 의뢰하는 것입니다. 주로 공익사업 보상평가, 대규모 담보대출, 법원 감정 등에서 요구됩니다. 복수 감정 시 각 법인에 별도로 수수료를 지급해야 하므로 비용이 그만큼 증가합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 감정평가서의 유효기간은 얼마나 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">감정평가서 자체에 법적 유효기간이 정해져 있지는 않지만, 일반적으로 발급일로부터 6개월~1년 이내의 감정평가서를 유효한 것으로 인정합니다. 부동산 시장 상황 변동에 따라 감정가가 달라질 수 있으므로, 오래된 감정평가서는 재평가가 필요할 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "감정평가는 어떤 경우에 필요한가요?", "acceptedAnswer": { "@type": "Answer", "text": "감정평가는 담보대출 시 담보가치 산정, 법원 경매나 공매 절차, 이혼·상속 등 재산분할 분쟁, 공익사업을 위한 보상평가, 세무 신고(양도세·상속세·증여세) 시 시가 입증 등의 경우에 필요합니다." } },
+        { "@type": "Question", "name": "감정평가 수수료는 어떻게 산정되나요?", "acceptedAnswer": { "@type": "Answer", "text": "'감정평가법인등의 보수에 관한 기준'에 따라 평가 대상 가액 구간별로 누진 요율이 적용됩니다. 기본 수수료에 부가세(10%)가 추가되며, 실비(여비, 물건조사비, 공부발급비 등)가 별도로 청구될 수 있습니다. 또한 특수 물건이나 소급 평가의 경우 1.5배 할증이 적용됩니다." } },
+        { "@type": "Question", "name": "복수 감정평가란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "복수 감정평가란 2개 이상의 감정평가법인에 동시에 평가를 의뢰하는 것입니다. 주로 공익사업 보상평가, 대규모 담보대출, 법원 감정 등에서 요구됩니다. 복수 감정 시 각 법인에 별도로 수수료를 지급해야 하므로 비용이 그만큼 증가합니다." } },
+        { "@type": "Question", "name": "감정평가서의 유효기간은 얼마나 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "감정평가서 자체에 법적 유효기간이 정해져 있지는 않지만, 일반적으로 발급일로부터 6개월~1년 이내의 감정평가서를 유효한 것으로 인정합니다. 부동산 시장 상황 변동에 따라 감정가가 달라질 수 있으므로, 오래된 감정평가서는 재평가가 필요할 수 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

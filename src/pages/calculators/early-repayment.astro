@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="중도상환수수료 계산기 - 부동산 트렌드 리뷰" description="대출 중도상환 시 발생하는 수수료를 계산하세요.">
+<CalcLayout title="부동산 중도상환수수료 계산기 - 부동산 트렌드 리뷰" description="대출 중도상환 시 발생하는 수수료를 계산하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">중도상환수수료 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">대출 중도상환 시 발생하는 수수료를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 중도상환수수료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 중도상환수수료 계산기로 대출을 조기에 상환할 때 발생하는 위약금을 미리 확인할 수 있습니다. 대출 잔액, 경과 기간, 수수료율을 반영하여 부동산 담보대출의 중도상환수수료를 정확히 산출합니다. 대출 갈아타기나 매도 전 이 계산기로 부동산 중도상환수수료 부담을 미리 점검해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -112,6 +112,149 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 금융기관별로 면제 조건이 다를 수 있습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">중도상환수수료란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">중도상환수수료는 대출 만기일 이전에 대출금의 전부 또는 일부를 조기 상환할 때 금융기관이 부과하는 수수료입니다. 금융기관은 대출 실행 시 일정 기간 동안의 이자 수익을 예상하고 자금을 운용하는데, 차주가 예정보다 빨리 상환하면 예상 수익이 줄어들기 때문에 이를 보전하기 위한 목적으로 부과됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">중도상환수수료율은 금융권별로 통상 1.2~2.0% 수준이며, 대출 실행일로부터 3년이 경과하면 면제되는 것이 일반적입니다. 계산식은 "중도상환원금 x 수수료율 x (잔존기간 / 대출기간)"으로, 만기에 가까울수록 수수료가 줄어드는 구조입니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">금융권별 중도상환수수료 비교</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">금융권</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">수수료율</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">면제 시점</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비고</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">은행 (1금융권)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.2~1.4%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3년 경과</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2025년 인하 적용 시 0.58%</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보험사</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.0~1.5%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3년 경과</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">상품별 상이</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">캐피탈</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.5~2.0%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3년 경과</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">금리 높은 만큼 수수료도 높음</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">저축은행</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2.0% 내외</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3년 경과</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기관별 편차 큼</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">중도상환수수료 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 대출잔액 2억 원, 수수료율 1.4%, 대출기간 3년 중 2년 경과</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 중도상환원금: 2억 원</p>
+            <p>· 수수료율: 1.4%</p>
+            <p>· 대출기간: 3년 (1,095일)</p>
+            <p>· 경과기간: 2년 (730일)</p>
+            <p>· 잔존기간: 1년 (365일)</p>
+            <p>· 잔존기간 비율: 365 / 1,095 = 33.33%</p>
+            <p>· 중도상환수수료: 2억 x 1.4% x 33.33% = 약 93만 3,240원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 중도상환수수료: <span class="text-blue-600 dark:text-blue-400">약 93만 3,240원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">중도상환수수료 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중도상환수수료란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">중도상환수수료는 대출 계약 기간이 만료되기 전에 대출금을 미리 갚을 때 금융기관이 부과하는 수수료입니다. 금융기관의 예상 이자 수익 손실을 보전하기 위한 것으로, 대출 실행 후 일정 기간(보통 3년) 이내에 상환할 경우 부과됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중도상환수수료가 면제되는 경우는?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">대부분의 금융기관에서 대출 실행일로부터 3년이 경과하면 중도상환수수료가 면제됩니다. 또한 연간 대출 원금의 10~20% 이내 상환은 수수료 없이 가능한 경우가 많습니다. 일부 금융상품은 처음부터 중도상환수수료가 없는 경우도 있으니, 대출 약정서를 확인해야 합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 부분상환 시에도 수수료가 부과되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 부분상환(일부 조기상환)의 경우에도 중도상환수수료가 부과됩니다. 다만 수수료는 실제 상환하는 금액을 기준으로 계산되며, 연간 무료 상환 한도(보통 원금의 10~20%) 이내라면 수수료가 면제되는 금융기관이 많습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중도상환수수료를 절약하는 방법이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">첫째, 대출 실행 후 3년이 지나면 수수료가 면제되므로 가능하면 3년 경과 후 상환하는 것이 좋습니다. 둘째, 연간 무료 상환 한도를 활용하여 매년 일정액을 분할 상환하면 수수료를 줄일 수 있습니다. 셋째, 대출 약정 시 중도상환수수료가 없거나 낮은 상품을 선택하는 것도 방법입니다. 넷째, 만기가 가까워질수록 잔존기간 비율이 줄어 수수료가 감소합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "중도상환수수료란 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "중도상환수수료는 대출 계약 기간이 만료되기 전에 대출금을 미리 갚을 때 금융기관이 부과하는 수수료입니다. 금융기관의 예상 이자 수익 손실을 보전하기 위한 것으로, 대출 실행 후 일정 기간(보통 3년) 이내에 상환할 경우 부과됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "중도상환수수료가 면제되는 경우는?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대부분의 금융기관에서 대출 실행일로부터 3년이 경과하면 중도상환수수료가 면제됩니다. 또한 연간 대출 원금의 10~20% 이내 상환은 수수료 없이 가능한 경우가 많습니다. 일부 금융상품은 처음부터 중도상환수수료가 없는 경우도 있으니, 대출 약정서를 확인해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "부분상환 시에도 수수료가 부과되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네, 부분상환(일부 조기상환)의 경우에도 중도상환수수료가 부과됩니다. 다만 수수료는 실제 상환하는 금액을 기준으로 계산되며, 연간 무료 상환 한도(보통 원금의 10~20%) 이내라면 수수료가 면제되는 금융기관이 많습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "중도상환수수료를 절약하는 방법이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "첫째, 대출 실행 후 3년이 지나면 수수료가 면제되므로 가능하면 3년 경과 후 상환하는 것이 좋습니다. 둘째, 연간 무료 상환 한도를 활용하여 매년 일정액을 분할 상환하면 수수료를 줄일 수 있습니다. 셋째, 대출 약정 시 중도상환수수료가 없거나 낮은 상품을 선택하는 것도 방법입니다. 넷째, 만기가 가까워질수록 잔존기간 비율이 줄어 수수료가 감소합니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

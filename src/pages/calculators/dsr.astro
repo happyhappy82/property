@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="DSR 계산기 - 부동산 트렌드 리뷰" description="DSR(총부채원리금상환비율)을 계산하여 대출 가능 여부를 확인하세요.">
+<CalcLayout title="부동산 DSR 계산기 - 부동산 트렌드 리뷰" description="DSR(총부채원리금상환비율)을 계산하여 대출 가능 여부를 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">DSR 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">DSR(총부채원리금상환비율)을 계산하여 대출 가능 여부를 확인합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 DSR 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 DSR 계산기는 연소득 대비 전체 대출의 원리금 상환 부담을 비율로 산출합니다. DSR(총부채원리금상환비율) 규제 기준에 맞춰 부동산 담보대출 가능 여부를 사전에 확인할 수 있습니다. 주택 구입 전 이 계산기로 본인의 DSR을 점검하고 부동산 대출 계획을 세워 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -143,6 +143,141 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 스트레스 금리는 금융권별로 다를 수 있습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">DSR(총부채원리금상환비율)이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">DSR(Debt Service Ratio, 총부채원리금상환비율)은 차주의 연간 소득 대비 모든 금융부채의 연간 원리금 상환액 비율을 나타내는 지표입니다. 산식은 (연간 모든 대출 원리금 상환액 / 연소득) x 100으로 계산됩니다. DSR은 주택담보대출뿐만 아니라 신용대출, 자동차 할부, 학자금 대출 등 모든 대출의 원리금 상환 부담을 반영합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">현재 은행권(제1금융권)은 DSR 40%, 비은행권(제2금융권)은 DSR 50%가 규제 기준으로 적용됩니다. 또한 스트레스DSR 제도가 시행되어 실제 대출금리에 일정 가산금리(스트레스 금리)를 더한 금리로 DSR을 산출하며, 이는 향후 금리 상승에 대비한 상환 능력을 평가하기 위한 것입니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">DSR 규제 기준표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">DSR 기준</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">적용 대상</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">은행권 (제1금융권)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">총 대출액 1억원 초과 시 적용</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">비은행권 (제2금융권)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">총 대출액 1억원 초과 시 적용</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">스트레스DSR (수도권)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">가산금리 +1.5%p 적용</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">변동금리·혼합금리 대출</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">스트레스DSR (비수도권)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">가산금리 +0.75%p 적용</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">변동금리·혼합금리 대출</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">DSR 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 직장인 A씨의 DSR 계산</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 연소득: 5,000만원</p>
+            <p>· 주택담보대출 월 상환액: 100만원 (연 1,200만원)</p>
+            <p>· 신용대출 월 상환액: 30만원 (연 360만원)</p>
+            <p>· 연간 총 원리금 상환액: 1,560만원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· DSR: <span class="text-blue-600 dark:text-blue-400">(1,560만원 / 5,000만원) x 100 = 31.2%</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">DSR 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. DSR이란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">DSR(Debt Service Ratio)은 총부채원리금상환비율로, 차주가 보유한 모든 대출(주택담보대출, 신용대출, 자동차할부 등)의 연간 원리금 상환액을 연소득으로 나눈 비율입니다. 대출 상환 능력을 종합적으로 평가하는 대표적인 금융 규제 지표입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. DSR 40%는 어떤 의미인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">DSR 40%는 연소득의 40%까지만 대출 원리금 상환에 사용할 수 있다는 의미입니다. 예를 들어 연소득이 5,000만원이면 연간 대출 상환액이 2,000만원(월 약 167만원)을 초과할 수 없습니다. 은행권에서 총 대출액 1억원 초과 시 적용되는 기준입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 스트레스DSR이란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">스트레스DSR은 향후 금리 상승 가능성을 반영하여 실제 대출금리에 일정 수준의 가산금리(스트레스 금리)를 더한 금리로 DSR을 산출하는 제도입니다. 변동금리 및 혼합금리 대출에 적용되며, 수도권은 +1.5%p, 비수도권은 +0.75%p가 가산됩니다. 이로 인해 실제 대출 가능 금액이 줄어들 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. DSR을 낮추는 방법은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">DSR을 낮추려면 분자(연간 상환액)를 줄이거나 분모(연소득)를 높여야 합니다. 구체적으로는 기존 대출을 상환하거나 대출 기간을 늘려 월 상환액을 줄이는 방법, 신용대출을 정리하는 방법, 배우자 소득을 합산하는 방법 등이 있습니다. 또한 고정금리 대출로 전환하면 스트레스 금리 가산이 적용되지 않아 유리할 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "DSR이란 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DSR(Debt Service Ratio)은 총부채원리금상환비율로, 차주가 보유한 모든 대출(주택담보대출, 신용대출, 자동차할부 등)의 연간 원리금 상환액을 연소득으로 나눈 비율입니다. 대출 상환 능력을 종합적으로 평가하는 대표적인 금융 규제 지표입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "DSR 40%는 어떤 의미인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DSR 40%는 연소득의 40%까지만 대출 원리금 상환에 사용할 수 있다는 의미입니다. 예를 들어 연소득이 5,000만원이면 연간 대출 상환액이 2,000만원(월 약 167만원)을 초과할 수 없습니다. 은행권에서 총 대출액 1억원 초과 시 적용되는 기준입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "스트레스DSR이란 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "스트레스DSR은 향후 금리 상승 가능성을 반영하여 실제 대출금리에 일정 수준의 가산금리(스트레스 금리)를 더한 금리로 DSR을 산출하는 제도입니다. 변동금리 및 혼합금리 대출에 적용되며, 수도권은 +1.5%p, 비수도권은 +0.75%p가 가산됩니다. 이로 인해 실제 대출 가능 금액이 줄어들 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "DSR을 낮추는 방법은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DSR을 낮추려면 분자(연간 상환액)를 줄이거나 분모(연소득)를 높여야 합니다. 구체적으로는 기존 대출을 상환하거나 대출 기간을 늘려 월 상환액을 줄이는 방법, 신용대출을 정리하는 방법, 배우자 소득을 합산하는 방법 등이 있습니다. 또한 고정금리 대출로 전환하면 스트레스 금리 가산이 적용되지 않아 유리할 수 있습니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

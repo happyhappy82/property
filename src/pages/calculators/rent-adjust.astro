@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="전월세 조정 계산기 - 부동산 트렌드 리뷰" description="보증금과 월세를 상호 조정하여 새로운 임대료를 계산합니다.">
+<CalcLayout title="부동산 전월세 조정 계산기 - 부동산 트렌드 리뷰" description="보증금과 월세를 상호 조정하여 새로운 임대료를 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">전월세 조정 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">보증금과 월세를 조정하여 새로운 임대료를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 전월세 조정 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 전월세 조정 계산기를 이용하면 보증금과 월세를 원하는 비율로 조정한 새 임대료를 산출할 수 있습니다. 전환율을 적용하여 보증금 증감에 따른 부동산 전월세 조정 결과를 자동으로 계산합니다. 임대차 계약 갱신 시 이 계산기로 부동산 전월세 조정 금액을 미리 확인해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="flex gap-2 mb-4 border-b border-gray-200 dark:border-gray-700">
@@ -142,6 +142,114 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 법정 전환율은 매년 변경될 수 있으니 최신 정보를 확인하세요.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 조정이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">전월세 조정은 기존 임대차 계약에서 보증금과 월세의 비율을 변경하는 것을 말합니다. 임차인이 보증금을 올리고 월세를 낮추거나, 반대로 보증금을 줄이고 월세를 높이는 방식으로 조정할 수 있습니다. 이러한 조정은 임대인과 임차인 양측의 합의를 기반으로 이루어집니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">조정 시에는 전월세전환율을 기준으로 보증금 변동분에 상응하는 월세를 계산합니다. 보증금이 증가하면 그만큼 월세가 감소하고, 보증금이 감소하면 월세가 증가하는 구조입니다. 전환율은 법정 전환율을 기준으로 하되, 임대인과 임차인의 합의에 따라 달라질 수 있습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 조정 유형별 계산식</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">조정 유형</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">계산식</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">효과</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보증금 인상 &rarr; 월세 인하</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">새 월세 = 현재 월세 - (보증금 증가분 &times; 전환율 &divide; 12)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임차인 월 부담 감소</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보증금 인하 &rarr; 월세 인상</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">새 월세 = 현재 월세 + (보증금 감소분 &times; 전환율 &divide; 12)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임차인 초기 부담 감소</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월세 인상 &rarr; 보증금 인하</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">새 보증금 = 현재 보증금 - (월세 증가분 &times; 12 &divide; 전환율)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임차인 목돈 회수</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">월세 인하 &rarr; 보증금 인상</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">새 보증금 = 현재 보증금 + (월세 감소분 &times; 12 &divide; 전환율)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임대인 안정 수익 확보</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 조정 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 보증금 1억원, 월세 50만원에서 보증금을 5,000만원으로 줄이는 경우 (전환율 4.5%)</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>&middot; 현재 보증금: 1억원</p>
+            <p>&middot; 현재 월세: 50만원</p>
+            <p>&middot; 변경 보증금: 5,000만원 (5,000만원 감소)</p>
+            <p>&middot; 적용 전환율: 4.5%</p>
+            <p>&middot; 월세 증가분: 5,000만원 &times; 4.5% &divide; 12 = 약 18만 7,500원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">&middot; 결과: 보증금 5,000만원 / 월세 <span class="text-blue-600 dark:text-blue-400">약 68만 7,500원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">전월세 조정 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 임대료 조정 시 반드시 합의가 필요한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 보증금과 월세의 비율 조정은 임대인과 임차인 양측의 합의가 반드시 필요합니다. 일방적으로 조정할 수 없으며, 합의 내용은 계약서에 특약 사항으로 명시하는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전환율 기준은 어떻게 정하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">법정 전월세전환율은 한국은행 기준금리에 대통령령으로 정하는 이율(2%)을 더한 값입니다. 실무에서는 이를 기준으로 하되, 지역 시세와 시장 상황을 반영하여 임대인과 임차인이 합의하여 결정합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 계약 기간 중에도 조정이 가능한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">계약 기간 중에도 임대인과 임차인이 합의하면 보증금과 월세의 비율을 조정할 수 있습니다. 다만, 이는 계약 변경에 해당하므로 변경 합의서를 별도로 작성하고, 확정일자를 다시 받는 것이 안전합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전월세 조정 시 유의사항은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">보증금을 줄이면 전세보증보험의 보장 범위가 변동될 수 있으므로 보험사에 확인이 필요합니다. 또한 보증금 변동 시 전입신고와 확정일자를 다시 받아야 대항력과 우선변제권을 유지할 수 있으니 주의하세요.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "임대료 조정 시 반드시 합의가 필요한가요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 보증금과 월세의 비율 조정은 임대인과 임차인 양측의 합의가 반드시 필요합니다. 일방적으로 조정할 수 없으며, 합의 내용은 계약서에 특약 사항으로 명시하는 것이 좋습니다." } },
+        { "@type": "Question", "name": "전환율 기준은 어떻게 정하나요?", "acceptedAnswer": { "@type": "Answer", "text": "법정 전월세전환율은 한국은행 기준금리에 대통령령으로 정하는 이율(2%)을 더한 값입니다. 실무에서는 이를 기준으로 하되, 지역 시세와 시장 상황을 반영하여 임대인과 임차인이 합의하여 결정합니다." } },
+        { "@type": "Question", "name": "계약 기간 중에도 조정이 가능한가요?", "acceptedAnswer": { "@type": "Answer", "text": "계약 기간 중에도 임대인과 임차인이 합의하면 보증금과 월세의 비율을 조정할 수 있습니다. 다만, 이는 계약 변경에 해당하므로 변경 합의서를 별도로 작성하고, 확정일자를 다시 받는 것이 안전합니다." } },
+        { "@type": "Question", "name": "전월세 조정 시 유의사항은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "보증금을 줄이면 전세보증보험의 보장 범위가 변동될 수 있으므로 보험사에 확인이 필요합니다. 또한 보증금 변동 시 전입신고와 확정일자를 다시 받아야 대항력과 우선변제권을 유지할 수 있으니 주의하세요." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

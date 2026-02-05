@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="임대수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 임대 수익률을 다양한 지표로 계산합니다. 총수익률, 순수익률, 캡레이트를 확인하세요.">
+<CalcLayout title="부동산 임대수익률 계산기 - 부동산 트렌드 리뷰" description="부동산 임대 수익률을 다양한 지표로 계산합니다. 총수익률, 순수익률, 캡레이트를 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">임대수익률 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 임대 수익률을 다양한 지표로 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 임대수익률 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 임대수익률 계산기로 투자한 자본 대비 임대 수입의 수익률을 다양한 지표로 확인할 수 있습니다. 총수익률, 순수익률, 투자수익률 등 부동산 임대수익률을 종합적으로 산출합니다. 임대 물건 비교 시 이 계산기를 활용하면 부동산 임대수익률을 객관적으로 분석할 수 있습니다.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -136,6 +136,102 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 총수익률 = 연간임대수입 / 총투자금, 순수익률 = 순수익 / 자기자본, 캡레이트 = (연간임대수입 - 운영비용) / 총투자금
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 임대수익률이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">부동산 임대수익률은 부동산 투자금 대비 임대를 통해 발생하는 연간 수익의 비율을 나타내는 지표입니다. 수익형 부동산(오피스텔, 상가, 다세대주택 등)의 투자 가치를 판단하는 핵심 기준으로, 매입 전 투자 타당성을 평가하거나 다른 투자상품과 수익성을 비교할 때 활용됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">임대수익률은 총 임대수익률(Gross Yield)과 순 임대수익률(Net Yield)로 구분됩니다. 총수익률은 비용을 고려하지 않은 단순 수익률이고, 순수익률은 대출이자, 관리비, 공실손실, 수선비 등 실제 비용을 차감한 실질 수익률입니다. 투자 의사결정 시에는 반드시 순수익률을 기준으로 판단해야 합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">임대수익률 유형별 비교</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">수익률 유형</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">산출 공식</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">특징</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">총 임대수익률</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">(연간 임대수입 / 총투자금) x 100</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">비용 미반영, 단순 비교용</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">순 임대수익률</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">(연간 순수익 / 자기자본) x 100</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">실제 비용 반영, 실질 수익률</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">캡레이트 (Cap Rate)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">(연간 임대수입 - 운영비) / 총투자금 x 100</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">대출 제외, 부동산 자체 수익력</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">임대수익률 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 매매가 3억 원 오피스텔, 월세 80만 원</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 매입가: 3억 원</p>
+            <p>· 취득 부대비용: 1,500만 원</p>
+            <p>· 보증금: 1,000만 원, 월세: 80만 원</p>
+            <p>· 대출금: 1억 5,000만 원 (금리 4.5%)</p>
+            <p>· 연간 운영비용(관리비, 수선비 등): 200만 원</p>
+            <p>· 총투자금: 3억 + 1,500만 = 3억 1,500만 원</p>
+            <p>· 자기자본: 3억 1,500만 - 1억 5,000만 - 1,000만 = 1억 5,500만 원</p>
+            <p>· 연간 임대수입: 80만 x 12 = 960만 원</p>
+            <p>· 연간 대출이자: 1억 5,000만 x 4.5% = 675만 원</p>
+            <p>· 연간 순수익: 960만 - 675만 - 200만 = 85만 원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: 총수익률 <span class="text-blue-600 dark:text-blue-400">3.05%</span>, 순수익률(ROI) <span class="text-blue-600 dark:text-blue-400">0.55%</span>, 캡레이트 <span class="text-blue-600 dark:text-blue-400">2.41%</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">임대수익률 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 적정 임대수익률은 어느 정도인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">적정 임대수익률은 부동산 유형과 지역에 따라 다르지만, 일반적으로 총 임대수익률 기준 연 4~6%를 양호한 수준으로 봅니다. 서울 오피스텔의 경우 3~4%, 지방 상가는 5~8% 수준이 일반적입니다. 순수익률은 총수익률에서 1~2%p 낮은 수준이며, 최소한 은행 예금 금리 이상이어야 투자 가치가 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 총수익률과 순수익률의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">총수익률(Gross Yield)은 연간 임대수입을 총투자금으로 나눈 단순 수익률로, 비용을 반영하지 않습니다. 순수익률(Net Yield)은 대출이자, 관리비, 수선비, 공실손실 등 실제 비용을 모두 차감한 후의 수익률입니다. 실제 투자 판단 시에는 순수익률을 기준으로 해야 정확한 수익성을 파악할 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 공실률은 임대수익률에 어떻게 반영하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">공실률은 연간 임대수입에서 차감하여 반영합니다. 예를 들어 공실률이 10%라면 연간 임대수입의 90%만 실제 수익으로 계산합니다. 오피스텔은 통상 5~10%, 상가는 10~20%의 공실률을 감안하는 것이 현실적입니다. 공실기간 동안에도 대출이자와 관리비는 계속 발생하므로 수익률에 큰 영향을 미칩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 오피스텔과 아파트의 임대수익률 차이는?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">오피스텔은 일반적으로 아파트보다 임대수익률이 높습니다. 오피스텔의 총 임대수익률은 연 4~6% 수준인 반면, 아파트는 2~3% 수준입니다. 그러나 아파트는 시세차익(자본이득)이 크고 환금성이 좋으며, 오피스텔은 임대수익 중심이지만 시세 상승이 제한적이고 관리비가 높은 편입니다. 투자 목적에 따라 적합한 유형을 선택해야 합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "적정 임대수익률은 어느 정도인가요?", "acceptedAnswer": { "@type": "Answer", "text": "적정 임대수익률은 부동산 유형과 지역에 따라 다르지만, 일반적으로 총 임대수익률 기준 연 4~6%를 양호한 수준으로 봅니다. 서울 오피스텔의 경우 3~4%, 지방 상가는 5~8% 수준이 일반적입니다. 순수익률은 총수익률에서 1~2%p 낮은 수준이며, 최소한 은행 예금 금리 이상이어야 투자 가치가 있습니다." } },
+        { "@type": "Question", "name": "총수익률과 순수익률의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "총수익률(Gross Yield)은 연간 임대수입을 총투자금으로 나눈 단순 수익률로, 비용을 반영하지 않습니다. 순수익률(Net Yield)은 대출이자, 관리비, 수선비, 공실손실 등 실제 비용을 모두 차감한 후의 수익률입니다. 실제 투자 판단 시에는 순수익률을 기준으로 해야 정확한 수익성을 파악할 수 있습니다." } },
+        { "@type": "Question", "name": "공실률은 임대수익률에 어떻게 반영하나요?", "acceptedAnswer": { "@type": "Answer", "text": "공실률은 연간 임대수입에서 차감하여 반영합니다. 예를 들어 공실률이 10%라면 연간 임대수입의 90%만 실제 수익으로 계산합니다. 오피스텔은 통상 5~10%, 상가는 10~20%의 공실률을 감안하는 것이 현실적입니다. 공실기간 동안에도 대출이자와 관리비는 계속 발생하므로 수익률에 큰 영향을 미칩니다." } },
+        { "@type": "Question", "name": "오피스텔과 아파트의 임대수익률 차이는?", "acceptedAnswer": { "@type": "Answer", "text": "오피스텔은 일반적으로 아파트보다 임대수익률이 높습니다. 오피스텔의 총 임대수익률은 연 4~6% 수준인 반면, 아파트는 2~3% 수준입니다. 그러나 아파트는 시세차익(자본이득)이 크고 환금성이 좋으며, 오피스텔은 임대수익 중심이지만 시세 상승이 제한적이고 관리비가 높은 편입니다. 투자 목적에 따라 적합한 유형을 선택해야 합니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

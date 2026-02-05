@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="RTI 계산기 - 부동산 트렌드 리뷰" description="부동산 임대업 여신 심사 시 사용되는 RTI(Rent to Interest) 비율을 계산합니다.">
+<CalcLayout title="부동산 RTI 계산기 - 부동산 트렌드 리뷰" description="부동산 임대업 여신 심사 시 사용되는 RTI(Rent to Interest) 비율을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">RTI 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 임대업 대출 적정성을 판단하는 RTI 비율을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 RTI 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 RTI 계산기는 연간 임대소득 대비 대출 이자 비율을 산출하여 임대업 대출의 적정성을 판단합니다. 금융권별 RTI 기준을 적용하여 부동산 임대업 대출 가능 여부를 미리 확인할 수 있습니다. 수익형 부동산 투자 전 이 계산기로 RTI를 점검하고 부동산 대출 전략을 세워 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -94,6 +94,100 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ RTI = 연간 임대소득 / 연간 이자비용
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">RTI(Rent To Interest)란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">RTI(Rent To Interest)는 연간 임대소득을 연간 대출이자 비용으로 나눈 비율로, 부동산 임대업 대출 심사 시 금융기관이 대출 적정성을 판단하는 핵심 지표입니다. RTI가 높을수록 임대소득으로 대출이자를 충분히 감당할 수 있다는 의미이며, 대출 승인 가능성이 높아집니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">은행연합회 가이드라인에 따르면 주거용 부동산은 RTI 1.25배 이상, 비주거용(상가, 오피스텔 등)은 RTI 1.5배 이상을 충족해야 신규 대출이 가능합니다. 다만 금융기관에 따라 내부 기준이 다를 수 있으며, RTI 외에도 LTV, DSR 등 다른 심사 기준을 함께 적용합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">RTI 기준 및 등급별 의미</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">RTI 범위</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">등급</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">의미</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">대출 가능성</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.0 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">위험</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임대소득으로 이자 감당 불가</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">대출 거절 가능성 높음</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.0 ~ 1.25</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주의</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">이자는 감당하나 여유 부족</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">비주거용 부적격, 주거용 가능</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.25 ~ 1.5</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보통</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주거용 기준 충족</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주거용 적격, 비주거용 부적격</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.5 ~ 2.0</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">양호</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주거용/비주거용 모두 충족</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">대출 승인 가능성 높음</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2.0 이상</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">우수</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">충분한 이자 상환 여력</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">우대 조건 협상 가능</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">RTI 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 연 임대수입 2,400만 원, 대출이자 1,500만 원</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 연간 임대소득: 2,400만 원 (월세 200만 원 x 12개월)</p>
+            <p>· 대출금액: 3억 원</p>
+            <p>· 대출금리: 연 5.0%</p>
+            <p>· 연간 이자비용: 3억 x 5.0% = 1,500만 원</p>
+            <p>· RTI = 2,400만 / 1,500만 = 1.60배</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: RTI <span class="text-blue-600 dark:text-blue-400">1.60배</span> (주거용 1.25배, 비주거용 1.5배 기준 모두 충족)</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">RTI 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. RTI 기준은 어떻게 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">은행연합회 가이드라인에 따르면 주거용 부동산 임대업 대출은 RTI 1.25배 이상, 비주거용(상가, 오피스텔, 사무실 등)은 RTI 1.5배 이상을 충족해야 합니다. 이 기준 미달 시 원칙적으로 신규 대출이 불가하며, 금융기관에 따라 더 높은 기준을 적용하는 경우도 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 금융기관별로 RTI 기준이 다른가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 은행연합회의 가이드라인은 최소 기준이며, 각 금융기관은 내부 리스크 관리 정책에 따라 더 높은 RTI를 요구할 수 있습니다. 시중은행은 대체로 가이드라인을 준수하며, 저축은행이나 캐피탈 등 제2금융권은 RTI 기준이 상이할 수 있습니다. 대출 전 해당 금융기관에 직접 확인하는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. RTI를 개선하는 방법이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">RTI를 개선하려면 분자(임대소득)를 높이거나 분모(이자비용)를 낮추면 됩니다. 임대소득 측면에서는 임대료 인상, 공실률 감소, 추가 임대 공간 확보 등을 고려할 수 있습니다. 이자비용 측면에서는 대출금리가 낮은 금융상품으로 대환하거나, 대출 원금을 일부 상환하여 이자 부담을 줄이는 방법이 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. RTI와 DSR의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">RTI는 임대소득 대비 이자비용 비율로 부동산 임대업 대출에만 적용되는 지표입니다. 반면 DSR(총부채원리금상환비율)은 차주의 연소득 대비 모든 대출의 연간 원리금 상환액 비율로, 개인의 전체 채무 상환 능력을 평가합니다. RTI는 부동산 자체의 수익성을, DSR은 차주 개인의 상환 능력을 판단하는 차이가 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "RTI 기준은 어떻게 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "은행연합회 가이드라인에 따르면 주거용 부동산 임대업 대출은 RTI 1.25배 이상, 비주거용(상가, 오피스텔, 사무실 등)은 RTI 1.5배 이상을 충족해야 합니다. 이 기준 미달 시 원칙적으로 신규 대출이 불가하며, 금융기관에 따라 더 높은 기준을 적용하는 경우도 있습니다." } },
+        { "@type": "Question", "name": "금융기관별로 RTI 기준이 다른가요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 은행연합회의 가이드라인은 최소 기준이며, 각 금융기관은 내부 리스크 관리 정책에 따라 더 높은 RTI를 요구할 수 있습니다. 시중은행은 대체로 가이드라인을 준수하며, 저축은행이나 캐피탈 등 제2금융권은 RTI 기준이 상이할 수 있습니다. 대출 전 해당 금융기관에 직접 확인하는 것이 좋습니다." } },
+        { "@type": "Question", "name": "RTI를 개선하는 방법이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "RTI를 개선하려면 분자(임대소득)를 높이거나 분모(이자비용)를 낮추면 됩니다. 임대소득 측면에서는 임대료 인상, 공실률 감소, 추가 임대 공간 확보 등을 고려할 수 있습니다. 이자비용 측면에서는 대출금리가 낮은 금융상품으로 대환하거나, 대출 원금을 일부 상환하여 이자 부담을 줄이는 방법이 있습니다." } },
+        { "@type": "Question", "name": "RTI와 DSR의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "RTI는 임대소득 대비 이자비용 비율로 부동산 임대업 대출에만 적용되는 지표입니다. 반면 DSR(총부채원리금상환비율)은 차주의 연소득 대비 모든 대출의 연간 원리금 상환액 비율로, 개인의 전체 채무 상환 능력을 평가합니다. RTI는 부동산 자체의 수익성을, DSR은 차주 개인의 상환 능력을 판단하는 차이가 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

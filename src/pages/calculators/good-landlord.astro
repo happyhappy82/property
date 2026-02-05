@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="착한임대인 세액공제 계산기 - 부동산 트렌드 리뷰" description="월세 인하 시 받을 수 있는 세액공제와 실질 부담 감소액을 계산합니다.">
+<CalcLayout title="부동산 착한 임대인 계산기 - 부동산 트렌드 리뷰" description="월세 인하 시 받을 수 있는 세액공제와 실질 부담 감소액을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">착한임대인 세액공제 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">월세 인하 시 받을 수 있는 세제 혜택을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 착한 임대인 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 착한 임대인 계산기로 임대료를 인하했을 때 받을 수 있는 세액공제 혜택을 확인할 수 있습니다. 월세 인하 금액에 따른 소득세·법인세 공제액을 자동으로 산출하여 부동산 임대 수익 변동을 파악할 수 있습니다. 착한 임대인 세제 혜택이 궁금하다면 이 계산기로 부동산 임대료 인하 시 실질 효과를 미리 계산해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -90,6 +90,97 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 세액공제율은 총 인하액의 70%입니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">착한 임대인 세액공제란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">착한 임대인 세액공제는 소상공인 임차인에게 임대료를 자발적으로 인하한 임대인(건물주)에게 인하액의 일정 비율을 소득세 또는 법인세에서 세액공제 해주는 제도입니다. 코로나-19 경제 위기 시기에 도입되어 현재까지 연장·시행되고 있으며, 소상공인의 경영 부담을 덜어주고 착한 임대 문화를 확산하기 위한 목적을 갖고 있습니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">세액공제율은 임대인의 종합소득금액에 따라 달라집니다. 종합소득금액이 1억원 이하인 경우 임대료 인하액의 70%, 1억원을 초과하는 경우 50%를 세액공제 받을 수 있습니다. 임대인이 직접 종합소득세(또는 법인세) 신고 시 세액공제를 적용하여 세금을 줄일 수 있습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">착한 임대인 세액공제율</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">임대인 종합소득금액</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">세액공제율</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비고</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">70%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임대료 인하액의 70% 세액공제</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억원 초과</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">임대료 인하액의 50% 세액공제</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">착한 임대인 세액공제 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 월세 100만원을 80만원으로 인하 (12개월, 종합소득금액 1억원 이하)</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 기존 월세: 100만원</p>
+            <p>· 인하된 월세: 80만원</p>
+            <p>· 월 인하액: 100만원 - 80만원 = 20만원</p>
+            <p>· 연간 총 인하액: 20만원 x 12개월 = 240만원</p>
+            <p>· 세액공제율: 70% (종합소득금액 1억원 이하)</p>
+            <p>· 세액공제액: 240만원 x 70% = 168만원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 세액공제 혜택: <span class="text-blue-600 dark:text-blue-400">168만원 (실제 임대료 감소 240만원 중 168만원을 세금에서 공제)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">착한 임대인 세액공제 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 착한 임대인 세액공제의 적용 요건은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">착한 임대인 세액공제를 받으려면 다음 요건을 충족해야 합니다. 임차인이 소상공인(소기업)이어야 하고, 상가건물 임대차보호법에 따른 상가건물을 임대해야 합니다. 임대료(월세)를 직전 계약 대비 인하해야 하며, 임대차계약서와 인하 합의서 등 증빙서류를 갖추어야 합니다. 또한 임대인과 임차인이 특수관계인이 아니어야 합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 세액공제율은 어떻게 결정되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">세액공제율은 임대인의 해당 과세연도 종합소득금액에 따라 결정됩니다. 종합소득금액이 1억원 이하인 경우 임대료 인하액의 70%를, 1억원을 초과하는 경우 50%를 세액공제 받을 수 있습니다. 세액공제는 종합소득세(개인) 또는 법인세(법인) 신고 시 적용하며, 산출세액을 한도로 공제됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 착한 임대인 세액공제 적용기간은 언제까지인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">착한 임대인 세액공제는 조세특례제한법에 근거하여 시행되며, 여러 차례 연장되어 왔습니다. 현행 규정에 따라 2025년 12월 31일까지 인하한 임대료에 대해 적용됩니다. 다만, 정부 정책에 따라 추가 연장될 가능성이 있으므로 국세청 또는 관할 세무서에서 최신 적용기간을 확인하는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 임대사업자 등록이 필요한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">착한 임대인 세액공제를 받기 위해 반드시 임대사업자로 등록할 필요는 없습니다. 사업자등록 여부와 관계없이 상가건물을 임대하고 소상공인 임차인에게 임대료를 인하한 경우 세액공제를 적용받을 수 있습니다. 다만, 소득세 신고 시 부동산 임대소득을 성실히 신고해야 하며, 임대차계약서, 임대료 인하 합의서, 임대료 지급 내역 등의 증빙서류를 갖추어야 합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "착한 임대인 세액공제의 적용 요건은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "착한 임대인 세액공제를 받으려면 다음 요건을 충족해야 합니다. 임차인이 소상공인(소기업)이어야 하고, 상가건물 임대차보호법에 따른 상가건물을 임대해야 합니다. 임대료(월세)를 직전 계약 대비 인하해야 하며, 임대차계약서와 인하 합의서 등 증빙서류를 갖추어야 합니다. 또한 임대인과 임차인이 특수관계인이 아니어야 합니다." } },
+        { "@type": "Question", "name": "세액공제율은 어떻게 결정되나요?", "acceptedAnswer": { "@type": "Answer", "text": "세액공제율은 임대인의 해당 과세연도 종합소득금액에 따라 결정됩니다. 종합소득금액이 1억원 이하인 경우 임대료 인하액의 70%를, 1억원을 초과하는 경우 50%를 세액공제 받을 수 있습니다. 세액공제는 종합소득세(개인) 또는 법인세(법인) 신고 시 적용하며, 산출세액을 한도로 공제됩니다." } },
+        { "@type": "Question", "name": "착한 임대인 세액공제 적용기간은 언제까지인가요?", "acceptedAnswer": { "@type": "Answer", "text": "착한 임대인 세액공제는 조세특례제한법에 근거하여 시행되며, 여러 차례 연장되어 왔습니다. 현행 규정에 따라 2025년 12월 31일까지 인하한 임대료에 대해 적용됩니다. 다만, 정부 정책에 따라 추가 연장될 가능성이 있으므로 국세청 또는 관할 세무서에서 최신 적용기간을 확인하는 것이 좋습니다." } },
+        { "@type": "Question", "name": "임대사업자 등록이 필요한가요?", "acceptedAnswer": { "@type": "Answer", "text": "착한 임대인 세액공제를 받기 위해 반드시 임대사업자로 등록할 필요는 없습니다. 사업자등록 여부와 관계없이 상가건물을 임대하고 소상공인 임차인에게 임대료를 인하한 경우 세액공제를 적용받을 수 있습니다. 다만, 소득세 신고 시 부동산 임대소득을 성실히 신고해야 하며, 임대차계약서, 임대료 인하 합의서, 임대료 지급 내역 등의 증빙서류를 갖추어야 합니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="임대소득세 계산기 - 부동산 트렌드 리뷰" description="주택 임대소득세를 간편하게 계산하세요. 분리과세 방식으로 월세 임대소득에 대한 세금을 확인합니다.">
+<CalcLayout title="부동산 주택임대소득세 계산기 - 부동산 트렌드 리뷰" description="주택 임대소득세를 간편하게 계산하세요. 분리과세 방식으로 월세 임대소득에 대한 세금을 확인합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">임대소득세 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">주택 임대소득에 대한 분리과세 세금을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 주택임대소득세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 주택임대소득세 계산기를 이용하면 월세·보증금 임대소득에 대한 분리과세 세액을 확인할 수 있습니다. 필요경비와 기본공제를 반영하여 부동산 주택임대소득세를 자동으로 산출합니다. 주택 임대 수입이 있다면 이 계산기로 부동산 주택임대소득세 예상 납부액을 미리 파악해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -91,6 +91,98 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 분리과세 세율은 14%이며, 등록사업자는 필요경비율 60%, 미등록은 50%가 적용됩니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">주택임대소득세란? 과세 대상과 과세 방식</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">주택임대소득세란 주택을 임대하여 발생하는 소득에 대해 부과되는 세금입니다. 2주택 이상 보유자의 월세 소득과 3주택 이상 보유자의 전세 보증금(간주임대료)이 과세 대상이 됩니다. 1주택자의 경우 기준시가 12억원(구 9억원) 초과 주택의 월세 소득만 과세됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">주택임대 총수입금액이 연 2,000만원 이하인 경우 14% 분리과세와 종합과세 중 유리한 방식을 선택할 수 있습니다. 2,000만원을 초과하면 반드시 종합과세(다른 소득과 합산하여 6~45% 누진세율 적용)로 신고해야 합니다. 분리과세를 선택하면 임대소득만 별도로 14%의 단일 세율이 적용되어 다른 소득이 많은 납세자에게 유리합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">분리과세 세율 및 필요경비율·기본공제</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">임대사업자 등록</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">미등록</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">분리과세 세율</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">14%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">14%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">필요경비율</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">60%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기본공제</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">400만원</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">200만원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세액감면</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30~75% (단기·장기민간 등록 시)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">없음</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">주택임대소득세 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 2주택자, 월세 50만원(연 600만원), 미등록 분리과세</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 연간 수입금액: 50만원 x 12개월 = 600만원</p>
+            <p>· 필요경비(50%): 600만원 x 50% = 300만원</p>
+            <p>· 기본공제(미등록): 200만원</p>
+            <p>· 과세표준: 600만원 - 300만원 - 200만원 = 100만원</p>
+            <p>· 분리과세 세율: 14%</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 산출세액: <span class="text-blue-600 dark:text-blue-400">100만원 x 14% = 14만원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">주택임대소득세 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 1주택자도 임대소득세를 내야 하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">1주택자는 원칙적으로 주택임대소득에 대해 비과세됩니다. 다만, 해당 주택의 기준시가가 12억원을 초과하는 고가주택인 경우에는 1주택자라도 월세 소득에 대해 과세됩니다. 전세 보증금에 대한 간주임대료는 1주택자에게는 과세되지 않습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 분리과세와 종합과세 중 어느 것이 유리한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">근로소득 등 다른 소득이 많아 종합소득세율이 14%를 초과하는 경우 분리과세가 유리합니다. 반대로, 다른 소득이 없거나 적어서 종합소득세율이 6%에 해당하는 경우에는 종합과세가 유리할 수 있습니다. 두 방식 모두 계산해 보고 세부담이 적은 쪽을 선택하는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 임대사업자 등록 시 어떤 혜택이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">임대사업자로 등록하면 분리과세 시 필요경비율이 50%에서 60%로, 기본공제가 200만원에서 400만원으로 상향됩니다. 이에 따라 과세표준이 줄어들어 세부담이 감소합니다. 또한, 등록 유형에 따라 소득세 감면(30~75%)을 추가로 받을 수 있습니다. 다만 의무 임대 기간, 임대료 증액 제한(5% 이내) 등의 의무사항을 준수해야 합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 간주임대료란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">간주임대료란 전세금이나 보증금 등에서 발생하는 것으로 간주되는 수입금액입니다. 3주택 이상 보유자가 보증금 합계 3억원을 초과하는 경우, 초과 보증금에 정기예금 이자율(현재 연 2.9%)을 곱하여 간주임대료를 산출합니다. 이 금액은 월세 수입과 합산하여 주택임대소득으로 과세됩니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "1주택자도 임대소득세를 내야 하나요?", "acceptedAnswer": { "@type": "Answer", "text": "1주택자는 원칙적으로 주택임대소득에 대해 비과세됩니다. 다만, 해당 주택의 기준시가가 12억원을 초과하는 고가주택인 경우에는 1주택자라도 월세 소득에 대해 과세됩니다. 전세 보증금에 대한 간주임대료는 1주택자에게는 과세되지 않습니다." } },
+        { "@type": "Question", "name": "분리과세와 종합과세 중 어느 것이 유리한가요?", "acceptedAnswer": { "@type": "Answer", "text": "근로소득 등 다른 소득이 많아 종합소득세율이 14%를 초과하는 경우 분리과세가 유리합니다. 반대로, 다른 소득이 없거나 적어서 종합소득세율이 6%에 해당하는 경우에는 종합과세가 유리할 수 있습니다. 두 방식 모두 계산해 보고 세부담이 적은 쪽을 선택하는 것이 좋습니다." } },
+        { "@type": "Question", "name": "임대사업자 등록 시 어떤 혜택이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "임대사업자로 등록하면 분리과세 시 필요경비율이 50%에서 60%로, 기본공제가 200만원에서 400만원으로 상향됩니다. 이에 따라 과세표준이 줄어들어 세부담이 감소합니다. 또한, 등록 유형에 따라 소득세 감면(30~75%)을 추가로 받을 수 있습니다. 다만 의무 임대 기간, 임대료 증액 제한(5% 이내) 등의 의무사항을 준수해야 합니다." } },
+        { "@type": "Question", "name": "간주임대료란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "간주임대료란 전세금이나 보증금 등에서 발생하는 것으로 간주되는 수입금액입니다. 3주택 이상 보유자가 보증금 합계 3억원을 초과하는 경우, 초과 보증금에 정기예금 이자율(현재 연 2.9%)을 곱하여 간주임대료를 산출합니다. 이 금액은 월세 수입과 합산하여 주택임대소득으로 과세됩니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

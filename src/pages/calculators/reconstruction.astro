@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="재건축 연한 계산기 - 부동산 트렌드 리뷰" description="건물 구조와 준공연도를 기반으로 재건축 가능 연한을 계산합니다.">
+<CalcLayout title="부동산 재건축 연한 계산기 - 부동산 트렌드 리뷰" description="건물 구조와 준공연도를 기반으로 재건축 가능 연한을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">재건축 연한 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">건물 구조와 준공연도로 재건축 가능 연도를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 재건축 연한 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 재건축 연한 계산기로 건물의 구조와 준공일을 기준으로 재건축 가능 시점을 확인할 수 있습니다. 철근콘크리트, 철골 등 구조별 법정 내용연수를 반영하여 부동산 재건축 연한을 자동으로 산출합니다. 노후 아파트 투자를 검토 중이라면 이 계산기로 부동산 재건축 가능 연도를 미리 파악해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -109,6 +109,101 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 조기 재건축은 안전진단을 통과한 경우에만 가능합니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">재건축 연한이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">재건축 연한은 건물이 노후하여 재건축 사업을 추진할 수 있는 최소 경과 연수를 말합니다. 「도시 및 주거환경정비법」에 따라 건물의 구조별로 법정 내용연수가 정해져 있으며, 이 기간이 경과해야 재건축 정비구역 지정을 신청할 수 있습니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">재건축은 단순히 연한만 충족한다고 진행할 수 있는 것이 아닙니다. 안전진단을 통과해야 하며, 정비구역 지정, 조합 설립, 사업시행인가, 관리처분인가 등 복잡한 절차를 거쳐야 합니다. 특히 2025년 기준 안전진단 기준이 완화되어 구조안전성 비중이 낮아지고 주거환경 비중이 높아졌습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건물 구조별 재건축 연한</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">건물 구조</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">표준 내용연수</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">조기 재건축 가능 연한</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">대표 건물 유형</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">철근콘크리트조 (RC)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">아파트, 대형 상가</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">철골조 (S)</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">20년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">공장, 창고, 경량 건물</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">연와조 / 조적조</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">20년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">다세대주택, 빌라</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">목조</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">20년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">15년</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">단독주택, 한옥</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">재건축 연한 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 1990년 준공 철근콘크리트 아파트</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 건물 구조: 철근콘크리트조 (RC)</p>
+            <p>· 사용승인 연도: 1990년</p>
+            <p>· 표준 내용연수: 40년</p>
+            <p>· 조기 재건축 가능 연한: 30년</p>
+            <p>· 경과 연수 (2025년 기준): 35년</p>
+            <p>· 표준 재건축 가능 연도: 1990 + 40 = 2030년</p>
+            <p>· 조기 재건축 가능 연도: 1990 + 30 = 2020년 (이미 도래)</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: 조기 재건축 연한 <span class="text-blue-600 dark:text-blue-400">이미 충족</span>, 표준 재건축 <span class="text-blue-600 dark:text-blue-400">2030년</span> (잔여 5년)</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">재건축 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 재건축 추진의 기본 요건은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">재건축을 추진하려면 건물이 법정 내용연수를 경과하거나, 조기 재건축 연한 이상 경과 후 안전진단을 통과해야 합니다. 또한 정비기본계획에 해당 지역이 포함되어야 하며, 토지등소유자의 일정 비율(보통 3/4 이상) 동의가 필요합니다. 안전진단에서 D등급(조건부 재건축) 또는 E등급(재건축) 판정을 받아야 사업 진행이 가능합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 안전진단 절차는 어떻게 진행되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">안전진단은 예비안전진단과 정밀안전진단 2단계로 진행됩니다. 먼저 지자체에 예비안전진단을 신청하여 현지조사를 받고, 통과하면 정밀안전진단을 실시합니다. 정밀안전진단에서는 구조안전성, 건축마감 및 설비 노후도, 주거환경 적합성 등을 종합 평가합니다. 평가 결과 A~E등급으로 판정되며, D등급 이하를 받아야 재건축이 가능합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 재건축초과이익환수제란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">재건축초과이익환수제는 재건축으로 발생하는 초과이익의 일부를 부담금으로 환수하는 제도입니다. 재건축 후 집값 상승분에서 개발비용과 정상 집값 상승분을 뺀 초과이익에 대해 최대 50%까지 부담금이 부과됩니다. 조합원 1인당 평균 이익이 일정 금액(면제 기준)을 초과하면 구간별 차등 부과되며, 재건축 투자 시 반드시 고려해야 하는 비용 요소입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 재건축과 리모델링의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">재건축은 기존 건물을 완전히 철거하고 새로 짓는 것이고, 리모델링은 기존 골조를 유지하면서 증축하거나 수선하는 것입니다. 재건축은 연한 요건과 안전진단을 충족해야 하며 용적률 상향이 가능하지만, 리모델링은 준공 후 15년 이상이면 추진 가능하고 기존 세대수의 15% 이내에서 세대수 증가가 가능합니다. 재건축초과이익환수 부담금은 재건축에만 적용되며, 리모델링은 해당되지 않는다는 차이도 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "재건축 추진의 기본 요건은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "재건축을 추진하려면 건물이 법정 내용연수를 경과하거나, 조기 재건축 연한 이상 경과 후 안전진단을 통과해야 합니다. 또한 정비기본계획에 해당 지역이 포함되어야 하며, 토지등소유자의 일정 비율(보통 3/4 이상) 동의가 필요합니다. 안전진단에서 D등급(조건부 재건축) 또는 E등급(재건축) 판정을 받아야 사업 진행이 가능합니다." } },
+        { "@type": "Question", "name": "안전진단 절차는 어떻게 진행되나요?", "acceptedAnswer": { "@type": "Answer", "text": "안전진단은 예비안전진단과 정밀안전진단 2단계로 진행됩니다. 먼저 지자체에 예비안전진단을 신청하여 현지조사를 받고, 통과하면 정밀안전진단을 실시합니다. 정밀안전진단에서는 구조안전성, 건축마감 및 설비 노후도, 주거환경 적합성 등을 종합 평가합니다. 평가 결과 A~E등급으로 판정되며, D등급 이하를 받아야 재건축이 가능합니다." } },
+        { "@type": "Question", "name": "재건축초과이익환수제란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "재건축초과이익환수제는 재건축으로 발생하는 초과이익의 일부를 부담금으로 환수하는 제도입니다. 재건축 후 집값 상승분에서 개발비용과 정상 집값 상승분을 뺀 초과이익에 대해 최대 50%까지 부담금이 부과됩니다. 조합원 1인당 평균 이익이 일정 금액(면제 기준)을 초과하면 구간별 차등 부과되며, 재건축 투자 시 반드시 고려해야 하는 비용 요소입니다." } },
+        { "@type": "Question", "name": "재건축과 리모델링의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "재건축은 기존 건물을 완전히 철거하고 새로 짓는 것이고, 리모델링은 기존 골조를 유지하면서 증축하거나 수선하는 것입니다. 재건축은 연한 요건과 안전진단을 충족해야 하며 용적률 상향이 가능하지만, 리모델링은 준공 후 15년 이상이면 추진 가능하고 기존 세대수의 15% 이내에서 세대수 증가가 가능합니다. 재건축초과이익환수 부담금은 재건축에만 적용되며, 리모델링은 해당되지 않는다는 차이도 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="최대대출한도 계산기 - 부동산 트렌드 리뷰" description="LTV와 DSR을 기반으로 최대 대출 가능액을 계산하세요.">
+<CalcLayout title="부동산 최대대출한도 계산기 - 부동산 트렌드 리뷰" description="LTV와 DSR을 기반으로 최대 대출 가능액을 계산하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">최대대출한도 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">LTV와 DSR을 기반으로 최대 대출 가능액을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 최대대출한도 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 최대대출한도 계산기는 LTV와 DSR 규제를 동시에 반영하여 실제 대출 가능 금액을 산출합니다. 소득, 기존 대출, 담보가치를 입력하면 부동산 최대대출한도를 자동으로 계산할 수 있습니다. 주택 구입 자금 마련 전 이 계산기로 부동산 최대대출한도를 정확히 파악해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -135,6 +135,140 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 최대 대출액은 LTV 한도와 DSR 한도 중 낮은 금액으로 결정됩니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">최대대출한도 계산이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">최대 대출 가능액은 담보가치 기준(LTV 한도)과 소득 기준(DSR 한도) 두 가지를 동시에 산출한 뒤, 둘 중 작은 금액으로 결정됩니다. LTV는 담보 부동산의 시가 대비 대출 가능 비율이며, DSR은 연소득 대비 연간 모든 대출 원리금 상환액의 비율입니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">예를 들어 담보가치 기준으로 5억원까지 대출이 가능하더라도, 소득 기준(DSR)으로 3억원까지만 가능하다면 최종 대출한도는 3억원이 됩니다. 따라서 최대 대출액을 정확히 파악하려면 담보 부동산의 가치뿐만 아니라 본인의 소득 수준과 기존 대출 현황까지 종합적으로 고려해야 합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">대출한도 결정 요소표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기준</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">산출 방식</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">주요 변수</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">LTV 한도</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">담보가치 기준</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">담보가치 x LTV 비율</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">지역, 주택 수, 생애최초 여부</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">DSR 한도</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">소득 기준</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">연소득 x DSR 비율에서 역산</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">연소득, 기존대출, 금리, 기간</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">최종 한도</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">둘 중 작은 금액</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">MIN(LTV 한도, DSR 한도)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">모든 변수 종합 반영</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">최대대출한도 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 비규제지역 무주택 직장인 C씨의 최대 대출한도</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 아파트 시가: 8억원</p>
+            <p>· 적용 LTV: 50% → LTV 기준 한도: 4억원</p>
+            <p>· 연소득: 6,000만원</p>
+            <p>· DSR 40% 기준 역산 → DSR 기준 한도: 약 3.5억원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 최종 대출한도: <span class="text-blue-600 dark:text-blue-400">3.5억원 (DSR 한도가 LTV 한도보다 낮으므로)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">최대대출한도 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 대출한도는 어떤 방식으로 결정되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">대출한도는 담보가치 기준(LTV)과 소득 기준(DSR) 두 가지 한도를 각각 산출한 뒤, 둘 중 작은 금액으로 결정됩니다. LTV 한도는 담보 부동산의 가치에 지역·주택수별 LTV 비율을 곱해 산출하고, DSR 한도는 연소득에서 DSR 비율 내에서 상환 가능한 대출 원금을 역산하여 산출합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. LTV와 DSR 중 어떤 것이 우선 적용되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">LTV와 DSR은 우선순위 없이 동시에 적용되며, 최종 대출한도는 두 기준 중 낮은 금액입니다. 담보가치가 높아 LTV 한도는 충분하더라도 소득이 낮으면 DSR 한도가 최종 한도가 됩니다. 반대로 소득이 높아도 담보가치가 낮으면 LTV가 한도를 결정합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 소득 증빙은 어떻게 하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">근로소득자는 근로소득 원천징수영수증, 소득금액증명원, 건강보험자격득실확인서 등으로 소득을 증빙합니다. 사업소득자는 종합소득세 신고서, 소득금액증명원, 사업자등록증을 제출합니다. 부부 공동명의 대출 시 배우자 소득을 합산하여 DSR을 계산할 수 있으며, 이 경우 대출한도가 늘어날 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 대출한도를 늘리는 방법은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">대출한도를 늘리려면 DSR을 낮추는 것이 핵심입니다. 기존 대출(신용대출, 카드론 등)을 상환하면 DSR이 낮아져 한도가 늘어납니다. 대출 기간을 30년 이상으로 늘려 월 상환액을 줄이거나, 배우자 소득을 합산하는 방법도 효과적입니다. 또한 고정금리 상품을 선택하면 스트레스 금리 가산이 줄어들어 유리합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "대출한도는 어떤 방식으로 결정되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대출한도는 담보가치 기준(LTV)과 소득 기준(DSR) 두 가지 한도를 각각 산출한 뒤, 둘 중 작은 금액으로 결정됩니다. LTV 한도는 담보 부동산의 가치에 지역·주택수별 LTV 비율을 곱해 산출하고, DSR 한도는 연소득에서 DSR 비율 내에서 상환 가능한 대출 원금을 역산하여 산출합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "LTV와 DSR 중 어떤 것이 우선 적용되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LTV와 DSR은 우선순위 없이 동시에 적용되며, 최종 대출한도는 두 기준 중 낮은 금액입니다. 담보가치가 높아 LTV 한도는 충분하더라도 소득이 낮으면 DSR 한도가 최종 한도가 됩니다. 반대로 소득이 높아도 담보가치가 낮으면 LTV가 한도를 결정합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "소득 증빙은 어떻게 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "근로소득자는 근로소득 원천징수영수증, 소득금액증명원, 건강보험자격득실확인서 등으로 소득을 증빙합니다. 사업소득자는 종합소득세 신고서, 소득금액증명원, 사업자등록증을 제출합니다. 부부 공동명의 대출 시 배우자 소득을 합산하여 DSR을 계산할 수 있으며, 이 경우 대출한도가 늘어날 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "대출한도를 늘리는 방법은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대출한도를 늘리려면 DSR을 낮추는 것이 핵심입니다. 기존 대출(신용대출, 카드론 등)을 상환하면 DSR이 낮아져 한도가 늘어납니다. 대출 기간을 30년 이상으로 늘려 월 상환액을 줄이거나, 배우자 소득을 합산하는 방법도 효과적입니다. 또한 고정금리 상품을 선택하면 스트레스 금리 가산이 줄어들어 유리합니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

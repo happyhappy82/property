@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="법무사 수수료 계산기 - 부동산 트렌드 리뷰" description="부동산 등기 시 법무사 수수료를 계산하세요. 부동산 가액을 입력하면 기본보수, 수입인지 등 총 비용을 확인할 수 있습니다.">
+<CalcLayout title="부동산 법무사 수수료 계산기 - 부동산 트렌드 리뷰" description="부동산 등기 시 법무사 수수료를 계산하세요. 부동산 가액을 입력하면 기본보수, 수입인지 등 총 비용을 확인할 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">법무사 수수료 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 등기 시 법무사 수수료를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 법무사 수수료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 법무사 수수료 계산기를 활용하면 소유권 이전 등기 시 예상되는 법무사 보수를 미리 확인할 수 있습니다. 매매가격에 따라 달라지는 부동산 등기 대행 수수료를 자동으로 산출하여 거래 비용 계획에 도움을 드립니다. 이 계산기로 법무사 수수료를 사전에 파악하고 부동산 매매 예산을 준비하세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -83,6 +83,99 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 제반비용은 법무사 및 지역에 따라 다를 수 있습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 법무사 수수료란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">법무사 수수료는 부동산 등기를 법무사에게 대행 의뢰할 때 지급하는 보수를 말합니다. 대한법무사협회에서 정한 보수표를 기준으로 산정되며, 기본보수와 부가보수(추가 업무에 대한 보수), 실비(교통비, 일당 등)로 구성됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">법무사 보수는 부동산 가액(매매가격)에 따라 누진 적용되며, 가액이 높을수록 보수도 증가합니다. 법무사 수수료 외에도 수입인지, 등기증지 등 법정 비용이 별도로 발생하므로 총 비용을 미리 확인하는 것이 좋습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">법무사 기본보수표 (부동산 가액 구간별)</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">부동산 가액 구간</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기본보수 산정</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,000만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">60,000원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,000만원 초과 ~ 5,000만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">60,000원 + 초과액의 0.12%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5,000만원 초과 ~ 1억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">108,000원 + 초과액의 0.09%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억원 초과 ~ 3억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">153,000원 + 초과액의 0.06%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3억원 초과 ~ 5억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">273,000원 + 초과액의 0.05%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5억원 초과 ~ 10억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">373,000원 + 초과액의 0.04%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10억원 초과</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">573,000원 + 초과액의 0.02%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">법무사 수수료 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 매매가 5억원 아파트 등기 법무사 수수료</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 기본보수: 273,000원 + (5억 - 3억) x 0.05% = 273,000 + 100,000 = 373,000원</p>
+            <p>· 수입인지: 150,000원 (1억~10억 구간)</p>
+            <p>· 등기증지: 15,000원</p>
+            <p>· 제반비용 (교통비 등): 약 100,000원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 총 법무사 비용: <span class="text-blue-600 dark:text-blue-400">약 638,000원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">법무사 수수료 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 법무사 보수는 어떤 기준으로 정해지나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">법무사 보수는 대한법무사협회에서 정한 보수표를 기준으로 합니다. 부동산 가액(매매가격)에 따라 구간별 누진 요율이 적용되며, 기본보수 외에 부가보수와 실비가 추가될 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 부동산 등기 시 법무사를 반드시 선임해야 하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">아닙니다. 법무사 선임은 의무가 아니며, 본인이 직접 셀프등기를 진행할 수 있습니다. 다만, 등기 절차가 복잡하고 서류 준비에 실수가 있으면 등기가 반려될 수 있으므로, 대부분의 거래에서는 법무사에게 의뢰합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 법무사 보수 외에 추가로 들어가는 비용이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 기본보수 외에 수입인지(매매가 구간별 2만~35만원), 등기증지(15,000원), 교통비 및 일당 등의 제반비용이 추가됩니다. 이러한 실비는 법무사 사용 여부와 관계없이 발생하는 법정 비용도 포함됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 법무사와 변호사의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">법무사는 등기, 공탁, 비송사건 등 법원 및 등기소 관련 업무를 전문으로 처리합니다. 변호사는 소송 대리, 법률 자문 등 폭넓은 법률 업무를 수행합니다. 부동산 등기의 경우 법무사가 전문적으로 처리하며, 비용도 변호사보다 저렴한 편입니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "법무사 보수는 어떤 기준으로 정해지나요?", "acceptedAnswer": { "@type": "Answer", "text": "법무사 보수는 대한법무사협회에서 정한 보수표를 기준으로 합니다. 부동산 가액(매매가격)에 따라 구간별 누진 요율이 적용되며, 기본보수 외에 부가보수와 실비가 추가될 수 있습니다." } },
+        { "@type": "Question", "name": "부동산 등기 시 법무사를 반드시 선임해야 하나요?", "acceptedAnswer": { "@type": "Answer", "text": "아닙니다. 법무사 선임은 의무가 아니며, 본인이 직접 셀프등기를 진행할 수 있습니다. 다만, 등기 절차가 복잡하고 서류 준비에 실수가 있으면 등기가 반려될 수 있으므로, 대부분의 거래에서는 법무사에게 의뢰합니다." } },
+        { "@type": "Question", "name": "법무사 보수 외에 추가로 들어가는 비용이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 기본보수 외에 수입인지(매매가 구간별 2만~35만원), 등기증지(15,000원), 교통비 및 일당 등의 제반비용이 추가됩니다. 이러한 실비는 법무사 사용 여부와 관계없이 발생하는 법정 비용도 포함됩니다." } },
+        { "@type": "Question", "name": "법무사와 변호사의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "법무사는 등기, 공탁, 비송사건 등 법원 및 등기소 관련 업무를 전문으로 처리합니다. 변호사는 소송 대리, 법률 자문 등 폭넓은 법률 업무를 수행합니다. 부동산 등기의 경우 법무사가 전문적으로 처리하며, 비용도 변호사보다 저렴한 편입니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

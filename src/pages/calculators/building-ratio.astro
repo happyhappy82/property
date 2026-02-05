@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="건폐율/용적률 계산기 - 부동산 트렌드 리뷰" description="대지면적, 건축면적, 연면적을 입력하여 건폐율과 용적률을 계산합니다.">
+<CalcLayout title="부동산 건폐율/용적률 계산기 - 부동산 트렌드 리뷰" description="대지면적, 건축면적, 연면적을 입력하여 건폐율과 용적률을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">건폐율/용적률 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">건폐율과 용적률, 연면적 등을 계산할 수 있습니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 건폐율/용적률 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 건폐율/용적률 계산기로 대지면적 대비 건축 가능 규모를 쉽게 확인할 수 있습니다. 건폐율과 용적률을 정확히 산출하여 부동산 개발 및 신축 시 건축 한도를 파악하는 데 도움을 드립니다. 이 계산기를 활용하면 부동산 토지의 건폐율과 용적률 기준에 맞는 최적의 건축 계획을 수립할 수 있습니다.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -95,6 +95,103 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 1평 = 3.305785㎡ 기준으로 환산합니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건폐율과 용적률이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">건폐율은 대지면적에 대한 건축면적의 비율을 말합니다. 쉽게 말해, 땅 위에 건물이 차지하는 면적의 비율입니다. 건폐율이 높을수록 대지 내 건물이 차지하는 면적이 넓어지며, 반대로 낮을수록 공지(빈 땅)가 많아져 채광과 통풍에 유리합니다. 건폐율은 「국토의 계획 및 이용에 관한 법률」 제77조에 따라 용도지역별로 상한이 정해져 있습니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">용적률은 대지면적에 대한 건축물 연면적(지하층 제외)의 비율입니다. 용적률이 높을수록 같은 대지 위에 더 많은 층수를 올릴 수 있어 건축 밀도가 높아집니다. 용적률 역시 국토계획법 제78조에 의해 용도지역별로 상한이 규정되어 있으며, 해당 지역의 도시계획조례로 세부 기준을 정합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">용도지역별 건폐율/용적률 상한</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">용도지역</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">건폐율 상한</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">용적률 상한</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">제1종전용주거지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">100%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">제2종전용주거지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">150%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">제1종일반주거지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">60%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">200%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">제2종일반주거지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">60%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">250%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">제3종일반주거지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">300%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">준주거지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">70%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">500%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">일반상업지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">80%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1300%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">준공업지역</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">70%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">400%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건폐율/용적률 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 대지면적 200㎡에 건축면적 120㎡, 연면적 480㎡인 건물</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 대지면적: 200㎡</p>
+            <p>· 건축면적: 120㎡</p>
+            <p>· 연면적: 480㎡ (4개 층)</p>
+            <p>· 건폐율 = 건축면적 / 대지면적 × 100 = 120 / 200 × 100</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 건폐율: <span class="text-blue-600 dark:text-blue-400">60%</span></p>
+            <p>· 용적률 = 연면적 / 대지면적 × 100 = 480 / 200 × 100</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 용적률: <span class="text-blue-600 dark:text-blue-400">240%</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건폐율/용적률 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 건폐율과 용적률의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">건폐율은 대지면적 대비 건축면적(1층 바닥면적)의 비율이고, 용적률은 대지면적 대비 연면적(모든 층 면적의 합, 지하층 제외)의 비율입니다. 건폐율은 건물이 땅을 얼마나 덮는지를, 용적률은 건물의 전체 규모(높이)를 나타냅니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 내 토지의 용도지역은 어떻게 확인하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">토지이용규제정보서비스(luris.molit.go.kr)에서 주소를 검색하면 해당 토지의 용도지역을 확인할 수 있습니다. 또한 정부24에서 토지이용계획확인서를 발급받거나, 관할 시·군·구청 도시계획과에 문의하실 수도 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 용적률 산정 시 제외되는 면적이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 지하층 면적, 지상층의 주차용 면적(주차장으로 사용되는 부분), 주민공동시설 면적, 초고층 건축물의 피난안전구역 면적 등은 용적률 산정 시 연면적에서 제외됩니다. 이는 건축법 시행령에서 규정하고 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 건폐율이 높으면 좋은 건가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">건폐율이 높으면 같은 대지에 더 넓은 건물을 지을 수 있어 토지 활용도가 높아집니다. 그러나 건폐율이 너무 높으면 건물 간 간격이 좁아져 채광, 통풍, 프라이버시가 나빠질 수 있습니다. 따라서 건폐율의 적정성은 건물의 용도와 주변 환경에 따라 달라집니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "건폐율과 용적률의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "건폐율은 대지면적 대비 건축면적(1층 바닥면적)의 비율이고, 용적률은 대지면적 대비 연면적(모든 층 면적의 합, 지하층 제외)의 비율입니다. 건폐율은 건물이 땅을 얼마나 덮는지를, 용적률은 건물의 전체 규모(높이)를 나타냅니다." } },
+        { "@type": "Question", "name": "내 토지의 용도지역은 어떻게 확인하나요?", "acceptedAnswer": { "@type": "Answer", "text": "토지이용규제정보서비스(luris.molit.go.kr)에서 주소를 검색하면 해당 토지의 용도지역을 확인할 수 있습니다. 또한 정부24에서 토지이용계획확인서를 발급받거나, 관할 시·군·구청 도시계획과에 문의하실 수도 있습니다." } },
+        { "@type": "Question", "name": "용적률 산정 시 제외되는 면적이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 지하층 면적, 지상층의 주차용 면적(주차장으로 사용되는 부분), 주민공동시설 면적, 초고층 건축물의 피난안전구역 면적 등은 용적률 산정 시 연면적에서 제외됩니다. 이는 건축법 시행령에서 규정하고 있습니다." } },
+        { "@type": "Question", "name": "건폐율이 높으면 좋은 건가요?", "acceptedAnswer": { "@type": "Answer", "text": "건폐율이 높으면 같은 대지에 더 넓은 건물을 지을 수 있어 토지 활용도가 높아집니다. 그러나 건폐율이 너무 높으면 건물 간 간격이 좁아져 채광, 통풍, 프라이버시가 나빠질 수 있습니다. 따라서 건폐율의 적정성은 건물의 용도와 주변 환경에 따라 달라집니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

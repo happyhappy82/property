@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="지역자원시설세 계산기 - 부동산 트렌드 리뷰" description="건물에 부과되는 지역자원시설세(소방분)를 계산합니다. 시가표준액과 건물용도를 입력하여 세액을 확인하세요.">
+<CalcLayout title="부동산 지역자원시설세 계산기 - 부동산 트렌드 리뷰" description="건물에 부과되는 지역자원시설세(소방분)를 계산합니다. 시가표준액과 건물용도를 입력하여 세액을 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">지역자원시설세 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">건물에 부과되는 소방분 지역자원시설세를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 지역자원시설세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 지역자원시설세 계산기는 건물 시가표준액을 기준으로 소방분 지역자원시설세를 산출합니다. 건물 용도와 규모에 따라 부동산에 부과되는 지역자원시설세를 자동으로 계산할 수 있습니다. 건물 보유 시 매년 납부하는 부동산 지역자원시설세를 이 계산기로 미리 확인해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -105,6 +105,98 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 1세대 1주택은 과세표준이 0원으로 면제됩니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">지역자원시설세(소방분)란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">지역자원시설세(소방분)는 소방시설, 오물처리시설, 수리시설 등의 공공시설에 필요한 비용을 충당하기 위해 건축물의 소유자에게 부과되는 지방세입니다. 건축물의 시가표준액을 과세표준으로 하며, 매년 과세기준일인 6월 1일 현재 건축물을 소유하고 있는 자가 납세의무자입니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">소방분 지역자원시설세는 재산세와 함께 매년 7월에 부과·고지되며, 재산세 납부 시 함께 납부합니다. 화재위험건축물은 기본세액의 2배, 대형화재위험건축물은 3배의 중과세율이 적용됩니다. 1세대 1주택의 경우 과세표준이 0원으로 사실상 면제됩니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">지역자원시설세(소방분) 세율표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">과세표준 (시가표준액)</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">세율</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">600만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.04%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">600만원 초과 ~ 1,300만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2,400원 + 600만원 초과금액의 0.05%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,300만원 초과 ~ 2,600만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5,900원 + 1,300만원 초과금액의 0.06%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2,600만원 초과 ~ 3,900만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">13,700원 + 2,600만원 초과금액의 0.08%</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3,900만원 초과 ~ 6,400만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">24,100원 + 3,900만원 초과금액의 0.10%</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6,400만원 초과</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">49,100원 + 6,400만원 초과금액의 0.12%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">지역자원시설세 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 시가표준액 2억원 상가 건물</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 건물 시가표준액: 2억원 (200,000,000원)</p>
+            <p>· 적용 구간: 6,400만원 초과</p>
+            <p>· 세액 계산: 49,100원 + (200,000,000원 - 64,000,000원) x 0.0012</p>
+            <p>· 초과분 세액: 136,000,000원 x 0.0012 = 163,200원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 지역자원시설세: <span class="text-blue-600 dark:text-blue-400">49,100원 + 163,200원 = 212,300원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">지역자원시설세 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 지역자원시설세 과세 대상은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">소방분 지역자원시설세는 건축물(주택, 상가, 오피스텔, 공장 등 모든 건축물)이 과세 대상입니다. 토지는 과세 대상이 아닙니다. 과세기준일(6월 1일) 현재 건축물을 소유하고 있는 자에게 부과됩니다. 다만, 1세대 1주택인 경우 과세표준이 0원으로 사실상 비과세됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 지역자원시설세 납부시기는 언제인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">지역자원시설세(소방분)는 재산세와 함께 매년 7월에 부과됩니다. 납부 기한은 7월 16일부터 7월 31일까지이며, 재산세 고지서에 함께 기재되어 한 번에 납부할 수 있습니다. 기한 내 납부하지 않으면 3%의 가산금이 부과됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 시가표준액은 어떻게 확인하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">건물의 시가표준액은 위택스(wetax.go.kr)에서 조회할 수 있습니다. 시가표준액은 건물의 구조, 용도, 면적, 경과연수 등을 반영하여 행정안전부장관이 매년 고시합니다. 재산세 과세 고지서에도 시가표준액이 기재되어 있으므로 해당 고지서를 확인하는 것도 좋은 방법입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 지역자원시설세와 재산세의 관계는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">지역자원시설세(소방분)와 재산세는 모두 건축물에 부과되는 지방세이지만 별개의 세목입니다. 재산세는 건축물의 재산가치에 대해 과세하고, 지역자원시설세는 소방 등 공공시설 운영비를 충당하기 위해 과세합니다. 두 세금 모두 7월에 함께 고지되어 한 번에 납부하지만, 과세표준과 세율이 다르게 적용됩니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "지역자원시설세 과세 대상은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "소방분 지역자원시설세는 건축물(주택, 상가, 오피스텔, 공장 등 모든 건축물)이 과세 대상입니다. 토지는 과세 대상이 아닙니다. 과세기준일(6월 1일) 현재 건축물을 소유하고 있는 자에게 부과됩니다. 다만, 1세대 1주택인 경우 과세표준이 0원으로 사실상 비과세됩니다." } },
+        { "@type": "Question", "name": "지역자원시설세 납부시기는 언제인가요?", "acceptedAnswer": { "@type": "Answer", "text": "지역자원시설세(소방분)는 재산세와 함께 매년 7월에 부과됩니다. 납부 기한은 7월 16일부터 7월 31일까지이며, 재산세 고지서에 함께 기재되어 한 번에 납부할 수 있습니다. 기한 내 납부하지 않으면 3%의 가산금이 부과됩니다." } },
+        { "@type": "Question", "name": "시가표준액은 어떻게 확인하나요?", "acceptedAnswer": { "@type": "Answer", "text": "건물의 시가표준액은 위택스(wetax.go.kr)에서 조회할 수 있습니다. 시가표준액은 건물의 구조, 용도, 면적, 경과연수 등을 반영하여 행정안전부장관이 매년 고시합니다. 재산세 과세 고지서에도 시가표준액이 기재되어 있으므로 해당 고지서를 확인하는 것도 좋은 방법입니다." } },
+        { "@type": "Question", "name": "지역자원시설세와 재산세의 관계는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "지역자원시설세(소방분)와 재산세는 모두 건축물에 부과되는 지방세이지만 별개의 세목입니다. 재산세는 건축물의 재산가치에 대해 과세하고, 지역자원시설세는 소방 등 공공시설 운영비를 충당하기 위해 과세합니다. 두 세금 모두 7월에 함께 고지되어 한 번에 납부하지만, 과세표준과 세율이 다르게 적용됩니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

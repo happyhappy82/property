@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="건물기준시가 계산기 - 부동산 트렌드 리뷰" description="국세청 기준에 따라 건물 기준시가를 계산합니다.">
+<CalcLayout title="부동산 건물기준시가 계산기 - 부동산 트렌드 리뷰" description="국세청 기준에 따라 건물 기준시가를 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">건물기준시가 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">국세청 기준에 따라 건물 기준시가를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 건물기준시가 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 건물기준시가 계산기는 국세청 고시 기준에 따라 건물의 기준시가를 산정합니다. 구조, 용도, 위치지수 등을 반영하여 부동산 건물기준시가를 정확하게 계산할 수 있습니다. 상속·증여세 신고나 양도세 산정 시 이 계산기로 부동산 건물 가액을 미리 파악해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -100,6 +100,100 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 건물신축가격기준액은 국세청 고시를 참고하세요.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건물기준시가란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">건물기준시가는 국세청장이 매년 고시하는 건물의 가격으로, 양도소득세·상속세·증여세 등의 과세표준을 산정할 때 사용됩니다. 아파트, 연립주택 등 공동주택을 제외한 일반 건물(단독주택, 상가, 오피스텔 등)에 적용되며, 실거래가를 알 수 없거나 시가를 산정하기 어려운 경우 보충적 평가방법으로 활용됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">건물기준시가의 산정 공식은 「건물면적(㎡) x ㎡당 금액」이며, ㎡당 금액은 건물신축가격기준액에 구조지수, 용도지수, 위치지수, 경과연수별 잔가율을 곱하여 산출합니다. 이 기준은 소득세법 제99조 및 상속세 및 증여세법 제61조에 근거합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건물기준시가 산정 주요 항목</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">항목</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">설명</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">건물신축가격기준액</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">국세청이 매년 고시하는 ㎡당 신축 기준 단가 (예: 약 880,000원/㎡)</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">구조지수</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">건물 구조에 따른 보정지수 (철근콘크리트, 철골조, 목조 등)</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">용도지수</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">건물 용도에 따른 보정지수 (주거용, 상업용, 공업용 등)</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">위치지수</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">건물 소재지에 따른 보정지수 (지역별 차등 적용)</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">경과연수별 잔가율</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">건축 후 경과 연수에 따른 감가 비율 (건물 노후도 반영)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건물기준시가 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 연면적 150㎡, 철근콘크리트 주거용 건물</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 건물면적: 150㎡</p>
+            <p>· 건물신축가격기준액: 880,000원/㎡</p>
+            <p>· 구조지수: 1.00 (철근콘크리트)</p>
+            <p>· 용도지수: 1.00 (주거용)</p>
+            <p>· 위치지수: 1.02 (서울 일반)</p>
+            <p>· 경과연수별 잔가율: 80% (약 10년 경과)</p>
+            <p>· ㎡당 금액 = 880,000 x 1.00 x 1.00 x 1.02 x 0.80 = 718,080원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">기준시가 = 150㎡ x 718,080원 = 약 1억 771만원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건물기준시가 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 건물기준시가와 시가표준액의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">건물기준시가는 국세청이 고시하며 양도소득세, 상속세, 증여세 등 국세 산정에 사용됩니다. 시가표준액은 행정안전부(지자체)가 고시하며 취득세, 재산세 등 지방세 산정에 사용됩니다. 두 가격은 산정 주체와 적용 세목이 다르므로 금액에 차이가 있을 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 건물기준시가는 어디서 조회할 수 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">국세청 홈택스(hometax.go.kr)에서 '건물기준시가 조회' 메뉴를 통해 확인할 수 있습니다. 건물의 소재지 주소를 입력하면 해당 건물의 기준시가를 조회할 수 있으며, 과거 연도의 기준시가도 열람 가능합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 건물기준시가에 감가상각이 반영되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 경과연수별 잔가율을 통해 감가상각이 반영됩니다. 건물의 신축 연도로부터 경과된 기간에 따라 잔가율이 낮아지며, 이에 따라 기준시가도 감소합니다. 잔가율은 건물 구조별로 내용연수가 다르므로 구조에 따라 감가 속도가 달라집니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 건물기준시가는 어떤 경우에 활용되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">건물기준시가는 주로 양도소득세 계산 시 취득가액을 환산하거나, 상속세·증여세의 과세표준을 산정할 때 보충적 평가방법으로 활용됩니다. 실거래가를 확인할 수 없는 건물의 가액을 산정하는 데 필수적인 기준이며, 공동주택이 아닌 일반 건물(상가, 오피스텔, 단독주택 등)에 적용됩니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "건물기준시가와 시가표준액의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "건물기준시가는 국세청이 고시하며 양도소득세, 상속세, 증여세 등 국세 산정에 사용됩니다. 시가표준액은 행정안전부(지자체)가 고시하며 취득세, 재산세 등 지방세 산정에 사용됩니다. 두 가격은 산정 주체와 적용 세목이 다르므로 금액에 차이가 있을 수 있습니다." } },
+        { "@type": "Question", "name": "건물기준시가는 어디서 조회할 수 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "국세청 홈택스(hometax.go.kr)에서 '건물기준시가 조회' 메뉴를 통해 확인할 수 있습니다. 건물의 소재지 주소를 입력하면 해당 건물의 기준시가를 조회할 수 있으며, 과거 연도의 기준시가도 열람 가능합니다." } },
+        { "@type": "Question", "name": "건물기준시가에 감가상각이 반영되나요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 경과연수별 잔가율을 통해 감가상각이 반영됩니다. 건물의 신축 연도로부터 경과된 기간에 따라 잔가율이 낮아지며, 이에 따라 기준시가도 감소합니다. 잔가율은 건물 구조별로 내용연수가 다르므로 구조에 따라 감가 속도가 달라집니다." } },
+        { "@type": "Question", "name": "건물기준시가는 어떤 경우에 활용되나요?", "acceptedAnswer": { "@type": "Answer", "text": "건물기준시가는 주로 양도소득세 계산 시 취득가액을 환산하거나, 상속세·증여세의 과세표준을 산정할 때 보충적 평가방법으로 활용됩니다. 실거래가를 확인할 수 없는 건물의 가액을 산정하는 데 필수적인 기준이며, 공동주택이 아닌 일반 건물(상가, 오피스텔, 단독주택 등)에 적용됩니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

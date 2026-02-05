@@ -3,251 +3,302 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
 <CalcLayout
-  title="상속세 계산기 - 부동산 트렌드 리뷰"
+  title="부동산 상속세 계산기 - 부동산 트렌드 리뷰"
   description="상속세를 간편하게 계산하세요. 배우자 공제, 일괄공제, 금융재산 공제 등 주요 공제 항목을 반영합니다."
 >
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 py-12 px-4 transition-colors">
-    <div class="max-w-4xl mx-auto">
-      <!-- Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-3">
-          상속세 계산기
-        </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300">
-          상속 재산에 대한 상속세를 계산합니다.
-        </p>
+    <div class="mb-6">
+      <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 상속세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 상속세 계산기를 이용하면 상속 재산 규모에 따른 예상 상속세를 미리 확인할 수 있습니다. 배우자 공제, 일괄공제, 금융재산 공제 등 주요 공제 항목을 반영하여 부동산 상속세를 자동으로 산출합니다. 상속 설계를 준비 중이라면 이 계산기로 부동산 상속세 부담을 사전에 점검해 보세요.</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
+      <form id="calcForm" class="space-y-4">
+        <div>
+          <label for="totalAsset" class="block text-sm font-medium mb-1 dark:text-gray-200">상속재산 총액</label>
+          <div class="relative">
+            <input type="text" id="totalAsset" placeholder="1,000,000,000" required
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="debts" class="block text-sm font-medium mb-1 dark:text-gray-200">채무</label>
+          <div class="relative">
+            <input type="text" id="debts" placeholder="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="funeralCost" class="block text-sm font-medium mb-1 dark:text-gray-200">장례비용 <span class="text-xs font-normal text-gray-500">(최대 1,500만원)</span></label>
+          <div class="relative">
+            <input type="text" id="funeralCost" placeholder="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="hasSpouse" class="block text-sm font-medium mb-1 dark:text-gray-200">배우자 유무</label>
+          <select id="hasSpouse" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="no">없음</option>
+            <option value="yes">있음</option>
+          </select>
+        </div>
+
+        <div id="spouseShareDiv" style="display: none;">
+          <label for="spouseSharePct" class="block text-sm font-medium mb-1 dark:text-gray-200">배우자 법정상속분 <span class="text-xs font-normal text-gray-500">(통상 50%)</span></label>
+          <div class="relative">
+            <input type="number" id="spouseSharePct" placeholder="50" min="0" max="100"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="financialAssets" class="block text-sm font-medium mb-1 dark:text-gray-200">금융재산</label>
+          <div class="relative">
+            <input type="text" id="financialAssets" placeholder="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="coResidence" class="rounded" />
+          <label for="coResidence" class="text-sm dark:text-gray-200 cursor-pointer">10년 이상 동거한 주택 상속</label>
+        </div>
+
+        <div id="coResidenceValueDiv" style="display: none;">
+          <label for="coResidenceValue" class="block text-sm font-medium mb-1 dark:text-gray-200">동거주택 가액 <span class="text-xs font-normal text-gray-500">(최대 6억원 공제)</span></label>
+          <div class="relative">
+            <input type="text" id="coResidenceValue" placeholder="0"
+              class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-8" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">원</span>
+          </div>
+        </div>
+
+        <button type="submit" id="calcBtn"
+          class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+          계산하기
+        </button>
+      </form>
+    </div>
+
+    <div id="results" class="hidden space-y-4">
+      <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 p-4">
+        <h2 class="text-sm font-medium text-blue-800 dark:text-blue-300 mb-3">상속세 합계</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">총 납부세액</span><span class="font-bold text-blue-700 dark:text-blue-300" id="totalTax">0원</span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">실효세율</span><span class="font-medium dark:text-gray-200" id="effectiveRate">0%</span></div>
+        </div>
       </div>
 
-      <!-- Calculator Card -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-6 transition-colors">
-        <form id="calcForm" class="space-y-6">
-          <!-- 상속재산 총액 -->
-          <div>
-            <label for="totalAsset" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              상속재산 총액
-            </label>
-            <div class="relative">
-              <input
-                type="text"
-                id="totalAsset"
-                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                placeholder="1,000,000,000"
-                required
-              />
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
-            </div>
-          </div>
-
-          <!-- 채무 -->
-          <div>
-            <label for="debts" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              채무
-            </label>
-            <div class="relative">
-              <input
-                type="text"
-                id="debts"
-                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                placeholder="0"
-              />
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
-            </div>
-          </div>
-
-          <!-- 장례비용 -->
-          <div>
-            <label for="funeralCost" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              장례비용 <span class="text-sm font-normal text-gray-500">(최대 1,500만원)</span>
-            </label>
-            <div class="relative">
-              <input
-                type="text"
-                id="funeralCost"
-                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                placeholder="0"
-              />
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
-            </div>
-          </div>
-
-          <!-- 배우자 유무 -->
-          <div>
-            <label for="hasSpouse" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              배우자 유무
-            </label>
-            <select
-              id="hasSpouse"
-              class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-            >
-              <option value="no">없음</option>
-              <option value="yes">있음</option>
-            </select>
-          </div>
-
-          <!-- 배우자 법정상속분 -->
-          <div id="spouseShareDiv" style="display: none;">
-            <label for="spouseSharePct" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              배우자 법정상속분 <span class="text-sm font-normal text-gray-500">(통상 50%)</span>
-            </label>
-            <div class="relative">
-              <input
-                type="number"
-                id="spouseSharePct"
-                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                placeholder="50"
-                min="0"
-                max="100"
-              />
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">%</span>
-            </div>
-          </div>
-
-          <!-- 금융재산 -->
-          <div>
-            <label for="financialAssets" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              금융재산
-            </label>
-            <div class="relative">
-              <input
-                type="text"
-                id="financialAssets"
-                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                placeholder="0"
-              />
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
-            </div>
-          </div>
-
-          <!-- 동거주택 상속 -->
-          <div>
-            <label class="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="checkbox"
-                id="coResidence"
-                class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
-              />
-              <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">
-                10년 이상 동거한 주택 상속
-              </span>
-            </label>
-          </div>
-
-          <!-- 동거주택 가액 -->
-          <div id="coResidenceValueDiv" style="display: none;">
-            <label for="coResidenceValue" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              동거주택 가액 <span class="text-sm font-normal text-gray-500">(최대 6억원 공제)</span>
-            </label>
-            <div class="relative">
-              <input
-                type="text"
-                id="coResidenceValue"
-                class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                placeholder="0"
-              />
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">원</span>
-            </div>
-          </div>
-
-          <!-- Calculate Button -->
-          <button
-            type="submit"
-            id="calcBtn"
-            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-          >
-            계산하기
-          </button>
-        </form>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">공제 내역</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">상속재산 총액</span><span class="dark:text-gray-200" id="totalAssetDisplay">0원</span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">(-)채무·장례비</span><span class="text-red-600 dark:text-red-400" id="debtsFuneralDisplay">0원</span></div>
+          <div class="flex justify-between border-t border-gray-200 dark:border-gray-600 pt-2 mt-2"><span class="text-sm font-medium dark:text-gray-200">상속세 과세가액</span><span class="font-bold dark:text-gray-200" id="taxableInheritance">0원</span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">(-)일괄공제</span><span class="text-green-600 dark:text-green-400" id="lumpSumDeduction">0원</span></div>
+          <div id="spouseDeductionDiv" class="flex justify-between" style="display: none;"><span class="text-sm dark:text-gray-300">(-)배우자 공제</span><span class="text-green-600 dark:text-green-400" id="spouseDeduction">0원</span></div>
+          <div id="financialDeductionDiv" class="flex justify-between" style="display: none;"><span class="text-sm dark:text-gray-300">(-)금융재산 공제</span><span class="text-green-600 dark:text-green-400" id="financialDeduction">0원</span></div>
+          <div id="coResidenceDeductionDiv" class="flex justify-between" style="display: none;"><span class="text-sm dark:text-gray-300">(-)동거주택 공제</span><span class="text-green-600 dark:text-green-400" id="coResidenceDeduction">0원</span></div>
+          <div class="flex justify-between border-t border-gray-200 dark:border-gray-600 pt-2 mt-2"><span class="text-sm font-medium dark:text-gray-200">과세표준</span><span class="font-bold dark:text-gray-200" id="taxBase">0원</span></div>
+        </div>
       </div>
 
-      <!-- Results -->
-      <div id="results" class="space-y-6" style="display: none;">
-        <!-- Summary -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white">
-          <h2 class="text-2xl font-bold mb-6">상속세 합계</h2>
-          <div class="space-y-4">
-            <div class="flex justify-between items-center pb-4 border-b border-blue-400">
-              <span class="text-lg">총 납부세액</span>
-              <span id="totalTax" class="text-3xl font-bold">0원</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-lg">실효세율</span>
-              <span id="effectiveRate" class="text-2xl font-bold">0%</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 공제 내역 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 transition-colors">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">공제 내역</h2>
-          <div class="space-y-3 text-gray-700 dark:text-gray-300">
-            <div class="flex justify-between py-2">
-              <span>상속재산 총액</span>
-              <span id="totalAssetDisplay" class="font-semibold">0원</span>
-            </div>
-            <div class="flex justify-between py-2">
-              <span>(-)채무·장례비</span>
-              <span id="debtsFuneralDisplay" class="font-semibold text-red-600 dark:text-red-400">0원</span>
-            </div>
-            <div class="flex justify-between py-2 border-t-2 border-gray-200 dark:border-gray-600 pt-3">
-              <span class="font-semibold">상속세 과세가액</span>
-              <span id="taxableInheritance" class="font-bold">0원</span>
-            </div>
-            <div class="flex justify-between py-2">
-              <span>(-)일괄공제</span>
-              <span id="lumpSumDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
-            </div>
-            <div id="spouseDeductionDiv" class="flex justify-between py-2" style="display: none;">
-              <span>(-)배우자 공제</span>
-              <span id="spouseDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
-            </div>
-            <div id="financialDeductionDiv" class="flex justify-between py-2" style="display: none;">
-              <span>(-)금융재산 공제</span>
-              <span id="financialDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
-            </div>
-            <div id="coResidenceDeductionDiv" class="flex justify-between py-2" style="display: none;">
-              <span>(-)동거주택 공제</span>
-              <span id="coResidenceDeduction" class="font-semibold text-green-600 dark:text-green-400">0원</span>
-            </div>
-            <div class="flex justify-between py-2 border-t-2 border-gray-200 dark:border-gray-600 pt-3">
-              <span class="font-semibold">과세표준</span>
-              <span id="taxBase" class="font-bold text-lg">0원</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 세액 계산 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 transition-colors">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">세액 계산</h2>
-          <div class="space-y-3 text-gray-700 dark:text-gray-300">
-            <div class="flex justify-between py-2">
-              <span>적용세율</span>
-              <span id="taxRateDisplay" class="font-semibold">0%</span>
-            </div>
-            <div class="flex justify-between py-2">
-              <span>산출세액</span>
-              <span id="calculatedTax" class="font-semibold">0원</span>
-            </div>
-            <div class="flex justify-between py-2">
-              <span>(-)신고세액공제 3%</span>
-              <span id="filingCredit" class="font-semibold text-green-600 dark:text-green-400">0원</span>
-            </div>
-            <div class="flex justify-between py-2 border-t-2 border-gray-200 dark:border-gray-600 pt-3">
-              <span class="font-semibold">납부할 세액</span>
-              <span id="finalTax" class="font-bold text-lg text-blue-600 dark:text-blue-400">0원</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Disclaimer -->
-        <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded">
-          <p class="text-sm text-yellow-800 dark:text-yellow-200">
-            <strong>안내:</strong> 이 계산기는 참고용이며, 실제 세액은 개인의 상황에 따라 달라질 수 있습니다.
-            정확한 세액 산정을 위해서는 전문가와 상담하시기 바랍니다.
-          </p>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">세액 계산</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">적용세율</span><span class="dark:text-gray-200" id="taxRateDisplay">0%</span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">산출세액</span><span class="dark:text-gray-200" id="calculatedTax">0원</span></div>
+          <div class="flex justify-between"><span class="text-sm dark:text-gray-300">(-)신고세액공제 3%</span><span class="text-green-600 dark:text-green-400" id="filingCredit">0원</span></div>
+          <div class="flex justify-between border-t border-gray-200 dark:border-gray-600 pt-2 mt-2"><span class="text-sm font-medium dark:text-gray-200">납부할 세액</span><span class="font-bold text-blue-600 dark:text-blue-400" id="finalTax">0원</span></div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ※ 본 계산기는 참고용이며, 실제 세액은 개인의 상황에 따라 달라질 수 있습니다. 정확한 세액 산정을 위해서는 전문가와 상담하시기 바랍니다.
+      </p>
+    </div>
+
+  <!-- SEO 콘텐츠 섹션 -->
+  <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+    <section class="mb-10">
+      <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">상속세란?</h2>
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">상속세는 사망으로 인하여 피상속인(사망자)의 재산이 상속인에게 이전될 때 부과되는 세금입니다. 상속세 신고기한은 상속개시일(사망일)이 속하는 달의 말일부터 6개월 이내이며, 기한 내 신고 시 산출세액의 3%를 신고세액공제로 받을 수 있습니다.</p>
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed">상속세 계산 시 기초공제(2억 원)와 인적공제를 합산하되, 일괄공제(5억 원)와 비교하여 큰 금액을 적용합니다. 대부분의 경우 일괄공제 5억 원이 유리합니다. 배우자가 있는 경우 배우자 상속공제를 추가로 적용받을 수 있으며, 최소 5억 원에서 최대 30억 원까지 공제됩니다.</p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">상속세 세율표</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+          <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700">
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">과세표준</th>
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">세율</th>
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">누진공제</th>
+            </tr>
+          </thead>
+          <tbody class="dark:text-gray-300">
+            <tr>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억원 이하</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10%</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">-</td>
+            </tr>
+            <tr class="bg-gray-50 dark:bg-gray-800/50">
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억원 ~ 5억원</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">20%</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,000만원</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5억원 ~ 10억원</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30%</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6,000만원</td>
+            </tr>
+            <tr class="bg-gray-50 dark:bg-gray-800/50">
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10억원 ~ 30억원</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40%</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억 6,000만원</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30억원 초과</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">50%</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">4억 6,000만원</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+          <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700">
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">주요 공제 항목</th>
+              <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">공제 금액</th>
+            </tr>
+          </thead>
+          <tbody class="dark:text-gray-300">
+            <tr>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기초공제</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2억원</td>
+            </tr>
+            <tr class="bg-gray-50 dark:bg-gray-800/50">
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">일괄공제</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5억원 (기초공제+인적공제와 택1)</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">배우자 상속공제</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">최소 5억원 ~ 최대 30억원</td>
+            </tr>
+            <tr class="bg-gray-50 dark:bg-gray-800/50">
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">금융재산 상속공제</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">최대 2억원</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">동거주택 상속공제</td>
+              <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">최대 6억원</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">상속세 계산 예시</h2>
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+        <h3 class="text-base font-semibold dark:text-white mb-3">예시: 총 상속재산 10억 원 (배우자 있음)</h3>
+        <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+          <p>· 총 상속재산: 10억 원 (채무·장례비 없다고 가정)</p>
+          <p>· 상속세 과세가액: 10억 원</p>
+          <p>· 일괄공제: 5억 원</p>
+          <p>· 배우자 상속공제: 5억 원 (법정상속분 50% 기준)</p>
+          <p>· 과세표준: 10억 - 5억 - 5억 = 0원</p>
+          <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">상속세 0원 (공제 합계가 과세가액 이상)</span></p>
+        </div>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700 mt-4">
+        <h3 class="text-base font-semibold dark:text-white mb-3">예시: 총 상속재산 10억 원 (배우자 없음)</h3>
+        <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+          <p>· 총 상속재산: 10억 원</p>
+          <p>· 일괄공제: 5억 원</p>
+          <p>· 과세표준: 10억 - 5억 = 5억 원</p>
+          <p>· 세율 적용: 5억 × 20% - 1,000만 = 9,000만 원</p>
+          <p>· 신고세액공제 (3%): 9,000만 × 3% = 270만 원</p>
+          <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">납부할 상속세 약 8,730만 원</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">상속세 자주 묻는 질문</h2>
+      <div class="space-y-4">
+        <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+          <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+            <span>Q. 기초공제와 일괄공제의 차이는 무엇인가요?</span>
+            <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">기초공제는 2억 원이며, 여기에 자녀공제(1인당 5,000만 원), 미성년자공제, 연로자공제, 장애인공제 등 인적공제를 합산합니다. 일괄공제는 이러한 개별 공제를 계산하지 않고 5억 원을 한 번에 공제하는 방식입니다. 기초공제+인적공제 합계와 일괄공제 5억 원 중 큰 금액을 선택할 수 있으며, 대부분의 경우 일괄공제 5억 원이 유리합니다.</div>
+        </details>
+        <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+            <span>Q. 배우자 상속공제는 얼마까지 받을 수 있나요?</span>
+            <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">배우자 상속공제는 배우자의 법정상속분(실제 상속받은 금액) 범위 내에서 적용되며, 최소 5억 원에서 최대 30억 원까지 공제됩니다. 배우자가 실제 상속받은 금액이 없더라도 최소 5억 원은 공제됩니다. 배우자 공제는 일괄공제와 별도로 추가 적용되므로 절세 효과가 큽니다.</div>
+        </details>
+        <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+            <span>Q. 상속세 신고기한은 언제인가요?</span>
+            <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">상속세는 상속개시일(사망일)이 속하는 달의 말일부터 6개월 이내에 신고·납부해야 합니다. 예를 들어 3월에 사망한 경우 9월 30일까지 신고해야 합니다. 피상속인 또는 상속인이 외국에 거주하는 경우에는 9개월로 연장됩니다. 기한 내 신고 시 산출세액의 3% 신고세액공제를 받을 수 있습니다.</div>
+        </details>
+        <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+            <span>Q. 상속 부동산은 어떻게 평가하나요?</span>
+            <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">상속 부동산은 원칙적으로 시가(시장가격)로 평가합니다. 시가를 알 수 없는 경우 공동주택은 공시가격, 단독주택은 개별주택가격, 토지는 개별공시지가를 기준으로 평가합니다. 아파트의 경우 상속개시일 전후 6개월 이내의 매매사례가액이 있으면 이를 시가로 인정합니다. 감정평가를 받으면 시가로 인정되어 정확한 평가가 가능합니다.</div>
+        </details>
+      </div>
+    </section>
+  </article>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "기초공제와 일괄공제의 차이는 무엇인가요?",
+        "acceptedAnswer": { "@type": "Answer", "text": "기초공제는 2억 원이며, 여기에 자녀공제(1인당 5,000만 원), 미성년자공제, 연로자공제, 장애인공제 등 인적공제를 합산합니다. 일괄공제는 이러한 개별 공제를 계산하지 않고 5억 원을 한 번에 공제하는 방식입니다. 기초공제+인적공제 합계와 일괄공제 5억 원 중 큰 금액을 선택할 수 있으며, 대부분의 경우 일괄공제 5억 원이 유리합니다." }
+      },
+      {
+        "@type": "Question",
+        "name": "배우자 상속공제는 얼마까지 받을 수 있나요?",
+        "acceptedAnswer": { "@type": "Answer", "text": "배우자 상속공제는 배우자의 법정상속분(실제 상속받은 금액) 범위 내에서 적용되며, 최소 5억 원에서 최대 30억 원까지 공제됩니다. 배우자가 실제 상속받은 금액이 없더라도 최소 5억 원은 공제됩니다. 배우자 공제는 일괄공제와 별도로 추가 적용되므로 절세 효과가 큽니다." }
+      },
+      {
+        "@type": "Question",
+        "name": "상속세 신고기한은 언제인가요?",
+        "acceptedAnswer": { "@type": "Answer", "text": "상속세는 상속개시일(사망일)이 속하는 달의 말일부터 6개월 이내에 신고·납부해야 합니다. 예를 들어 3월에 사망한 경우 9월 30일까지 신고해야 합니다. 피상속인 또는 상속인이 외국에 거주하는 경우에는 9개월로 연장됩니다. 기한 내 신고 시 산출세액의 3% 신고세액공제를 받을 수 있습니다." }
+      },
+      {
+        "@type": "Question",
+        "name": "상속 부동산은 어떻게 평가하나요?",
+        "acceptedAnswer": { "@type": "Answer", "text": "상속 부동산은 원칙적으로 시가(시장가격)로 평가합니다. 시가를 알 수 없는 경우 공동주택은 공시가격, 단독주택은 개별주택가격, 토지는 개별공시지가를 기준으로 평가합니다. 아파트의 경우 상속개시일 전후 6개월 이내의 매매사례가액이 있으면 이를 시가로 인정합니다. 감정평가를 받으면 시가로 인정되어 정확한 평가가 가능합니다." }
+      }
+    ]
+  }
+  </script>
 </CalcLayout>
 
 <script>
@@ -436,7 +487,7 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
     document.getElementById('finalTax')!.textContent = formatNumber(Math.round(finalTax)) + '원'
 
     // Show results
-    document.getElementById('results')!.style.display = 'block'
+    document.getElementById('results')!.classList.remove('hidden')
 
     // Scroll to results
     document.getElementById('results')!.scrollIntoView({ behavior: 'smooth', block: 'nearest' })

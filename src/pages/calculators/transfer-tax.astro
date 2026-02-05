@@ -1,13 +1,13 @@
 ---
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
-<CalcLayout title="양도소득세 계산기" description="부동산 양도 시 양도소득세를 계산하고 절세 방법을 확인하세요.">
+<CalcLayout title="부동산 양도소득세 계산기" description="부동산 양도 시 양도소득세를 계산하고 절세 방법을 확인하세요.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
 
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">양도소득세 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6">부동산 양도 시 발생하는 양도소득세를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 양도소득세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">부동산 양도소득세 계산기를 활용하면 매도 시 발생하는 양도차익에 대한 세금을 미리 확인할 수 있습니다. 보유 기간, 장기보유특별공제, 기본공제를 반영하여 부동산 양도소득세를 자동으로 산출합니다. 매도 시점을 결정하기 전 이 계산기로 부동산 양도소득세 부담을 사전에 점검해 보세요.</p>
 
     <!-- 입력 폼 -->
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
@@ -205,6 +205,230 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         세법 개정에 따라 세율 및 공제율이 변경될 수 있습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">양도소득세란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">양도소득세는 부동산, 주식 등 자산을 양도(매매, 교환 등)하여 발생한 소득에 대해 부과되는 세금입니다. 부동산의 경우 취득가액과 양도가액의 차이에서 필요경비와 각종 공제를 차감한 후 세율을 적용하여 산출합니다. 양도소득세는 양도일이 속하는 달의 말일부터 2개월 이내에 예정신고·납부해야 합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">과세대상에는 토지, 건물, 부동산에 관한 권리(분양권, 입주권 등), 주식 등이 포함됩니다. 1세대 1주택자로서 2년 이상 보유(조정대상지역은 2년 거주 포함)하고 양도가액이 12억 원 이하인 경우 비과세 혜택을 받을 수 있습니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">양도소득세 세율표 및 장기보유특별공제</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">과세표준</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기본세율</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">누진공제</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,400만원 이하</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">-</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,400만원 ~ 5,000만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">15%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">126만원</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5,000만원 ~ 8,800만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">24%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">576만원</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">8,800만원 ~ 1.5억원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">35%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,544만원</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.5억원 ~ 3억원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">38%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,994만원</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3억원 ~ 5억원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2,594만원</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5억원 ~ 10억원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">42%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3,594만원</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10억원 초과</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">45%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6,594만원</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">구분</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">중과세율</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2주택 (조정대상지역)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기본세율 + 20%p</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3주택 이상 (조정대상지역)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기본세율 + 30%p</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">비사업용 토지</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">기본세율 + 10%p</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">보유기간</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">일반 (연 2%, 최대 30%)</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">1세대1주택 (보유+거주, 최대 80%)</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3년</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보유 12% + 거주 12% = 24%</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5년</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보유 20% + 거주 20% = 40%</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10년</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">20%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보유 40% + 거주 40% = 80%</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">15년</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">보유 40% + 거주 40% = 80%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">양도소득세 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700 mb-4">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시 1: 1세대 1주택 비과세</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 취득가액: 5억 원 / 양도가액: 10억 원</p>
+            <p>· 보유기간: 5년, 거주기간: 3년</p>
+            <p>· 1세대 1주택 해당, 양도가액 12억 원 이하</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">비과세 (양도소득세 0원)</span></p>
+          </div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시 2: 2주택자 양도</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 취득가액: 4억 원 / 양도가액: 7억 원 / 필요경비: 1,000만 원</p>
+            <p>· 보유기간: 4년 (장기보유특별공제 미적용, 2주택자)</p>
+            <p>· 양도차익: 7억 - 4억 - 1,000만 = 2억 9,000만 원</p>
+            <p>· 기본공제: 250만 원 → 과세표준: 2억 8,750만 원</p>
+            <p>· 기본세율 38%, 누진공제 1,994만 원</p>
+            <p>· 산출세액: 2억 8,750만 × 38% - 1,994만 = 8,931만 원</p>
+            <p>· 지방소득세(10%): 893만 원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">총 납부세액 약 9,824만 원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">양도소득세 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 1세대 1주택 비과세 조건은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">1세대가 국내에 1주택을 보유하고, 2년 이상 보유(조정대상지역은 2년 이상 거주 포함)하며, 양도가액이 12억 원 이하인 경우 양도소득세가 비과세됩니다. 양도가액이 12억 원을 초과하면 초과분에 대해서만 과세됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 장기보유특별공제란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">3년 이상 보유한 부동산을 양도할 때 양도차익에서 일정 비율을 공제해주는 제도입니다. 일반 부동산은 연 2%씩 최대 30%(15년)까지, 1세대 1주택은 보유기간(연 4%, 최대 40%)과 거주기간(연 4%, 최대 40%)을 합산하여 최대 80%까지 공제받을 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 양도소득세 신고기한은 언제인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">양도일이 속하는 달의 말일부터 2개월 이내에 예정신고를 해야 합니다. 예를 들어 3월 15일에 잔금을 받았다면 5월 31일까지 신고해야 합니다. 다음 해 5월에는 확정신고를 통해 최종 정산합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 다주택자 중과세율은 어떻게 적용되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">조정대상지역 내 2주택자는 기본세율에 20%p를, 3주택 이상자는 30%p를 추가하여 중과세율이 적용됩니다. 또한 다주택 중과 대상자는 장기보유특별공제를 받을 수 없습니다. 다만, 정부 정책에 따라 한시적으로 중과가 배제되는 기간이 있으므로 최신 세법을 확인하시기 바랍니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 일시적 2주택 비과세는 어떤 경우에 적용되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">기존 주택을 보유한 상태에서 이사 등의 사유로 신규 주택을 취득한 경우, 신규 주택 취득일로부터 3년 이내에 기존 주택을 양도하면 1세대 1주택 비과세를 적용받을 수 있습니다. 다만 조정대상지역 내 주택은 별도 요건이 있으므로 주의가 필요합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "1세대 1주택 비과세 조건은 무엇인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "1세대가 국내에 1주택을 보유하고, 2년 이상 보유(조정대상지역은 2년 이상 거주 포함)하며, 양도가액이 12억 원 이하인 경우 양도소득세가 비과세됩니다. 양도가액이 12억 원을 초과하면 초과분에 대해서만 과세됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "장기보유특별공제란 무엇인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "3년 이상 보유한 부동산을 양도할 때 양도차익에서 일정 비율을 공제해주는 제도입니다. 일반 부동산은 연 2%씩 최대 30%(15년)까지, 1세대 1주택은 보유기간(연 4%, 최대 40%)과 거주기간(연 4%, 최대 40%)을 합산하여 최대 80%까지 공제받을 수 있습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "양도소득세 신고기한은 언제인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "양도일이 속하는 달의 말일부터 2개월 이내에 예정신고를 해야 합니다. 예를 들어 3월 15일에 잔금을 받았다면 5월 31일까지 신고해야 합니다. 다음 해 5월에는 확정신고를 통해 최종 정산합니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "다주택자 중과세율은 어떻게 적용되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "조정대상지역 내 2주택자는 기본세율에 20%p를, 3주택 이상자는 30%p를 추가하여 중과세율이 적용됩니다. 또한 다주택 중과 대상자는 장기보유특별공제를 받을 수 없습니다. 다만, 정부 정책에 따라 한시적으로 중과가 배제되는 기간이 있으므로 최신 세법을 확인하시기 바랍니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "일시적 2주택 비과세는 어떤 경우에 적용되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "기존 주택을 보유한 상태에서 이사 등의 사유로 신규 주택을 취득한 경우, 신규 주택 취득일로부터 3년 이내에 기존 주택을 양도하면 1세대 1주택 비과세를 적용받을 수 있습니다. 다만 조정대상지역 내 주택은 별도 요건이 있으므로 주의가 필요합니다." }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

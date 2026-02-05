@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="중개수수료 계산기 - 부동산 트렌드 리뷰" description="부동산 중개수수료(복비)를 간편하게 계산하세요. 매매·전세·월세 거래유형별 요율 자동 적용.">
+<CalcLayout title="부동산 중개수수료 계산기 - 부동산 트렌드 리뷰" description="부동산 중개수수료(복비)를 간편하게 계산하세요. 매매·전세·월세 거래유형별 요율 자동 적용.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">중개수수료 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 거래 시 중개보수(복비)를 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 중개수수료 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 중개수수료 계산기를 통해 매매·전세·월세 거래 유형별 중개보수를 빠르게 확인할 수 있습니다. 거래금액 구간에 따른 부동산 중개수수료 상한 요율을 자동 적용하여 정확한 금액을 산출합니다. 복비가 적정한지 이 계산기로 미리 확인하고 부동산 거래 비용을 계획해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -97,6 +97,108 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 주택 매매·전세 요율은 법정 상한요율 기준입니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 중개수수료(복비)란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">부동산 중개수수료(중개보수)는 공인중개사를 통해 부동산 거래를 할 때 지급하는 대가로, 흔히 '복비'라고 불립니다. 거래유형(매매, 전세, 월세)과 거래금액에 따라 법정 상한요율이 정해져 있으며, 상한요율 범위 내에서 중개사와 협의하여 결정합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">중개수수료는 매도인과 매수인(또는 임대인과 임차인) 각각이 중개사에게 지급합니다. 부가가치세는 중개보수에 포함되지 않으며, 중개사가 일반과세자인 경우 10%의 부가세가 별도로 부과됩니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">주택 중개보수 요율표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">거래유형</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">거래금액</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center dark:text-white">상한요율</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center dark:text-white">한도액</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2" rowspan="6">매매</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5천만원 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.6%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">25만원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5천만원 ~ 2억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.5%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">80만원</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2억 ~ 9억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.4%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">9억 ~ 12억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.5%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">12억 ~ 15억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.6%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">15억 이상</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.7%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2" rowspan="6">전세/월세</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5천만원 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.5%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">20만원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5천만원 ~ 1억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.4%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">30만원</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억 ~ 6억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.3%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6억 ~ 12억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.4%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">12억 ~ 15억 미만</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.5%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">15억 이상</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">0.6%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-center">-</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">중개수수료 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 매매가 6억원 아파트 중개수수료</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 거래유형: 매매</p>
+            <p>· 거래금액: 6억원</p>
+            <p>· 적용 구간: 2억 ~ 9억 미만</p>
+            <p>· 상한요율: 0.4%</p>
+            <p>· 중개보수: 6억원 x 0.4% = 2,400,000원</p>
+            <p>· 부가세 (일반과세자): 240,000원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 총 중개수수료: <span class="text-blue-600 dark:text-blue-400">최대 2,400,000원 (부가세 별도 시 2,640,000원)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 중개수수료 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중개수수료에 상한이 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 주택의 경우 법정 상한요율이 정해져 있습니다. 거래금액 구간별로 상한요율이 다르며, 5천만원 미만 매매는 0.6%(한도 25만원), 2억~9억 미만은 0.4% 등입니다. 상한요율을 초과하여 수수료를 받는 것은 불법입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 매매와 전세의 중개수수료 요율이 다른가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 매매와 전세(임대차)의 상한요율은 다릅니다. 일반적으로 전세의 상한요율이 매매보다 낮습니다. 예를 들어 5천만원 미만 구간에서 매매는 0.6%이지만 전세는 0.5%입니다. 월세의 경우 보증금과 월세를 환산한 금액을 기준으로 전세 요율을 적용합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중개수수료에 부가세가 포함되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">중개보수(상한요율 기준 금액)에는 부가세가 포함되어 있지 않습니다. 공인중개사가 일반과세자인 경우 중개보수의 10%에 해당하는 부가가치세가 별도로 부과됩니다. 간이과세자인 경우에는 부가세가 면제되거나 낮은 세율이 적용됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 중개수수료 협상이 가능한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">네, 가능합니다. 법정 상한요율은 '최대' 요율이므로, 상한 범위 내에서 공인중개사와 자유롭게 협의할 수 있습니다. 다만, 상한요율을 초과하여 수수료를 지급하는 것은 불법이며, 초과분은 반환을 청구할 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "중개수수료에 상한이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 주택의 경우 법정 상한요율이 정해져 있습니다. 거래금액 구간별로 상한요율이 다르며, 5천만원 미만 매매는 0.6%(한도 25만원), 2억~9억 미만은 0.4% 등입니다. 상한요율을 초과하여 수수료를 받는 것은 불법입니다." } },
+        { "@type": "Question", "name": "매매와 전세의 중개수수료 요율이 다른가요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 매매와 전세(임대차)의 상한요율은 다릅니다. 일반적으로 전세의 상한요율이 매매보다 낮습니다. 예를 들어 5천만원 미만 구간에서 매매는 0.6%이지만 전세는 0.5%입니다. 월세의 경우 보증금과 월세를 환산한 금액을 기준으로 전세 요율을 적용합니다." } },
+        { "@type": "Question", "name": "중개수수료에 부가세가 포함되나요?", "acceptedAnswer": { "@type": "Answer", "text": "중개보수(상한요율 기준 금액)에는 부가세가 포함되어 있지 않습니다. 공인중개사가 일반과세자인 경우 중개보수의 10%에 해당하는 부가가치세가 별도로 부과됩니다. 간이과세자인 경우에는 부가세가 면제되거나 낮은 세율이 적용됩니다." } },
+        { "@type": "Question", "name": "중개수수료 협상이 가능한가요?", "acceptedAnswer": { "@type": "Answer", "text": "네, 가능합니다. 법정 상한요율은 '최대' 요율이므로, 상한 범위 내에서 공인중개사와 자유롭게 협의할 수 있습니다. 다만, 상한요율을 초과하여 수수료를 지급하는 것은 불법이며, 초과분은 반환을 청구할 수 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

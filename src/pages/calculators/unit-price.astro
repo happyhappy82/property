@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="평당가격 계산기 - 부동산 트렌드 리뷰" description="총 금액과 면적을 입력하여 평당 가격 및 제곱미터당 가격을 계산합니다.">
+<CalcLayout title="부동산 평당가격 계산기 - 부동산 트렌드 리뷰" description="총 금액과 면적을 입력하여 평당 가격 및 제곱미터당 가격을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">평당가격 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">총 금액과 면적을 입력하여 평당 가격 및 제곱미터당 가격을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 평당가격 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 평당가격 계산기로 총 매매가격과 면적을 입력하면 평당 가격과 제곱미터당 가격을 즉시 산출할 수 있습니다. 아파트, 토지, 상가 등 다양한 부동산 유형의 평당가격을 정확하게 비교할 수 있습니다. 시세 분석이나 매물 비교 시 이 계산기를 활용하면 부동산 평당가격을 객관적으로 파악할 수 있습니다.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -84,6 +84,97 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 1평 = 3.305785㎡ 기준으로 환산합니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">평당가격이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">평당가격은 부동산의 1평(약 3.3058㎡)당 가격을 의미하며, 서로 다른 면적의 부동산 가격을 비교할 때 가장 많이 사용되는 기준입니다. 한국에서는 법정 단위인 ㎡(제곱미터)와 관습적 단위인 평이 함께 사용되고 있으며, 1평은 정확히 3.305785㎡(약 3.3㎡)에 해당합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">평당가격을 통해 같은 지역 내 아파트 간 가격 수준을 비교하거나, 분양가의 적정성을 판단할 수 있습니다. 다만, 비교 시에는 전용면적 기준인지 공급면적 기준인지를 반드시 확인해야 정확한 비교가 가능합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">면적 환산표 (평 / ㎡)</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">평</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">㎡ (제곱미터)</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1평</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3.3058㎡</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10평</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">33.058㎡</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">20평</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">66.116㎡</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30평</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">99.174㎡</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40평</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">132.231㎡</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">평당가격 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 전용면적 84㎡ 아파트, 매매가 10억원</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 매매가격: 10억원 (1,000,000,000원)</p>
+            <p>· 전용면적: 84㎡</p>
+            <p>· 전용면적(평 환산): 84 / 3.3058 = 약 25.42평</p>
+            <p>· 평당가격 = 매매가격 / 면적(평) = 10억 / 25.42평</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">전용면적 기준 평당 약 3,934만원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">평당가격 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 평과 ㎡는 어떻게 환산하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">1평은 약 3.3058㎡입니다. ㎡를 평으로 환산하려면 ㎡ 수치를 3.3058로 나누면 됩니다. 예를 들어, 84㎡는 약 25.42평입니다. 반대로 평을 ㎡로 환산하려면 평수에 3.3058을 곱합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전용면적과 공급면적의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">전용면적은 세대 내부에서 실제로 사용하는 면적(방, 거실, 주방, 화장실 등)이며, 공급면적은 전용면적에 주거공용면적(계단, 복도, 엘리베이터 등)을 더한 면적입니다. 평당가격 비교 시 동일한 면적 기준을 사용해야 정확한 비교가 가능합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 평당가격으로 비교할 때 주의할 점은?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">같은 면적 기준(전용면적 또는 공급면적)으로 비교해야 합니다. 또한, 같은 단지라도 층수, 향, 조망 등에 따라 가격 차이가 발생할 수 있으며, 서로 다른 지역의 평당가격을 단순 비교하는 것은 입지, 인프라, 학군 등의 차이를 반영하지 못하므로 주의가 필요합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 분양면적이란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">분양면적은 공급면적에 기타공용면적(관리사무소, 기계실, 주차장 등)을 더한 면적으로, 계약면적이라고도 합니다. 분양가를 분양면적으로 나누면 분양 평당가격이 됩니다. 일반적으로 분양면적은 전용면적의 약 1.4~1.6배 정도입니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "평과 ㎡는 어떻게 환산하나요?", "acceptedAnswer": { "@type": "Answer", "text": "1평은 약 3.3058㎡입니다. ㎡를 평으로 환산하려면 ㎡ 수치를 3.3058로 나누면 됩니다. 예를 들어, 84㎡는 약 25.42평입니다. 반대로 평을 ㎡로 환산하려면 평수에 3.3058을 곱합니다." } },
+        { "@type": "Question", "name": "전용면적과 공급면적의 차이는 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "전용면적은 세대 내부에서 실제로 사용하는 면적(방, 거실, 주방, 화장실 등)이며, 공급면적은 전용면적에 주거공용면적(계단, 복도, 엘리베이터 등)을 더한 면적입니다. 평당가격 비교 시 동일한 면적 기준을 사용해야 정확한 비교가 가능합니다." } },
+        { "@type": "Question", "name": "평당가격으로 비교할 때 주의할 점은?", "acceptedAnswer": { "@type": "Answer", "text": "같은 면적 기준(전용면적 또는 공급면적)으로 비교해야 합니다. 또한, 같은 단지라도 층수, 향, 조망 등에 따라 가격 차이가 발생할 수 있으며, 서로 다른 지역의 평당가격을 단순 비교하는 것은 입지, 인프라, 학군 등의 차이를 반영하지 못하므로 주의가 필요합니다." } },
+        { "@type": "Question", "name": "분양면적이란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "분양면적은 공급면적에 기타공용면적(관리사무소, 기계실, 주차장 등)을 더한 면적으로, 계약면적이라고도 합니다. 분양가를 분양면적으로 나누면 분양 평당가격이 됩니다. 일반적으로 분양면적은 전용면적의 약 1.4~1.6배 정도입니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

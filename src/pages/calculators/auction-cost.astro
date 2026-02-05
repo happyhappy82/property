@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="경매비용 계산기 - 부동산 트렌드 리뷰" description="부동산 경매 낙찰 시 필요한 총 투자금액을 계산하세요. 낙찰가를 입력하면 취득세, 명도비용, 수리비 등을 포함한 실제 투자금액을 확인할 수 있습니다.">
+<CalcLayout title="부동산 경매비용 계산기 - 부동산 트렌드 리뷰" description="부동산 경매 낙찰 시 필요한 총 투자금액을 계산하세요. 낙찰가를 입력하면 취득세, 명도비용, 수리비 등을 포함한 실제 투자금액을 확인할 수 있습니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">경매비용 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">낙찰가를 입력하여 경매 취득에 필요한 총 비용을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 경매비용 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 경매비용 계산기는 낙찰가를 기준으로 취득세, 등기비용 등 경매 매수에 필요한 총비용을 산출합니다. 법원 경매로 부동산을 취득할 때 실제로 준비해야 할 경매비용의 전체 규모를 파악할 수 있습니다. 이 계산기로 낙찰 전 총 투자금을 미리 계산하여 부동산 경매 입찰 전략을 세워 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -67,6 +67,121 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 취득세율은 일반적인 경우(4.6%)를 기준으로 계산되었습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 경매비용 개요</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">부동산 경매에서 낙찰을 받으면 낙찰가 외에도 다양한 부대비용이 발생합니다. 총 투자비용은 낙찰가에 취득세, 법무사 비용, 명도비, 수리비, 이사비 등을 합산한 금액으로, 경매 투자 수익률을 정확히 분석하려면 이러한 제비용을 사전에 파악하는 것이 매우 중요합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">특히 취득세는 낙찰가 기준으로 부과되며, 주택의 종류와 보유 주택 수에 따라 세율이 달라집니다. 명도비용은 점유자의 상황에 따라 크게 변동될 수 있으므로, 입찰 전 현황조사를 통해 점유 관계를 꼼꼼히 확인해야 합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">경매 비용 항목별 안내</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비용 항목</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비율/금액</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">비고</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">취득세</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1.1~12% (주택 기준 1.1~3.5%)</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">주택 수, 면적, 금액에 따라 차등</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">법무사 비용</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40~80만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">소유권이전등기 대행</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">명도비용</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">100~500만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">점유자 퇴거 협의금</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">수리비</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">낙찰가의 2~5%</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">물건 상태에 따라 변동</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">이사비</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">30~100만원</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">점유자 이전 비용 지원</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">경매비용 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 낙찰가 3억원 아파트 경매 총 비용</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>&middot; 낙찰가: 3억원</p>
+            <p>&middot; 취득세 (4.6%): 1,380만원</p>
+            <p>&middot; 법무사 비용: 약 50만원</p>
+            <p>&middot; 명도비용: 약 200만원</p>
+            <p>&middot; 수리비 (3%): 900만원</p>
+            <p>&middot; 이사비: 약 50만원</p>
+            <p>&middot; 제비용 합계: 약 2,580만원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">&middot; 결과: 총 투자금액 약 <span class="text-blue-600 dark:text-blue-400">3억 2,580만원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">경매비용 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 경매로 취득할 때 취득세는 어떻게 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">경매로 부동산을 취득하는 경우에도 일반 매매와 동일한 취득세율이 적용됩니다. 주택의 경우 면적과 금액에 따라 1.1~3.5%이며, 다주택자는 중과세율(8~12%)이 적용될 수 있습니다. 과세 기준은 낙찰가입니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 명도비란 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">명도비는 낙찰받은 부동산의 점유자(세입자, 소유자 등)를 퇴거시키기 위해 지급하는 비용입니다. 자발적 퇴거를 유도하기 위한 이사비 명목의 합의금이거나, 명도소송 후 강제집행에 드는 법적 비용을 포함합니다. 점유자의 권리 관계에 따라 금액이 크게 달라집니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 경매 물건의 수리비는 어느 정도 예상하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">경매 물건의 수리비는 물건 상태에 따라 큰 차이가 있습니다. 일반적으로 낙찰가의 2~5%를 예상하며, 도배와 장판 교체 정도의 기본 수리에 300~500만원, 주방이나 욕실 리모델링까지 포함하면 1,000만원 이상이 소요될 수 있습니다. 내부 확인이 불가한 경우 보수적으로 예산을 잡는 것이 좋습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 경매 낙찰 후 대출이 가능한가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">경매 낙찰 후에도 담보대출이 가능합니다. 낙찰가의 60~80%까지 대출받을 수 있으며, 잔금 납부 기한(약 1개월) 내에 대출을 실행해야 합니다. 단, 규제지역의 경우 LTV 제한이 있으며, 다주택자는 대출이 제한될 수 있으므로 사전에 금융기관과 상담이 필요합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "경매로 취득할 때 취득세는 어떻게 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "경매로 부동산을 취득하는 경우에도 일반 매매와 동일한 취득세율이 적용됩니다. 주택의 경우 면적과 금액에 따라 1.1~3.5%이며, 다주택자는 중과세율(8~12%)이 적용될 수 있습니다. 과세 기준은 낙찰가입니다." } },
+        { "@type": "Question", "name": "명도비란 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "명도비는 낙찰받은 부동산의 점유자(세입자, 소유자 등)를 퇴거시키기 위해 지급하는 비용입니다. 자발적 퇴거를 유도하기 위한 이사비 명목의 합의금이거나, 명도소송 후 강제집행에 드는 법적 비용을 포함합니다." } },
+        { "@type": "Question", "name": "경매 물건의 수리비는 어느 정도 예상하나요?", "acceptedAnswer": { "@type": "Answer", "text": "경매 물건의 수리비는 물건 상태에 따라 큰 차이가 있습니다. 일반적으로 낙찰가의 2~5%를 예상하며, 도배와 장판 교체 정도의 기본 수리에 300~500만원, 주방이나 욕실 리모델링까지 포함하면 1,000만원 이상이 소요될 수 있습니다." } },
+        { "@type": "Question", "name": "경매 낙찰 후 대출이 가능한가요?", "acceptedAnswer": { "@type": "Answer", "text": "경매 낙찰 후에도 담보대출이 가능합니다. 낙찰가의 60~80%까지 대출받을 수 있으며, 잔금 납부 기한(약 1개월) 내에 대출을 실행해야 합니다. 단, 규제지역의 경우 LTV 제한이 있으며, 다주택자는 대출이 제한될 수 있으므로 사전에 금융기관과 상담이 필요합니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

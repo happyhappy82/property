@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="대지지분 계산기 - 부동산 트렌드 리뷰" description="대지면적, 전용면적, 총건물면적을 입력하여 대지지분을 계산합니다.">
+<CalcLayout title="부동산 대지지분 계산기 - 부동산 트렌드 리뷰" description="대지면적, 전용면적, 총건물면적을 입력하여 대지지분을 계산합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">대지지분 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">대지면적, 전용면적, 총건물면적을 입력하여 대지지분을 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 대지지분 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 대지지분 계산기를 활용하면 아파트·빌라 등 공동주택에서 내 세대에 해당하는 토지 지분을 산출할 수 있습니다. 대지면적, 전용면적, 총 건물면적을 입력하면 부동산 대지지분 비율을 자동으로 계산합니다. 재건축 가치 판단이나 부동산 매매 시 이 계산기로 대지지분을 정확히 확인해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -82,6 +82,97 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 1평 = 3.305785㎡ 기준으로 환산합니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">대지지분이란?</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">대지지분은 아파트, 다세대주택 등 공동주택(구분소유 건물)에서 각 세대가 소유하는 토지의 지분을 말합니다. 건물의 전체 대지면적 중 해당 세대의 전용면적이 차지하는 비율에 따라 배분됩니다. 대지지분은 등기부등본의 표제부에 기재되어 있으며, 부동산 거래 시 중요한 가치 판단 기준이 됩니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">특히 재건축·재개발 시 대지지분은 매우 중요합니다. 재건축 조합원의 입주권(분양권)은 기존 대지지분을 기준으로 배정되므로, 대지지분이 클수록 재건축 후 더 큰 면적의 신규 아파트를 받을 수 있습니다. 이 때문에 저층 아파트나 오래된 아파트 단지에서 대지지분이 넓은 물건이 높은 가격에 거래되기도 합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">건물유형별 대지지분 특징</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">건물유형</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">대지지분 특징</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">아파트</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세대수가 많고 고층일수록 대지지분이 작아짐. 재건축 시 대지지분 비율이 핵심 가치</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">다세대주택</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">세대수가 적어 아파트 대비 대지지분이 상대적으로 넓음. 빌라 재건축 시 유리</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">오피스텔</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">호실 수가 많아 대지지분이 매우 작음. 재건축 가치보다 수익형 투자에 적합</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">상가</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1층 상가의 경우 대지지분 비율이 높을 수 있음. 구분소유 시 면적 비율에 따라 배분</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">대지지분 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 대지면적 3,000㎡ 아파트 단지, 전용면적 84㎡ 세대</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 대지면적: 3,000㎡</p>
+            <p>· 전용면적: 84㎡</p>
+            <p>· 총 건물면적(전체 세대 전용면적 합): 15,000㎡</p>
+            <p>· 지분비율 = 전용면적 / 총 건물면적 = 84 / 15,000 = 0.0056 (0.56%)</p>
+            <p>· 대지지분 = 대지면적 x 지분비율 = 3,000 x 0.0056</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">대지지분 약 16.8㎡ (약 5.08평)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">대지지분 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 대지지분은 어떻게 확인하나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">등기부등본(등기사항전부증명서)의 표제부에서 대지권 비율을 확인할 수 있습니다. 대지면적에 대지권 비율을 곱하면 실제 대지지분 면적을 알 수 있습니다. 인터넷등기소(iros.go.kr)에서 온라인으로 열람 가능합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 대지지분이 큰 아파트의 장점은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">대지지분이 큰 아파트는 재건축 시 더 넓은 면적의 새 아파트를 배정받을 수 있어 유리합니다. 또한 토지의 실질적인 소유 비율이 높으므로 토지 가치가 상승할 때 더 큰 자산 가치 상승을 기대할 수 있습니다. 일반적으로 저층 단지, 세대수가 적은 단지일수록 대지지분이 넓습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 재건축과 대지지분은 어떤 관계가 있나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">재건축 시 조합원의 입주 자격과 배정 면적은 기존 대지지분을 기준으로 산정됩니다. 대지지분이 넓을수록 더 큰 평형의 새 아파트를 분양받을 수 있고, 추가 분담금도 적어질 수 있습니다. 따라서 재건축 예정 단지에서는 대지지분이 가격에 직접적인 영향을 미칩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 대지지분 계산식은 어떻게 되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">대지지분 = 대지면적 x (전용면적 / 전체 건물 연면적)으로 계산합니다. 여기서 전체 건물 연면적은 해당 단지 내 모든 세대의 전용면적 합계입니다. 등기부등본에는 이를 분수 형태의 대지권 비율로 표기합니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "대지지분은 어떻게 확인하나요?", "acceptedAnswer": { "@type": "Answer", "text": "등기부등본(등기사항전부증명서)의 표제부에서 대지권 비율을 확인할 수 있습니다. 대지면적에 대지권 비율을 곱하면 실제 대지지분 면적을 알 수 있습니다. 인터넷등기소(iros.go.kr)에서 온라인으로 열람 가능합니다." } },
+        { "@type": "Question", "name": "대지지분이 큰 아파트의 장점은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "대지지분이 큰 아파트는 재건축 시 더 넓은 면적의 새 아파트를 배정받을 수 있어 유리합니다. 또한 토지의 실질적인 소유 비율이 높으므로 토지 가치가 상승할 때 더 큰 자산 가치 상승을 기대할 수 있습니다. 일반적으로 저층 단지, 세대수가 적은 단지일수록 대지지분이 넓습니다." } },
+        { "@type": "Question", "name": "재건축과 대지지분은 어떤 관계가 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "재건축 시 조합원의 입주 자격과 배정 면적은 기존 대지지분을 기준으로 산정됩니다. 대지지분이 넓을수록 더 큰 평형의 새 아파트를 분양받을 수 있고, 추가 분담금도 적어질 수 있습니다. 따라서 재건축 예정 단지에서는 대지지분이 가격에 직접적인 영향을 미칩니다." } },
+        { "@type": "Question", "name": "대지지분 계산식은 어떻게 되나요?", "acceptedAnswer": { "@type": "Answer", "text": "대지지분 = 대지면적 x (전용면적 / 전체 건물 연면적)으로 계산합니다. 여기서 전체 건물 연면적은 해당 단지 내 모든 세대의 전용면적 합계입니다. 등기부등본에는 이를 분수 형태의 대지권 비율로 표기합니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

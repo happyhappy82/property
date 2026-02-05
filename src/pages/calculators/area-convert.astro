@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="면적변환 계산기 - 부동산 트렌드 리뷰" description="평, 제곱미터, 제곱피트, 에이커 등 면적 단위를 간편하게 변환합니다.">
+<CalcLayout title="부동산 면적변환 계산기 - 부동산 트렌드 리뷰" description="평, 제곱미터, 제곱피트, 에이커 등 면적 단위를 간편하게 변환합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">면적변환 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">평, 제곱미터, 제곱피트, 에이커 등 면적 단위를 간편하게 변환합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 면적변환 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 면적변환 계산기를 이용하면 평, 제곱미터(㎡), 제곱피트 등 다양한 면적 단위를 즉시 환산할 수 있습니다. 아파트 전용면적, 토지 지번 면적 등 부동산 거래에서 자주 쓰이는 면적변환을 정확하게 처리합니다. 단위 혼동 없이 이 계산기 하나로 모든 부동산 면적을 간편하게 비교해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -71,6 +71,157 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 소수점 이하는 반올림하여 표시될 수 있습니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">부동산 면적 단위 변환 개요</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">한국 부동산에서는 공식적으로 제곱미터(㎡)를 사용하지만, 일상적으로는 여전히 '평' 단위가 널리 쓰이고 있습니다. 1평은 약 3.3058㎡로, 가로·세로 약 1.818m인 정사각형의 넓이에 해당합니다. 부동산 매물 정보를 정확히 이해하려면 평과 ㎡ 사이의 환산을 자유롭게 할 수 있어야 합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">해외 부동산 투자 시에는 제곱피트(ft²)나 에이커(acre) 등의 단위도 알아야 합니다. 미국, 영국, 캐나다 등 영미권 국가에서는 주로 제곱피트를 사용하며, 대규모 토지는 에이커 단위로 표기합니다. 본 계산기는 평, ㎡, ft², acre 간의 상호 변환을 지원하여 국내외 부동산 면적을 한눈에 비교할 수 있도록 도와드립니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">면적 단위 환산표</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">기준 단위</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">평</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">㎡</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">ft²</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">acre</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">1평</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3.3058</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">35.583</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.000817</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">1㎡</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.3025</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10.764</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.000247</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">1ft²</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.0281</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.0929</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">0.0000230</td>
+              </tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50">
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2 font-medium">1acre</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,224.17</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">4,046.86</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">43,560</td>
+                <td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">면적 변환 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700 mb-4">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시 1: 전용면적 84㎡ 아파트</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 전용면적: 84㎡</p>
+            <p>· 환산 공식: 84 × 0.3025 = 25.41평</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">약 25.42평 (일반적으로 "국민평형 25평"이라 불림)</span></p>
+          </div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시 2: 공급면적 114㎡ 아파트</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 공급면적: 114㎡</p>
+            <p>· 환산 공식: 114 × 0.3025 = 34.49평</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 결과: <span class="text-blue-600 dark:text-blue-400">약 34.48평 (일반적으로 "34평형"이라 불림)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">면적 변환 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 평과 ㎡의 정확한 환산 비율은 얼마인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">1평은 정확히 3.3058㎡(3.305785㎡)이며, 반대로 1㎡는 약 0.3025평입니다. 이 비율은 일본식 단위인 '坪(つぼ)'에서 유래한 것으로, 가로세로 6척(약 1.818m)인 정사각형의 면적입니다. 부동산 거래 시 ㎡에 0.3025를 곱하면 평수를 구할 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 전용면적과 공급면적의 차이는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">전용면적은 실제 거주 공간(방, 거실, 주방, 화장실 등)의 면적이며, 공급면적은 전용면적에 주거공용면적(복도, 계단, 엘리베이터 등)을 합한 면적입니다. 예를 들어 전용 84㎡(약 25평) 아파트의 공급면적은 약 110~115㎡(약 33~35평) 정도입니다. 부동산 매매 시에는 반드시 전용면적을 기준으로 비교해야 합니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 부동산에서 아직도 평 단위를 사용하는 이유는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">한국에서는 2007년부터 법적으로 ㎡를 공식 면적 단위로 사용하도록 되어 있지만, 오랜 관행으로 인해 일상 대화와 부동산 거래에서는 여전히 평 단위가 널리 사용됩니다. 평 단위가 직관적으로 공간 크기를 가늠하기 쉽고, 세대 간에 걸쳐 익숙한 표현이기 때문입니다. 공인중개사 사무소에서도 비공식적으로 평 단위를 병행하여 안내하는 경우가 많습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 해외 부동산에서 사용하는 면적 단위는 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">미국, 영국, 캐나다 등 영미권 국가에서는 주택 면적을 제곱피트(ft²)로, 대규모 토지는 에이커(acre)로 표기합니다. 1ft²은 약 0.0929㎡이며, 1에이커는 약 4,046.86㎡(약 1,224평)입니다. 유럽, 일본, 동남아 등 대부분의 국가에서는 ㎡를 사용합니다. 해외 부동산 투자 시 면적 단위 변환을 정확히 해야 적정 가격을 판단할 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "평과 ㎡의 정확한 환산 비율은 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1평은 정확히 3.3058㎡(3.305785㎡)이며, 반대로 1㎡는 약 0.3025평입니다. 이 비율은 일본식 단위인 '坪(つぼ)'에서 유래한 것으로, 가로세로 6척(약 1.818m)인 정사각형의 면적입니다. 부동산 거래 시 ㎡에 0.3025를 곱하면 평수를 구할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "전용면적과 공급면적의 차이는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전용면적은 실제 거주 공간(방, 거실, 주방, 화장실 등)의 면적이며, 공급면적은 전용면적에 주거공용면적(복도, 계단, 엘리베이터 등)을 합한 면적입니다. 예를 들어 전용 84㎡(약 25평) 아파트의 공급면적은 약 110~115㎡(약 33~35평) 정도입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "부동산에서 아직도 평 단위를 사용하는 이유는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "한국에서는 2007년부터 법적으로 ㎡를 공식 면적 단위로 사용하도록 되어 있지만, 오랜 관행으로 인해 일상 대화와 부동산 거래에서는 여전히 평 단위가 널리 사용됩니다. 평 단위가 직관적으로 공간 크기를 가늠하기 쉽고, 세대 간에 걸쳐 익숙한 표현이기 때문입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "해외 부동산에서 사용하는 면적 단위는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "미국, 영국, 캐나다 등 영미권 국가에서는 주택 면적을 제곱피트(ft²)로, 대규모 토지는 에이커(acre)로 표기합니다. 1ft²은 약 0.0929㎡이며, 1에이커는 약 4,046.86㎡(약 1,224평)입니다. 유럽, 일본, 동남아 등 대부분의 국가에서는 ㎡를 사용합니다."
+          }
+        }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

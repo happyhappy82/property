@@ -2,12 +2,12 @@
 import CalcLayout from '../../layouts/CalcLayout.astro'
 ---
 
-<CalcLayout title="소득세 계산기 - 부동산 트렌드 리뷰" description="종합소득세를 간편하게 계산하세요. 임대소득, 기타소득, 필요경비, 부양가족수를 입력하여 소득세를 확인합니다.">
+<CalcLayout title="부동산 종합소득세 계산기 - 부동산 트렌드 리뷰" description="종합소득세를 간편하게 계산하세요. 임대소득, 기타소득, 필요경비, 부양가족수를 입력하여 소득세를 확인합니다.">
     <div class="mb-6">
       <a href="/calculators" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; 계산기 목록</a>
     </div>
-    <h1 class="text-2xl font-bold mb-2 dark:text-white">소득세 계산기</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">종합소득세를 간편하게 계산합니다.</p>
+    <h1 class="text-2xl font-bold mb-2 dark:text-white">부동산 종합소득세 계산기</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">부동산 종합소득세 계산기로 임대소득을 포함한 연간 종합소득에 대한 세금을 간편하게 확인할 수 있습니다. 과세표준 구간별 누진세율을 자동 적용하여 부동산 관련 종합소득세를 정확하게 산출합니다. 부동산 임대 수입이 있는 분이라면 이 계산기로 종합소득세 예상 납부액을 미리 파악해 보세요.</p>
 
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 mb-6">
       <div class="space-y-4">
@@ -94,6 +94,102 @@ import CalcLayout from '../../layouts/CalcLayout.astro'
         ※ 기본공제는 본인 150만원 + 부양가족 1인당 150만원입니다.
       </p>
     </div>
+
+    <!-- SEO 콘텐츠 섹션 -->
+    <article class="mt-12 prose prose-sm dark:prose-invert max-w-none">
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">종합소득세란? 부동산 소득과 과세 체계</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">종합소득세란 개인이 1년간 경제활동으로 얻은 소득을 종합하여 과세하는 세금입니다. 근로소득, 사업소득, 이자소득, 배당소득, 연금소득, 기타소득 등 6가지 소득을 합산하여 매년 5월 1일부터 5월 31일까지 확정신고 및 납부해야 합니다.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">부동산과 관련된 소득 중 임대소득(주택·상가 임대)은 사업소득으로 분류되어 종합소득세 합산 대상에 포함됩니다. 다만 양도소득은 분류과세 대상으로 종합소득세에 합산되지 않고 별도로 과세됩니다. 부동산 임대사업자는 총수입금액에서 필요경비를 차감한 소득금액을 기준으로 종합소득세를 신고해야 합니다.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">종합소득세율표 (2024년 귀속)</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-200 dark:border-gray-700">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-700">
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">과세표준</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">세율</th>
+                <th class="border border-gray-200 dark:border-gray-600 px-3 py-2 text-left dark:text-white">누진공제액</th>
+              </tr>
+            </thead>
+            <tbody class="dark:text-gray-300">
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,400만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">-</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,400만원 초과 ~ 5,000만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">15%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">126만원</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5,000만원 초과 ~ 8,800만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">24%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">576만원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">8,800만원 초과 ~ 1억 5,000만원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">35%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,544만원</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1억 5,000만원 초과 ~ 3억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">38%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">1,994만원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3억원 초과 ~ 5억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">40%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">2,594만원</td></tr>
+              <tr><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">5억원 초과 ~ 10억원 이하</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">42%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">3,594만원</td></tr>
+              <tr class="bg-gray-50 dark:bg-gray-800/50"><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">10억원 초과</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">45%</td><td class="border border-gray-200 dark:border-gray-600 px-3 py-2">6,594만원</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">종합소득세 계산 예시</h2>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
+          <h3 class="text-base font-semibold dark:text-white mb-3">예시: 임대소득 3,000만원, 부양가족 1명인 경우</h3>
+          <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+            <p>· 총 소득금액: 3,000만원</p>
+            <p>· 기본공제: 300만원 (본인 150만원 + 부양가족 1인 150만원)</p>
+            <p>· 과세표준: 3,000만원 - 300만원 = 2,700만원</p>
+            <p>· 산출세액: 2,700만원 x 15% - 126만원 = 279만원</p>
+            <p>· 지방소득세: 279만원 x 10% = 27만 9,000원</p>
+            <p class="font-semibold dark:text-white mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">· 총 납부세액: <span class="text-blue-600 dark:text-blue-400">306만 9,000원</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">종합소득세 자주 묻는 질문</h2>
+        <div class="space-y-4">
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg" open>
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 종합소득세 신고기한은 언제인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">종합소득세는 매년 5월 1일부터 5월 31일까지 전년도 소득에 대해 확정신고 및 납부해야 합니다. 성실신고확인 대상 사업자는 6월 30일까지 신고 기한이 연장됩니다. 기한 내 신고하지 않으면 무신고 가산세(납부세액의 20%)가 부과될 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 부동산 임대소득은 어떻게 과세되나요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">부동산 임대소득은 사업소득으로 분류되어 다른 소득과 합산하여 종합소득세로 과세됩니다. 총수입금액에서 필요경비(감가상각비, 수선비, 재산세, 이자비용 등)를 차감한 금액이 소득금액이 됩니다. 다만 주택임대소득이 연 2,000만원 이하인 경우에는 14% 분리과세를 선택할 수 있습니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 필요경비로 인정받을 수 있는 항목은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">부동산 임대소득의 필요경비로 인정받을 수 있는 항목에는 건물의 감가상각비, 수선유지비, 재산세·종합부동산세 등 세금, 대출이자비용, 보험료, 관리비 중 임대인 부담분, 중개수수료 등이 포함됩니다. 단, 토지의 취득가액이나 자본적 지출은 필요경비가 아니라 양도소득세 계산 시 취득가액에 가산됩니다.</div>
+          </details>
+          <details class="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <summary class="flex items-center justify-between cursor-pointer px-4 py-3 font-medium dark:text-white text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+              <span>Q. 분리과세와 종합과세의 차이점은 무엇인가요?</span>
+              <svg class="w-4 h-4 flex-shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">분리과세는 특정 소득을 다른 소득과 합산하지 않고 별도의 세율(예: 14%)을 적용하여 과세하는 방식입니다. 종합과세는 모든 소득을 합산하여 누진세율(6~45%)을 적용합니다. 주택임대소득이 연 2,000만원 이하인 경우 분리과세(14%)와 종합과세 중 유리한 쪽을 선택할 수 있으므로, 다른 소득이 많은 경우 분리과세가 유리할 수 있습니다.</div>
+          </details>
+        </div>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "종합소득세 신고기한은 언제인가요?", "acceptedAnswer": { "@type": "Answer", "text": "종합소득세는 매년 5월 1일부터 5월 31일까지 전년도 소득에 대해 확정신고 및 납부해야 합니다. 성실신고확인 대상 사업자는 6월 30일까지 신고 기한이 연장됩니다. 기한 내 신고하지 않으면 무신고 가산세(납부세액의 20%)가 부과될 수 있습니다." } },
+        { "@type": "Question", "name": "부동산 임대소득은 어떻게 과세되나요?", "acceptedAnswer": { "@type": "Answer", "text": "부동산 임대소득은 사업소득으로 분류되어 다른 소득과 합산하여 종합소득세로 과세됩니다. 총수입금액에서 필요경비(감가상각비, 수선비, 재산세, 이자비용 등)를 차감한 금액이 소득금액이 됩니다. 다만 주택임대소득이 연 2,000만원 이하인 경우에는 14% 분리과세를 선택할 수 있습니다." } },
+        { "@type": "Question", "name": "필요경비로 인정받을 수 있는 항목은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "부동산 임대소득의 필요경비로 인정받을 수 있는 항목에는 건물의 감가상각비, 수선유지비, 재산세·종합부동산세 등 세금, 대출이자비용, 보험료, 관리비 중 임대인 부담분, 중개수수료 등이 포함됩니다. 단, 토지의 취득가액이나 자본적 지출은 필요경비가 아니라 양도소득세 계산 시 취득가액에 가산됩니다." } },
+        { "@type": "Question", "name": "분리과세와 종합과세의 차이점은 무엇인가요?", "acceptedAnswer": { "@type": "Answer", "text": "분리과세는 특정 소득을 다른 소득과 합산하지 않고 별도의 세율(예: 14%)을 적용하여 과세하는 방식입니다. 종합과세는 모든 소득을 합산하여 누진세율(6~45%)을 적용합니다. 주택임대소득이 연 2,000만원 이하인 경우 분리과세(14%)와 종합과세 중 유리한 쪽을 선택할 수 있으므로, 다른 소득이 많은 경우 분리과세가 유리할 수 있습니다." } }
+      ]
+    }
+    </script>
 </CalcLayout>
 
 <script>

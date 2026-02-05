@@ -184,5 +184,20 @@ const organizationSchema = {
   </head>
   <body class={`mx-auto ${wide ? 'layout-wide max-w-7xl' : 'max-w-2xl'} px-5 py-12`}>
     <slot />
+    <script is:inline>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      var scrollKey = 'scrollPos_' + location.pathname;
+      var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      var isBackForward = (navEntry && navEntry.type === 'back_forward') || performance.navigation.type === 2;
+      var saved = sessionStorage.getItem(scrollKey);
+      if (isBackForward && saved) {
+        window.scrollTo(0, parseInt(saved, 10));
+      }
+      window.addEventListener('beforeunload', function() {
+        sessionStorage.setItem(scrollKey, String(window.scrollY));
+      });
+    </script>
   </body>
 </html>
